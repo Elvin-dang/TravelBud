@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "560757984283",
+    "project_id": "travelbud-a9e79",
+    "storage_bucket": "travelbud-a9e79.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:560757984283:android:99327e4dbdcfaf780f7cbe",
+        "android_client_info": {
+          "package_name": "com.example.travelbud"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "560757984283-oefq9hgvactb63o3i2g6qe8l0t8948h3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBxyqAp6vNLsGyGV6YG5KTk2fjpw9YITn4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "560757984283-oefq9hgvactb63o3i2g6qe8l0t8948h3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
