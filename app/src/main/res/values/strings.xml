@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">TravelBud</string>
+    <string name="title_my_trips">My Trips</string>
     <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_network">Network</string>
+    <string name="title_my_profile">My Profile</string>
 </resources>

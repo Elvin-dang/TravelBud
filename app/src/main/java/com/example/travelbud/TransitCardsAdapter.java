@@ -11,11 +11,23 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class RVAdapter extends RecyclerView.Adapter<RVAdapter.DestinationViewHolder> {
+public class TransitCardsAdapter extends RecyclerView.Adapter<TransitCardsAdapter.DestinationViewHolder> {
 
     List<Destination> destinations;
 
-    public RVAdapter(List<Destination> destinations) {
+    public TransitCardsAdapter(List<Destination> destinations) {
+        this.destinations = destinations;
+    }
+
+    public TransitCardsAdapter() {
+
+    }
+
+    public List<Destination> getDestinations() {
+        return destinations;
+    }
+
+    public void setDestinations(List<Destination> destinations) {
         this.destinations = destinations;
     }
 

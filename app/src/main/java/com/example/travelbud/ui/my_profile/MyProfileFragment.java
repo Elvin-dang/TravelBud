@@ -1,4 +1,4 @@
-package com.example.travelbud.ui.notifications;
+package com.example.travelbud.ui.my_profile;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,15 +11,16 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.travelbud.databinding.FragmentNotificationsBinding;
+import com.example.travelbud.ui.my_profile.MyProfileViewModel;
 
-public class NotificationsFragment extends Fragment {
+public class MyProfileFragment extends Fragment {
 
     private FragmentNotificationsBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        NotificationsViewModel notificationsViewModel =
-                new ViewModelProvider(this).get(NotificationsViewModel.class);
+        MyProfileViewModel notificationsViewModel =
+                new ViewModelProvider(this).get(MyProfileViewModel.class);
 
         binding = FragmentNotificationsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
