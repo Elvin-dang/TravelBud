@@ -11,22 +11,27 @@ import java.util.ArrayList;
 public class Destination {
 
     private String address;
-    private Location loc;
+//    private Location loc;
 
-    public enum Place {TRANSIT, RESIDENCE, LANDSCAPE};
+    public enum Place {TRANSIT, RESIDENCE, LANDSCAPE}
 
+    ;
+
+   public Destination() {
+
+    }
 
     private String name;
     private String subtitle;
     private String detailed_address;
     //TODO: String for now, User in future.
-    private ArrayList<String> participants;
+    private ArrayList<TravelBudUser> participants;
 
     public Destination(String address, Location loc, String name, String subtitle,
                        String detailed_address,
-                       ArrayList<String> participants) {
+                       ArrayList<TravelBudUser> participants) {
         this.address = address;
-        this.loc = loc;
+//        this.loc = loc;
         this.name = name;
         this.subtitle = subtitle;
         this.detailed_address = detailed_address;
@@ -41,13 +46,13 @@ public class Destination {
         this.address = address;
     }
 
-    public Location getLoc() {
-        return loc;
-    }
+//    public Location getLoc() {
+////        return loc;
+//    }
 
-    public void setLoc(Location loc) {
-        this.loc = loc;
-    }
+//    public void setLoc(Location loc) {
+//        this.loc = loc;
+//    }
 
     public String getName() {
         return name;
@@ -73,11 +78,11 @@ public class Destination {
         this.detailed_address = detailed_address;
     }
 
-    public ArrayList<String> getParticipants() {
+    public ArrayList<TravelBudUser> getParticipants() {
         return participants;
     }
 
-    public void setParticipants(ArrayList<String> participants) {
+    public void setParticipants(ArrayList<TravelBudUser> participants) {
         this.participants = participants;
     }
     //    @PrimaryKey(autoGenerate = true)

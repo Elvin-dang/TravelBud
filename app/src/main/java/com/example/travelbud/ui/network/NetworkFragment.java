@@ -1,4 +1,4 @@
-package com.example.travelbud.ui.dashboard;
+package com.example.travelbud.ui.network;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,15 +11,16 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.travelbud.databinding.FragmentDashboardBinding;
+import com.example.travelbud.ui.network.NetworkViewModel;
 
-public class DashboardFragment extends Fragment {
+public class NetworkFragment extends Fragment {
 
     private FragmentDashboardBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        DashboardViewModel dashboardViewModel =
-                new ViewModelProvider(this).get(DashboardViewModel.class);
+        NetworkViewModel dashboardViewModel =
+                new ViewModelProvider(this).get(NetworkViewModel.class);
 
         binding = FragmentDashboardBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
