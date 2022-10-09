@@ -28,18 +28,6 @@
         app:layout_constraintBottom_toTopOf="@+id/nav_view"
         app:layout_constraintTop_toTopOf="parent"
         app:navGraph="@navigation/mobile_navigation"
-
-
         />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/populate_destination"
-        android:onClick="initSampleData"
-        android:text="test"
-        >
-
-    </Button>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
