@@ -18,14 +18,14 @@ public class NetworkFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        NetworkViewModel dashboardViewModel =
+        NetworkViewModel networkViewModel =
                 new ViewModelProvider(this).get(NetworkViewModel.class);
 
         binding = FragmentNetworkBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
         final TextView textView = binding.textNetwork;
-        dashboardViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        networkViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
 

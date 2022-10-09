@@ -18,14 +18,14 @@ public class MyProfileFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        MyProfileViewModel notificationsViewModel =
+        MyProfileViewModel myProfileViewModel =
                 new ViewModelProvider(this).get(MyProfileViewModel.class);
 
         binding = FragmentMyProfileBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
         final TextView textView = binding.textMyProfile;
-        notificationsViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        myProfileViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
 
