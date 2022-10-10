@@ -15,6 +15,7 @@ import com.example.travelbud.Destination;
 import com.example.travelbud.FirebaseUtils;
 import com.example.travelbud.R;
 import com.example.travelbud.TravelBudUser;
+import com.example.travelbud.Trip;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
@@ -32,40 +33,42 @@ import java.util.List;
 import java.util.Map;
 
 public class MyTripsViewModel extends ViewModel {
-    private MutableLiveData<List<Destination>> destinations;
+    private MutableLiveData<TravelBudUser> fetched_user;
     FirebaseFirestore db;
     DatabaseReference mDatabase;
 
+    public MyTripsViewModel() {
 
-    public LiveData<List<Destination>> getDestinations() {
-        if (destinations == null) {
-            destinations = new MutableLiveData<List<Destination>>();
-            loadDestinations();
-        }
-        return destinations;
     }
 
-    public void loadDestinations() {
+    //TODO: use username mimic uuid, will change later
+    public LiveData<TravelBudUser> getUser(String username) {
+        if (fetched_user == null) {
+            fetched_user = new MutableLiveData<TravelBudUser>();
+            loadUser(username);
+        }
+        return fetched_user;
+    }
+
+    //TODO: use username mimic uuid, will change later
+    public void loadUser(String username) {
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        MutableLiveData<List<Destination>> fetched_destinations = new MutableLiveData<>();
+        MutableLiveData<TravelBudUser> user = new MutableLiveData<>();
 
         mDatabase.child("users").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                ArrayList<TravelBudUser> users = new ArrayList<>();
 
                 if (snapshot.exists() && snapshot.getChildrenCount() > 0) {
                     for (DataSnapshot s : snapshot.getChildren()) {
                         TravelBudUser user = s.getValue(TravelBudUser.class);
                         user.setKey(s.getKey());
-                        users.add(user);
-                        Log.i("asd1", s.getKey());
-
+                        if (user.getUsername().equals(username)) {
+                            fetched_user.postValue(user);
+                            return;
+                        }
                     }
                 }
-
-                destinations.postValue(users.get(0).getTrips().get(0).getDestinations());
-
 
             }
 
@@ -74,12 +77,6 @@ public class MyTripsViewModel extends ViewModel {
 
             }
         });
-        destinations = fetched_destinations;
-    }
-
-
-    public MyTripsViewModel() {
-
     }
 
 
