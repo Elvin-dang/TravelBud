@@ -1,20 +1,21 @@
 package com.example.travelbud;
 
-import static android.content.ContentValues.TAG;
-
+import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
-import com.example.travelbud.ui.my_trips.MyTripsViewModel;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
+import com.example.travelbud.ui.my_trips.DestinationsActivity;
+import com.example.travelbud.ui.my_trips.MyTripsFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
@@ -24,13 +25,10 @@ import androidx.navigation.ui.NavigationUI;
 import com.example.travelbud.databinding.ActivityMainBinding;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -67,6 +65,16 @@ public class MainActivity extends AppCompatActivity {
                 Log.i("asd", navDestination.getDisplayName());
             }
         });
+
+        Fragment t = new MyTripsFragment();
+
+       FragmentManager fragmentManager = getSupportFragmentManager();
+      FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.add(R.id.navigation_my_trips, t);
+//        fragmentTransaction.add(R.id.fragmnt_container, fb);
+//        fragmentTransaction.add(R.id.fragmnt_container, fc);
+        fragmentTransaction.hide(t);
+        fragmentTransaction.commit();
 
 
     }
@@ -122,13 +130,21 @@ public class MainActivity extends AppCompatActivity {
         List<TravelBudUser> users = new ArrayList<>();
         List<TravelBudUser> friends = new ArrayList<>();
         friends.add(user3);
-
+        trip1.setTravelers(friends);
         user1.setTrips(trips);
         user1.setFriends(friends);
         users.add(user1);
 
         FirebaseUtils.insert(mDatabase,user1);
 
+
+        return view;
+    }
+
+    public View test (View view){
+
+        Intent i = new Intent(getApplicationContext(), DestinationsActivity.class);
+        startActivity(i);
 
         return view;
     }
