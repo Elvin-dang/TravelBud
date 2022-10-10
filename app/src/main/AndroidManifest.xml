@@ -50,6 +50,14 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_api_key" />
 
+
+        <activity
+            android:name=".ui.my_trips.DestinationsActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
         <activity
             android:name=".ui.my_trips.DestinationsActivity"
             android:exported="false">
