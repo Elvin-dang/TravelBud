@@ -79,11 +79,11 @@ public class MainActivity extends AppCompatActivity {
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
 
         //add a new user
-        TravelBudUser user1 = new TravelBudUser("John", new ArrayList<Trip>(),
+        TravelBudUser user1 = new TravelBudUser("John", "john@example.com", new ArrayList<Trip>(),
                 new ArrayList<TravelBudUser>());
-        TravelBudUser user2 = new TravelBudUser("Doe", new ArrayList<Trip>(),
+        TravelBudUser user2 = new TravelBudUser("Doe","doe@example.com", new ArrayList<Trip>(),
                 new ArrayList<TravelBudUser>());
-        TravelBudUser user3 = new TravelBudUser("Bib", new ArrayList<Trip>(),
+        TravelBudUser user3 = new TravelBudUser("Bib","bib@example.com", new ArrayList<Trip>(),
                 new ArrayList<TravelBudUser>());
 
 
