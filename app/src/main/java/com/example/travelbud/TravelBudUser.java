@@ -7,6 +7,7 @@ import java.util.List;
 
 public class TravelBudUser implements Serializable {
     private String username;
+    private String email;
     private List<Trip> trips;
     private List<TravelBudUser> friends;
 
@@ -22,10 +23,11 @@ public class TravelBudUser implements Serializable {
 
     private String key;
 
-    public TravelBudUser(String username, List<Trip> trips, List<TravelBudUser> friends) {
+    public TravelBudUser(String username, String email, List<Trip> trips, List<TravelBudUser> friends) {
         this.username = username;
         this.trips = trips;
         this.friends = friends;
+        this.email = email;
     }
 
     public TravelBudUser() {
@@ -38,6 +40,14 @@ public class TravelBudUser implements Serializable {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public List<Trip> getTrips() {
