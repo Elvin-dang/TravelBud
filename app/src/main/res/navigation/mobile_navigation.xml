@@ -16,7 +16,7 @@
         android:id="@+id/navigation_my_trips"
         android:name="com.example.travelbud.ui.my_trips.MyTripsFragment"
         android:label="@string/title_my_trips"
-        tools:layout="@layout/fragment_destinations" />
+        tools:layout="@layout/fragment_my_trips" />
 
     <fragment
         android:id="@+id/navigation_network"

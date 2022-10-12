@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class Trip  {
+public class Trip {
 
     private String name;
     private Date startDate;

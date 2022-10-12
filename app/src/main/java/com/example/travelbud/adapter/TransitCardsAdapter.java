@@ -1,5 +1,6 @@
-package com.example.travelbud;
+package com.example.travelbud.adapter;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +9,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.travelbud.Destination;
+import com.example.travelbud.R;
 
 import java.util.List;
 
