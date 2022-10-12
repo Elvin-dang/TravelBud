@@ -1,10 +1,14 @@
 package com.example.travelbud.adapter;
 
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
@@ -13,7 +17,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.travelbud.Trip;
 import com.example.travelbud.R;
 import com.example.travelbud.Trip;
+import com.example.travelbud.ui.my_trips.DestinationsActivity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TripCardsAdapter extends RecyclerView.Adapter<TripCardsAdapter.TripViewHolder> {
@@ -46,9 +52,52 @@ public class TripCardsAdapter extends RecyclerView.Adapter<TripCardsAdapter.Trip
     }
 
     @Override
-    public void onBindViewHolder(TripViewHolder tripViewHolder, int i) {
-        tripViewHolder.trip_name.setText(" "+trips.get(i).getName());
-        tripViewHolder.trip_members.setText(trips.get(i).getTravelers().get(0).getUsername());
+    public void onBindViewHolder(TripViewHolder tripViewHolder, int pos) {
+        int position = tripViewHolder.getAdapterPosition();
+        Trip selected_trip = trips.get(position);
+        tripViewHolder.trip_name.setText(" " + selected_trip.getName());
+
+        String travelers_name = "";
+
+
+        for (int i = 0; i < selected_trip.getTravelers().size(); i++) {
+
+            travelers_name += (i == 0 ? "" : ", ") + selected_trip.getTravelers().get(i).getUsername();
+            ;
+        }
+
+
+        tripViewHolder.trip_members.setText(travelers_name);
+
+
+        Button destinations = tripViewHolder.view.findViewById(R.id.show_destinations);
+
+        Button checklist = tripViewHolder.view.findViewById(R.id.show_checklist);
+        Button expense = tripViewHolder.view.findViewById(R.id.show_expense);
+
+        destinations.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), DestinationsActivity.class);
+                intent.putExtra("selected_trip", String.valueOf(position));
+
+                view.getContext().startActivity(intent);
+                Log.i("W4K", "Click-" + position);
+
+            }
+        });
+        checklist.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(view.getContext(), "TO BE IMPLEMENTED", Toast.LENGTH_SHORT).show();
+            }
+        });
+        expense.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(view.getContext(), "TO BE IMPLEMENTED", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
@@ -67,21 +116,22 @@ public class TripCardsAdapter extends RecyclerView.Adapter<TripCardsAdapter.Trip
         TextView trip_name;
         TextView trip_members;
         ImageButton add_friend;
+        View view;               // <----- here
+        Button destinations;
 
-       public TripViewHolder(View itemView) {
+
+        public TripViewHolder(View itemView) {
             super(itemView);
             cv = (CardView) itemView.findViewById(R.id.trip_card);
             trip_name = (TextView) itemView.findViewById(R.id.trip_name);
             trip_members = (TextView) itemView.findViewById(R.id.trip_members);
             add_friend = (ImageButton) itemView.findViewById(R.id.add_friend);
+            this.view = itemView;            // <----- here
+
         }
+
+
     }
 
-    public interface ClickListener {
-
-        void onPositionClicked(int position);
-
-        void onLongClicked(int position);
-    }
 }
 
