@@ -50,6 +50,7 @@ public class ResetPassActivity extends AppCompatActivity {
         if (TextUtils.isEmpty(email)){
             resetEmail.setError("Email cannot be empty");
             resetEmail.requestFocus();
+            return;
         }
 
         if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
