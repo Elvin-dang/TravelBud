@@ -43,11 +43,14 @@ public class MyTripsFragment extends Fragment {
 
         myTripsViewModel.getUser("John").observe(getViewLifecycleOwner(), user -> {
             current_user = user;
+            Log.i("???",user.getTrips().get(1).getName()+"");
+
+            TripCardsAdapter adapter = new TripCardsAdapter(user.getTrips());
+//
             RecyclerView rv = (RecyclerView) root.findViewById(R.id.trips_rv);
             rv.setHasFixedSize(true);
             LinearLayoutManager llm = new LinearLayoutManager(root.getContext());
             rv.setLayoutManager(llm);
-            TripCardsAdapter adapter = new TripCardsAdapter(user.getTrips());
             rv.setAdapter(adapter);
 //
 //            RecyclerView rv = (RecyclerView) root.findViewById(R.id.destinations_rv);
@@ -67,7 +70,7 @@ public class MyTripsFragment extends Fragment {
         return root;
     }
 
-    
+
 
     @Override
     public void onDestroyView() {

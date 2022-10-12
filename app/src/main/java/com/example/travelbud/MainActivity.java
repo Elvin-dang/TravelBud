@@ -8,6 +8,7 @@ import android.view.View;
 
 import com.example.travelbud.ui.my_trips.DestinationsActivity;
 import com.example.travelbud.ui.my_trips.MyTripsFragment;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.annotation.NonNull;
@@ -68,8 +69,8 @@ public class MainActivity extends AppCompatActivity {
 
         Fragment t = new MyTripsFragment();
 
-       FragmentManager fragmentManager = getSupportFragmentManager();
-      FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.add(R.id.navigation_my_trips, t);
 //        fragmentTransaction.add(R.id.fragmnt_container, fb);
 //        fragmentTransaction.add(R.id.fragmnt_container, fc);
@@ -81,7 +82,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     public View initSampleData(View view) {
-
 
 
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -103,11 +103,14 @@ public class MainActivity extends AppCompatActivity {
         a.add(user1);
         a.add(user2);
         a.add(user3);
-        Location targetLocation = new Location("");//provider name is unnecessary
+        double loc1Lat = new Double(-33.914714);
+        double loc1Lng = new Double(151.201957);
+        double loc2Lat = new Double(-33.599152);
+        double loc2Lng = new Double(151.325675);
 
-        Destination d1 = new Destination("1", targetLocation, "123", "11", "1111",
+        Destination d1 = new Destination("1", loc1Lat, loc1Lng, "123", "11", "1111",
                 new ArrayList<>());
-        Destination d2 = new Destination("2", targetLocation, "2", "2", "2", new ArrayList<>());
+        Destination d2 = new Destination("2", loc2Lat, loc2Lng, "2", "2", "2", new ArrayList<>());
         List<Destination> destinations = new ArrayList<>();
         destinations.add(d1);
         destinations.add(d2);
@@ -123,28 +126,23 @@ public class MainActivity extends AppCompatActivity {
 
 
         Trip trip1 = new Trip("Hawaii Trip", new ArrayList<>(), "Sydney", checklist, destinations);
-
+        Trip trip2 = new Trip("Michigan Trip", new ArrayList<>(), "MIMI", checklist, destinations);
 
         trips.add(trip1);
+        trips.add(trip2);
 
         List<TravelBudUser> users = new ArrayList<>();
         List<TravelBudUser> friends = new ArrayList<>();
         friends.add(user3);
+        friends.add(user2);
         trip1.setTravelers(friends);
         user1.setTrips(trips);
         user1.setFriends(friends);
         users.add(user1);
+        trip2.setTravelers(friends);
 
-        FirebaseUtils.insert(mDatabase,user1);
+        FirebaseUtils.insert(mDatabase, user1);
 
-
-        return view;
-    }
-
-    public View test (View view){
-
-        Intent i = new Intent(getApplicationContext(), DestinationsActivity.class);
-        startActivity(i);
 
         return view;
     }
