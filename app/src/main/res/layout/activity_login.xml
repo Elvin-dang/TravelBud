@@ -14,7 +14,7 @@
         android:layout_height="156dp"
         android:layout_gravity="center"
         android:layout_marginTop="25dp"
-        android:src="@drawable/ic_banner_foreground" />
+        android:src="@drawable/ic_travelbud" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -61,11 +61,21 @@
                 android:inputType="textPassword"/>
         </com.google.android.material.textfield.TextInputLayout>
 
+        <TextView
+            android:id="@+id/forgotPass"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="8dp"
+            android:text="Forgot password"
+            android:textStyle="bold"
+            android:textSize="14sp"/>
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnLogin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="40dp"
             android:layout_gravity="center"
             android:backgroundTint="@color/material_dynamic_neutral40"
             android:text="Log me in!"/>
