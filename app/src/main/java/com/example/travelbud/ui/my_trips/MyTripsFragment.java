@@ -52,14 +52,30 @@ public class MyTripsFragment extends Fragment {
             LinearLayoutManager llm = new LinearLayoutManager(root.getContext());
             rv.setLayoutManager(llm);
             rv.setAdapter(adapter);
+//
+//            RecyclerView rv = (RecyclerView) root.findViewById(R.id.destinations_rv);
+//            rv.setHasFixedSize(true);
+//            LinearLayoutManager llm = new LinearLayoutManager(root.getContext());
+//            rv.setLayoutManager(llm);
+//            TransitCardsAdapter adapter = new TransitCardsAdapter(destinations);
+//            rv.setAdapter(adapter);
         });
 
+
+//        View v = root.findViewById(R.id.fragment_destinations);
+//        View     v1 = root.findViewById(R.id.main_page);
+//
+//        v1.setVisibility(View.GONE);
+//        v.setVisibility(View.VISIBLE);
         return root;
     }
+
+
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
     }
+
 }
