@@ -5,19 +5,22 @@ import android.location.Location;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import java.util.ArrayList;
 
 //@Entity(tableName = "mediaList")
 public class Destination {
 
     private String address;
-//    private Location loc;
+    double lat;
+    double lng;
 
     public enum Place {TRANSIT, RESIDENCE, LANDSCAPE}
 
     ;
 
-   public Destination() {
+    public Destination() {
 
     }
 
@@ -27,11 +30,28 @@ public class Destination {
     //TODO: String for now, User in future.
     private ArrayList<TravelBudUser> participants;
 
-    public Destination(String address, Location loc, String name, String subtitle,
+    public double getLat() {
+        return lat;
+    }
+
+    public void setLat(double lat) {
+        this.lat = lat;
+    }
+
+    public double getLng() {
+        return lng;
+    }
+
+    public void setLng(double lng) {
+        this.lng = lng;
+    }
+
+    public Destination(String address, double lat, double lng, String name, String subtitle,
                        String detailed_address,
                        ArrayList<TravelBudUser> participants) {
         this.address = address;
-//        this.loc = loc;
+        this.lat = lat;
+        this.lng = lng;
         this.name = name;
         this.subtitle = subtitle;
         this.detailed_address = detailed_address;
