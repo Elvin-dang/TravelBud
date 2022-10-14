@@ -12,15 +12,20 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.travelbud.ChecklistItem;
+import com.example.travelbud.FirebaseUtils;
 import com.example.travelbud.R;
+import com.example.travelbud.TravelBudUser;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.List;
 
-public class ChecklistItemsAdapter extends RecyclerView.Adapter<ChecklistItemsAdapter.ChecklistItemsViewHolder>{
+public class ChecklistItemsAdapter extends RecyclerView.Adapter<ChecklistItemsAdapter.ChecklistItemsViewHolder> {
     List<ChecklistItem> checklistItems;
+    TravelBudUser currentUser;
 
-    public ChecklistItemsAdapter(List<ChecklistItem> checklistItems) {
+    public ChecklistItemsAdapter(List<ChecklistItem> checklistItems, TravelBudUser currentUser) {
         this.checklistItems = checklistItems;
+        this.currentUser = currentUser;
     }
 
 //    public List<ChecklistItem> getChecklistItems() {
@@ -53,11 +58,16 @@ public class ChecklistItemsAdapter extends RecyclerView.Adapter<ChecklistItemsAd
                 if (holder.checked.isChecked()) {
                     holder.checked.setChecked(true);
                     checklistItems.get(holder.getAdapterPosition()).setChecked(true);
-                }
-                else {
+                } else {
                     holder.checked.setChecked(false);
                     checklistItems.get(holder.getAdapterPosition()).setChecked(false);
                 }
+
+                // update user here
+                FirebaseUtils.update(
+                        FirebaseDatabase.getInstance().getReference(),
+                        currentUser
+                );
             }
         });
     }

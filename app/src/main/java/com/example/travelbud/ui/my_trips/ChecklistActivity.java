@@ -38,8 +38,8 @@ public class ChecklistActivity extends AppCompatActivity {
             rv.setHasFixedSize(true);
             LinearLayoutManager llm = new LinearLayoutManager(getApplicationContext());
             rv.setLayoutManager(llm);
-            ChecklistItemsAdapter adapter =
-                    new ChecklistItemsAdapter(user.getTrips().get(trip_index).getCheckList());
+            ChecklistItemsAdapter adapter = new ChecklistItemsAdapter(
+                    user.getTrips().get(trip_index).getCheckList(), current_user);
             rv.setAdapter(adapter);
         });
     }
