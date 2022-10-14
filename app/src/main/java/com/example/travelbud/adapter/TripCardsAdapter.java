@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.travelbud.Trip;
 import com.example.travelbud.R;
 import com.example.travelbud.Trip;
+import com.example.travelbud.ui.my_trips.ChecklistActivity;
 import com.example.travelbud.ui.my_trips.DestinationsActivity;
 
 import java.util.ArrayList;
@@ -89,7 +90,10 @@ public class TripCardsAdapter extends RecyclerView.Adapter<TripCardsAdapter.Trip
         checklist.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(view.getContext(), "TO BE IMPLEMENTED", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(view.getContext(), ChecklistActivity.class);
+                intent.putExtra("selected_trip", position);
+
+                view.getContext().startActivity(intent);
             }
         });
         expense.setOnClickListener(new View.OnClickListener() {
