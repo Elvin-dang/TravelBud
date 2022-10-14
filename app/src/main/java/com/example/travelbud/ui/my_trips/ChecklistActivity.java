@@ -2,6 +2,7 @@ package com.example.travelbud.ui.my_trips;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
@@ -41,7 +42,16 @@ public class ChecklistActivity extends AppCompatActivity {
                     new ChecklistItemsAdapter(user.getTrips().get(trip_index).getCheckList());
             rv.setAdapter(adapter);
         });
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+        }
 
+        return super.onOptionsItemSelected(item);
     }
 }
