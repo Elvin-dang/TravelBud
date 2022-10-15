@@ -16,6 +16,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
@@ -28,6 +29,20 @@ public class RegisterActivity extends AppCompatActivity {
     Button btnRegister;
 
     FirebaseAuth mAuth;
+    FirebaseUser firebaseUser;
+
+    //Login automatically if not logout
+    @Override
+    protected void onStart() {
+        super.onStart();
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        //check the user is null
+        if(firebaseUser != null){
+            startActivity(new Intent(RegisterActivity.this,MainActivity.class));
+            finish();
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
