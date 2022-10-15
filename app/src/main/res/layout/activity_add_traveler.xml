@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AddTravelerActivity">
+    tools:context=".ui.my_trips.AddTravelerActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -77,6 +77,13 @@
                 android:id="@+id/users_rv"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
+<!--            <TextView-->
+<!--                android:id="@+id/empty_view1"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:gravity="center"-->
+<!--                android:visibility="gone"-->
+<!--                android:text="There's currently no users..." />-->
         </LinearLayout>
 
         <LinearLayout
@@ -105,7 +112,15 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/travelers_rv"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                />
+<!--            <TextView-->
+<!--                android:id="@+id/empty_view2"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:gravity="center"-->
+<!--                android:visibility="gone"-->
+<!--                android:text="There's currently no travelers..." />-->
         </LinearLayout>
     </LinearLayout>
 

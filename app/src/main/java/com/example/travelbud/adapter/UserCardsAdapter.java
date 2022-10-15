@@ -70,6 +70,8 @@ public class UserCardsAdapter extends RecyclerView.Adapter<UserCardsAdapter.User
         userViewHolder.username.setText(selected_trip.getUsername());
 
         ImageButton add_or_remove_user = userViewHolder.view.findViewById(R.id.add_or_remove_user);
+
+
         add_or_remove_user.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

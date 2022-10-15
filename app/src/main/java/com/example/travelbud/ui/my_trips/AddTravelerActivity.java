@@ -1,4 +1,4 @@
-package com.example.travelbud;
+package com.example.travelbud.ui.my_trips;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,7 +9,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
 
+import com.example.travelbud.R;
+import com.example.travelbud.TravelBudUser;
 import com.example.travelbud.adapter.UserCardsAdapter;
 import com.example.travelbud.ui.my_trips.MyTripsViewModel;
 import com.google.firebase.database.DataSnapshot;
@@ -84,6 +88,15 @@ public class AddTravelerActivity extends AppCompatActivity {
             rv1.setLayoutManager(llm1);
             rv1.setAdapter(adapter1);
         });
+
+
+//        TextView empty1 = findViewById(R.id.empty_view1);
+//        TextView empty2 =findViewById(R.id.empty_view2);
+
+//        empty1.setVisibility(View.VISIBLE);
+//        empty2.setVisibility(View.VISIBLE);
+
+
     }
 
     public MutableLiveData<List<TravelBudUser>> getUsers() {

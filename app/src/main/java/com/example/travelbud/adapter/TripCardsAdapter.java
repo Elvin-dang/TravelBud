@@ -14,14 +14,12 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.travelbud.AddTravelerActivity;
+import com.example.travelbud.ui.my_trips.AddTravelerActivity;
 import com.example.travelbud.Trip;
 import com.example.travelbud.R;
-import com.example.travelbud.Trip;
 import com.example.travelbud.ui.my_trips.ChecklistActivity;
 import com.example.travelbud.ui.my_trips.DestinationsActivity;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class TripCardsAdapter extends RecyclerView.Adapter<TripCardsAdapter.TripViewHolder> {
