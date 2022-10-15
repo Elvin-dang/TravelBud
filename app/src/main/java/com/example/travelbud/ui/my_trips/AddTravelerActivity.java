@@ -7,6 +7,8 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -43,13 +45,14 @@ public class AddTravelerActivity extends AppCompatActivity {
         trip_index = Integer.parseInt(getIntent().getStringExtra("selected_trip"));
 //        Log.i("checklist", "current: " + trip_index);
 
-
+        SharedPreferences prefs = this.getSharedPreferences("user_token", Context.MODE_PRIVATE);
+        String user_token = prefs.getString("user_token",null);
         getUsers().observe(this, users -> {
 
             TravelBudUser curr_user = null;
 
             for (int i = 0; i < users.size(); i++) {
-                if (users.get(i).getUsername().equals("John")) {
+                if (users.get(i).getKey().equals(user_token)) {
                     curr_user = users.get(i);
                     break;
                 }

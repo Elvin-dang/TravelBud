@@ -1,5 +1,7 @@
 package com.example.travelbud.ui.my_trips;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -32,7 +34,12 @@ public class ChecklistActivity extends AppCompatActivity {
         MyTripsViewModel myTripsViewModel = new ViewModelProvider(this).get(MyTripsViewModel.class);
 
 //        username to be changed
-        myTripsViewModel.getUser("John").observe(this, user -> {
+
+        SharedPreferences prefs = this.getSharedPreferences("user_token", Context.MODE_PRIVATE);
+        String user_token = prefs.getString("user_token",null);
+
+
+        myTripsViewModel.getUser(user_token).observe(this, user -> {
             current_user = user;
             RecyclerView rv = (RecyclerView) findViewById(R.id.checklistItems_rv);
             rv.setHasFixedSize(true);

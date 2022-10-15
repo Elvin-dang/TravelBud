@@ -42,16 +42,16 @@ public class MyTripsViewModel extends ViewModel {
     }
 
     //TODO: use username mimic uuid, will change later
-    public LiveData<TravelBudUser> getUser(String username) {
+    public LiveData<TravelBudUser> getUser(String user_token) {
         if (fetched_user == null) {
             fetched_user = new MutableLiveData<TravelBudUser>();
-            loadUser(username);
+            loadUser(user_token);
         }
         return fetched_user;
     }
 
     //TODO: use username mimic uuid, will change later
-    public void loadUser(String username) {
+    public void loadUser(String user_token) {
         mDatabase = FirebaseDatabase.getInstance().getReference();
         MutableLiveData<TravelBudUser> user = new MutableLiveData<>();
 
@@ -63,7 +63,7 @@ public class MyTripsViewModel extends ViewModel {
                     for (DataSnapshot s : snapshot.getChildren()) {
                         TravelBudUser user = s.getValue(TravelBudUser.class);
                         user.setKey(s.getKey());
-                        if (user.getUsername().equals(username)) {
+                        if (user.getKey().equals(user_token)) {
                             fetched_user.postValue(user);
                             return;
                         }

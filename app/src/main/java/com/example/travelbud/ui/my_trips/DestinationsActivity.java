@@ -7,6 +7,8 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -43,8 +45,9 @@ public class DestinationsActivity extends AppCompatActivity implements OnMapRead
 
         MyTripsViewModel myTripsViewModel = new ViewModelProvider(this).get(MyTripsViewModel.class);
 
-
-        myTripsViewModel.getUser("John").observe(this, user -> {
+        SharedPreferences prefs = this.getSharedPreferences("user_token", Context.MODE_PRIVATE);
+        String user_token = prefs.getString("user_token", null);
+        myTripsViewModel.getUser(user_token).observe(this, user -> {
             current_user = user;
             RecyclerView rv = (RecyclerView) findViewById(R.id.destinations_rv);
             rv.setHasFixedSize(true);
@@ -81,9 +84,12 @@ public class DestinationsActivity extends AppCompatActivity implements OnMapRead
 //        destinations.forEach(destination -> {
 //
 //        });
+
+        SharedPreferences prefs = this.getSharedPreferences("user_token", Context.MODE_PRIVATE);
+        String user_token = prefs.getString("user_token", null);
         MyTripsViewModel myTripsViewModel = new ViewModelProvider(this).get(MyTripsViewModel.class);
 
-        myTripsViewModel.getUser("John").observe(this, user -> {
+        myTripsViewModel.getUser(user_token).observe(this, user -> {
             List<MarkerOptions> markers = new ArrayList<MarkerOptions>();
             LatLngBounds.Builder builder = new LatLngBounds.Builder();
 

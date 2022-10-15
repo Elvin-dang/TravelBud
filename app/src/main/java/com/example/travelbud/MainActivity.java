@@ -1,6 +1,7 @@
 package com.example.travelbud;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
@@ -77,6 +78,14 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.hide(t);
         fragmentTransaction.commit();
 
+        SharedPreferences settings = getSharedPreferences("user_token", 0);
+
+        String name = settings.getString("user_token",null);
+
+
+        Log.i("??????",name+"" );
+
+
 
     }
 
@@ -89,9 +98,9 @@ public class MainActivity extends AppCompatActivity {
         //add a new user
         TravelBudUser user1 = new TravelBudUser("John", "john@example.com", new ArrayList<Trip>(),
                 new ArrayList<TravelBudUser>());
-        TravelBudUser user2 = new TravelBudUser("Doe","doe@example.com", new ArrayList<Trip>(),
+        TravelBudUser user2 = new TravelBudUser("Doe", "doe@example.com", new ArrayList<Trip>(),
                 new ArrayList<TravelBudUser>());
-        TravelBudUser user3 = new TravelBudUser("Bib","bib@example.com", new ArrayList<Trip>(),
+        TravelBudUser user3 = new TravelBudUser("Bib", "bib@example.com", new ArrayList<Trip>(),
                 new ArrayList<TravelBudUser>());
 
 
@@ -140,8 +149,9 @@ public class MainActivity extends AppCompatActivity {
         user1.setFriends(friends);
         users.add(user1);
         trip2.setTravelers(friends);
+        user1.setKey("9uot9zShATNauiwiDustiExBmxA2");
+        FirebaseUtils.update(mDatabase,user1);
 
-        FirebaseUtils.insert(mDatabase, user1);
 
 
         return view;

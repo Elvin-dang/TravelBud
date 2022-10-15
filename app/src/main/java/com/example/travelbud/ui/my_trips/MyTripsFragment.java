@@ -2,7 +2,9 @@ package com.example.travelbud.ui.my_trips;
 
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -40,10 +42,12 @@ public class MyTripsFragment extends Fragment {
         binding = FragmentMyTripsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
+        SharedPreferences prefs = getActivity().getSharedPreferences("user_token", Context.MODE_PRIVATE);
+        String user_token = prefs.getString("user_token",null);
 
-        myTripsViewModel.getUser("John").observe(getViewLifecycleOwner(), user -> {
+        myTripsViewModel.getUser(user_token).observe(getViewLifecycleOwner(), user -> {
             current_user = user;
-            Log.i("???",user.getTrips().get(1).getName()+"");
+//            Log.i("???",user.getTrips().get(1).getName()+"");
 
             TripCardsAdapter adapter = new TripCardsAdapter(user.getTrips());
 //

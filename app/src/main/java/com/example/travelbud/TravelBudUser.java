@@ -9,9 +9,9 @@ import java.util.List;
 public class TravelBudUser implements Serializable {
     private String username;
     private String email;
-    private List<Trip> trips;
+    private List<Trip> trips = new ArrayList<>();
     private List<TravelBudUser> friends = new ArrayList<>();
-
+    private String key;
     @Exclude
     public String getKey() {
         return key;
@@ -22,7 +22,7 @@ public class TravelBudUser implements Serializable {
         this.key = key;
     }
 
-    private String key;
+
 
     public TravelBudUser(String username, String email, List<Trip> trips, List<TravelBudUser> friends) {
         this.username = username;
