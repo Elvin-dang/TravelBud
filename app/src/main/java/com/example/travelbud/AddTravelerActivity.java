@@ -36,8 +36,8 @@ public class AddTravelerActivity extends AppCompatActivity {
 
 
         Bundle bundle = getIntent().getExtras();
-        trip_index = bundle.getInt("selected_trip");
-        Log.i("checklist", "current: " + trip_index);
+        trip_index = Integer.parseInt(getIntent().getStringExtra("selected_trip"));
+//        Log.i("checklist", "current: " + trip_index);
 
 
         getUsers().observe(this, users -> {
@@ -54,7 +54,7 @@ public class AddTravelerActivity extends AppCompatActivity {
 
             UserCardsAdapter adapter =
                     new UserCardsAdapter(curr_user.getTrips().get(trip_index).getTravelers(), false,
-                    curr_user, trip_index);
+                            curr_user, trip_index);
 
             RecyclerView rv = (RecyclerView) findViewById(R.id.travelers_rv);
             rv.setHasFixedSize(true);

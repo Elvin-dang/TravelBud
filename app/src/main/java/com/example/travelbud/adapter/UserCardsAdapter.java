@@ -1,5 +1,6 @@
 package com.example.travelbud.adapter;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -72,6 +73,7 @@ public class UserCardsAdapter extends RecyclerView.Adapter<UserCardsAdapter.User
         add_or_remove_user.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Log.i("CAO",position+"");
                 DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
 
                 if (isAdd) {
@@ -82,8 +84,7 @@ public class UserCardsAdapter extends RecyclerView.Adapter<UserCardsAdapter.User
 
                     curr_user.getTrips().get(trip_index).setTravelers(temp_travelers);
                     FirebaseUtils.update(mDatabase, curr_user);
-                    users.remove(position);
-                    notifyDataSetChanged();
+
                 } else {
                     List<TravelBudUser> temp_travelers =
                             curr_user.getTrips().get(trip_index).getTravelers();

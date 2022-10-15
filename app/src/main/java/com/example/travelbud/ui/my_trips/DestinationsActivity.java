@@ -99,7 +99,7 @@ public class DestinationsActivity extends AppCompatActivity implements OnMapRead
 
 
             LatLng position;
-            for(int i = 0; i < markers.size(); i++){
+            for (int i = 0; i < markers.size(); i++) {
                 position = markers.get(i).getPosition();
                 builder.include(new LatLng(position.latitude, position.longitude));
             }
