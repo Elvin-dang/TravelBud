@@ -3,13 +3,14 @@ package com.example.travelbud;
 import com.google.firebase.database.Exclude;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class TravelBudUser implements Serializable {
     private String username;
     private String email;
     private List<Trip> trips;
-    private List<TravelBudUser> friends;
+    private List<TravelBudUser> friends = new ArrayList<>();
 
     @Exclude
     public String getKey() {
@@ -65,4 +66,6 @@ public class TravelBudUser implements Serializable {
     public void setFriends(List<TravelBudUser> friends) {
         this.friends = friends;
     }
+
+
 }

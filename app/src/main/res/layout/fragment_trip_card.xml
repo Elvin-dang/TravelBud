@@ -60,7 +60,7 @@
                     android:gravity="right">
 
                     <ImageButton
-                        android:id="@+id/add_friend"
+                        android:id="@+id/add_travelers"
                         android:layout_width="70dp"
                         android:layout_height="70dp"
                         android:layout_gravity="right"

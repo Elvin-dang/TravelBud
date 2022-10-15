@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.travelbud.AddTravelerActivity;
 import com.example.travelbud.Trip;
 import com.example.travelbud.R;
 import com.example.travelbud.Trip;
@@ -75,7 +76,7 @@ public class TripCardsAdapter extends RecyclerView.Adapter<TripCardsAdapter.Trip
 
         Button checklist = tripViewHolder.view.findViewById(R.id.show_checklist);
         Button expense = tripViewHolder.view.findViewById(R.id.show_expense);
-
+        ImageButton add_travelers = tripViewHolder.view.findViewById(R.id.add_travelers);
         destinations.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -102,6 +103,15 @@ public class TripCardsAdapter extends RecyclerView.Adapter<TripCardsAdapter.Trip
                 Toast.makeText(view.getContext(), "TO BE IMPLEMENTED", Toast.LENGTH_SHORT).show();
             }
         });
+        add_travelers.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), AddTravelerActivity.class);
+                intent.putExtra("selected_trip", String.valueOf(position));
+                view.getContext().startActivity(intent);
+            }
+        });
+
     }
 
     @Override
@@ -119,7 +129,7 @@ public class TripCardsAdapter extends RecyclerView.Adapter<TripCardsAdapter.Trip
         CardView cv;
         TextView trip_name;
         TextView trip_members;
-        ImageButton add_friend;
+        ImageButton add_travelers;
         View view;               // <----- here
         Button destinations;
 
@@ -129,7 +139,7 @@ public class TripCardsAdapter extends RecyclerView.Adapter<TripCardsAdapter.Trip
             cv = (CardView) itemView.findViewById(R.id.trip_card);
             trip_name = (TextView) itemView.findViewById(R.id.trip_name);
             trip_members = (TextView) itemView.findViewById(R.id.trip_members);
-            add_friend = (ImageButton) itemView.findViewById(R.id.add_friend);
+            add_travelers = (ImageButton) itemView.findViewById(R.id.add_travelers);
             this.view = itemView;            // <----- here
 
         }

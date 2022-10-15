@@ -17,7 +17,7 @@ public class Trip {
     private String name;
     private Date startDate;
     private Date endDate;
-    private List<TravelBudUser> travelers;
+    private List<TravelBudUser> travelers = new ArrayList<>();
 
     private String kickoffPoint;
     private List<ChecklistItem> checkList;
