@@ -21,7 +21,6 @@ import com.example.travelbud.FirebaseUtils;
 import com.example.travelbud.R;
 import com.example.travelbud.TravelBudUser;
 import com.example.travelbud.adapter.ChecklistItemsAdapter;
-import com.example.travelbud.adapter.TransitCardsAdapter;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Calendar;

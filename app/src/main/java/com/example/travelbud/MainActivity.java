@@ -159,14 +159,6 @@ public class MainActivity extends AppCompatActivity {
         return view;
     }
 
-    public View popTripDialog(View view) {
-
-
-        TripDialogFragment fragment = TripDialogFragment.newInstance("你的样子","1");
-        fragment.show(getSupportFragmentManager(), "myAlert1");
-        return view;
-    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.bottom_nav_menu,menu);
@@ -184,5 +176,13 @@ public class MainActivity extends AppCompatActivity {
         }
         return false;
     }
+    public View popTripDialog(View view) {
+
+
+        TripDialogFragment fragment = TripDialogFragment.newInstance("你的样子","1");
+        fragment.show(getSupportFragmentManager(), "myAlert");
+        return view;
+    }
+
 
 }

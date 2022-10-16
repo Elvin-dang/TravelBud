@@ -24,7 +24,6 @@ import androidx.appcompat.widget.SearchView;
 
 import android.widget.Toast;
 
-import com.example.travelbud.Destination;
 import com.example.travelbud.FirebaseUtils;
 import com.example.travelbud.LoginActivity;
 import com.example.travelbud.R;
@@ -40,7 +39,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -60,9 +58,6 @@ public class DestinationDialogFragment extends DialogFragment implements OnMapRe
     private String mParam2;
 
     private GoogleMap mMap;
-
-    String detail = "-";
-    LatLng latLng;
 
     public DestinationDialogFragment() {
         // Required empty public constructor
@@ -149,37 +144,23 @@ public class DestinationDialogFragment extends DialogFragment implements OnMapRe
                     // on below line we are getting the location
                     // from our list a first position.
 
-                    try {
+                    if(addressList.size()>0){
+                        Address address = addressList.get(0);
+                        // on below line we are creating a variable for our location
+                        // where we will add our locations latitude and longitude.
+                        LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
 
-                        if (addressList.size() > 0) {
-                            Address address = addressList.get(0);
-                            // on below line we are creating a variable for our location
-                            // where we will add our locations latitude and longitude.
-                            latLng = new LatLng(address.getLatitude(), address.getLongitude());
+                        // on below line we are adding marker to that position.
+                        mMap.clear();
+                        mMap.addMarker(new MarkerOptions().position(latLng).title(location));
 
+                        // below line is to animate camera to that position.
+                        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10));
+                    }else {
+                        Toast.makeText(getActivity(), "No result...", Toast.LENGTH_SHORT).show();
 
-                            try {
-                                detail = address.getAddressLine(0);
-                                Log.i("PLZ", address.getAddressLine(0));
-
-                            } catch (Exception e) {
-
-                            }
-
-
-                            // on below line we are adding marker to that position.
-                            mMap.clear();
-                            mMap.addMarker(new MarkerOptions().position(latLng).title(location));
-
-                            // below line is to animate camera to that position.
-                            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10));
-                        } else {
-                            Toast.makeText(getActivity(), "No result...", Toast.LENGTH_SHORT).show();
-
-                        }
-                    } catch (Exception e) {
-                        Toast.makeText(getActivity(), "Search exception", Toast.LENGTH_SHORT).show();
                     }
+
 
 
                 }
@@ -202,61 +183,10 @@ public class DestinationDialogFragment extends DialogFragment implements OnMapRe
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-
-
                         SharedPreferences prefs = getActivity().getSharedPreferences("user_token"
                                 , Context.MODE_PRIVATE);
                         String user_token = prefs.getString("user_token", null);
                         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
-
-
-                        MyTripsViewModel myTripsViewModel =
-                                new ViewModelProvider(getActivity()).get(MyTripsViewModel.class);
-
-                        myTripsViewModel.getUser(user_token).observe(getViewLifecycleOwner(),
-                                user -> {
-                                    try {
-//                                        EditText editText =
-//                                                (EditText) getDialog().findViewById(R.id.input_des_name);
-
-
-                                        if (!"".equals("aaa")) {
-
-                                            TravelBudUser temp = user;
-
-
-                                            Destination destination = new Destination();
-                                            destination.setAddress("aaa");
-                                            destination.setSubtitle(detail);
-                                            destination.setLat(latLng.latitude);
-                                            destination.setLng(latLng.longitude);
-
-                                            List<Trip> trips = new ArrayList<>();
-                                            user.getTrips().forEach(trip->{
-                                                trips.add(trip);
-                                            });
-                                            List<Destination> destinations = new ArrayList<>();
-                                            trips.get(Integer.parseInt(getActivity().getIntent().getExtras().getString("selected_trip"))).getDestinations().forEach(des->{
-                                                destinations.add(des);
-                                            });
-                                            destinations.add(destination);
-                                            trips.get(Integer.parseInt(getActivity().getIntent().getExtras().getString("selected_trip"))).setDestinations(destinations);
-                                            temp.setTrips(trips);
-
-                                            FirebaseUtils.update(mDatabase, temp);
-                                            Log.i("BAZINGA",
-                                                    getActivity().getIntent().getExtras().getString("selected_trip"));
-
-                                        } else {
-                                            Toast.makeText(getActivity(), "Invalid destination " +
-                                                            "name!"
-                                                    , Toast.LENGTH_SHORT).show();
-
-                                        }
-                                    } catch (Exception e) {
-
-                                    }
-                                });
 
 
                     }
@@ -289,5 +219,4 @@ public class DestinationDialogFragment extends DialogFragment implements OnMapRe
 
 
     }
-
 }
