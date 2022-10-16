@@ -4,6 +4,13 @@
     <string name="title_home">Home</string>
     <string name="title_network">Network</string>
     <string name="title_my_profile">My Profile</string>
+
+<!--    category list-->
+    <string-array name="category">
+        <item>Essential</item>
+        <item>Survival</item>
+        <item>Food</item>
+    </string-array>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
