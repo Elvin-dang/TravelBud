@@ -39,28 +39,22 @@
                 android:src="@drawable/ic_travelbud" />
         </RelativeLayout>
 
-<!--        <LinearLayout-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_gravity="center_horizontal"-->
-<!--            android:orientation="horizontal">-->
-
-<!--            <TextView-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_margin="10dp"-->
-<!--                android:gravity="center"-->
-<!--                android:text="Your textview"-->
-<!--                android:textSize="30dp"-->
-<!--                android:textStyle="bold" />-->
-
-<!--        </LinearLayout>-->
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/checklistItems_rv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_weight="1"
             android:paddingBottom="?attr/actionBarSize" />
+
+        <Button
+            android:id="@+id/checklistItems_add"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="0"
+            android:clickable="true"
+            android:text="Add">
+        </Button>
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
