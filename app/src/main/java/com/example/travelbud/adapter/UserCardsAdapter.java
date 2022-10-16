@@ -22,6 +22,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.getstream.avatarview.AvatarView;
+
 public class UserCardsAdapter extends RecyclerView.Adapter<UserCardsAdapter.UserViewHolder> {
 
     List<TravelBudUser> users;
@@ -68,6 +70,13 @@ public class UserCardsAdapter extends RecyclerView.Adapter<UserCardsAdapter.User
         TravelBudUser selected_trip = users.get(position);
 
         userViewHolder.username.setText(selected_trip.getUsername());
+        try{
+            userViewHolder.user_avatar.setAvatarInitials(selected_trip.getUsername().substring(0,2));
+
+        }catch (Exception e){
+            userViewHolder.user_avatar.setAvatarInitials("-");
+
+        }
 
         ImageButton add_or_remove_user = userViewHolder.view.findViewById(R.id.add_or_remove_user);
 
@@ -75,7 +84,7 @@ public class UserCardsAdapter extends RecyclerView.Adapter<UserCardsAdapter.User
         add_or_remove_user.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.i("CAO",position+"");
+                Log.i("CAO", position + "");
                 DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
 
                 if (isAdd) {
@@ -116,13 +125,15 @@ public class UserCardsAdapter extends RecyclerView.Adapter<UserCardsAdapter.User
         TextView username;
         View view;
         ImageButton addOrRemoveButton;
-
+        AvatarView user_avatar;
 
         public UserViewHolder(View itemView) {
             super(itemView);
             cv = (CardView) itemView.findViewById(R.id.user_card);
             username = (TextView) itemView.findViewById(R.id.user_name);
             addOrRemoveButton = (ImageButton) itemView.findViewById(R.id.add_or_remove_user);
+            user_avatar = itemView.findViewById(R.id.user_avatar);
+
             this.view = itemView;
 
         }

@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.travelbud.R;
 import com.example.travelbud.TravelBudUser;
 import com.example.travelbud.adapter.ChecklistItemsAdapter;
-import com.example.travelbud.adapter.TransitCardsAdapter;
 
 public class ChecklistActivity extends AppCompatActivity {
     private TravelBudUser current_user;

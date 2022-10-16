@@ -1,15 +1,13 @@
 package com.example.travelbud;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
-import com.example.travelbud.ui.my_trips.DestinationsActivity;
+import com.example.travelbud.ui.my_trips.DestinationDialogFragment;
 import com.example.travelbud.ui.my_trips.MyTripsFragment;
-import com.google.android.gms.maps.model.LatLng;
+import com.example.travelbud.ui.my_trips.TripDialogFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.annotation.NonNull;
@@ -156,5 +154,14 @@ public class MainActivity extends AppCompatActivity {
 
         return view;
     }
+
+    public View popTripDialog(View view) {
+
+
+        TripDialogFragment fragment = TripDialogFragment.newInstance("你的样子","1");
+        fragment.show(getSupportFragmentManager(), "myAlert");
+        return view;
+    }
+
 
 }
