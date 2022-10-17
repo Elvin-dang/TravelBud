@@ -4,23 +4,18 @@ package com.example.travelbud.ui.my_trips;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.travelbud.R;
 import com.example.travelbud.TravelBudUser;
-import com.example.travelbud.adapter.TransitCardsAdapter;
 import com.example.travelbud.adapter.TripCardsAdapter;
 import com.example.travelbud.databinding.FragmentMyTripsBinding;
 import com.google.firebase.database.DatabaseReference;

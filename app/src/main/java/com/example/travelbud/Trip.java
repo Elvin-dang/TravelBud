@@ -20,8 +20,8 @@ public class Trip {
     private List<TravelBudUser> travelers = new ArrayList<>();
 
     private String kickoffPoint;
-    private List<ChecklistItem> checkList;
-    private List<Destination> destinations;
+    private List<ChecklistItem> checkList = new ArrayList<>();
+    private List<Destination> destinations = new ArrayList<>();
 
     //TODO: to be implemented
     private Object chat;

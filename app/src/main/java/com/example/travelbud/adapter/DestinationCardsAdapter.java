@@ -1,6 +1,5 @@
 package com.example.travelbud.adapter;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,15 +14,15 @@ import com.example.travelbud.R;
 
 import java.util.List;
 
-public class TransitCardsAdapter extends RecyclerView.Adapter<TransitCardsAdapter.DestinationViewHolder> {
+public class DestinationCardsAdapter extends RecyclerView.Adapter<DestinationCardsAdapter.DestinationViewHolder> {
 
     List<Destination> destinations;
 
-    public TransitCardsAdapter(List<Destination> destinations) {
+    public DestinationCardsAdapter(List<Destination> destinations) {
         this.destinations = destinations;
     }
 
-    public TransitCardsAdapter() {
+    public DestinationCardsAdapter() {
 
     }
 
@@ -38,7 +37,7 @@ public class TransitCardsAdapter extends RecyclerView.Adapter<TransitCardsAdapte
     @NonNull
     @Override
     public DestinationViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_transit_card, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_destination_card, parent, false);
         DestinationViewHolder pvh = new DestinationViewHolder(v);
         return pvh;
     }
@@ -47,7 +46,7 @@ public class TransitCardsAdapter extends RecyclerView.Adapter<TransitCardsAdapte
     public void onBindViewHolder(DestinationViewHolder destinationViewHolder, int i) {
         destinationViewHolder.address.setText(destinations.get(i).getAddress());
         destinationViewHolder.subtitle.setText(destinations.get(i).getSubtitle());
-        destinationViewHolder.detailed_address.setText(destinations.get(i).getDetailed_address());
+
     }
 
     @Override
@@ -69,10 +68,9 @@ public class TransitCardsAdapter extends RecyclerView.Adapter<TransitCardsAdapte
 
         DestinationViewHolder(View itemView) {
             super(itemView);
-            cv = (CardView) itemView.findViewById(R.id.transit_card);
+            cv = (CardView) itemView.findViewById(R.id.destination_card);
             address = (TextView) itemView.findViewById(R.id.address);
             subtitle = (TextView) itemView.findViewById(R.id.subtitle);
-            detailed_address = (TextView) itemView.findViewById(R.id.detailed_address);
         }
     }
 

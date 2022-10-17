@@ -11,10 +11,11 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.example.travelbud.R;
 import com.example.travelbud.TravelBudUser;
-import com.example.travelbud.adapter.TransitCardsAdapter;
+import com.example.travelbud.adapter.DestinationCardsAdapter;
 import com.example.travelbud.databinding.ActivityDestinationsBinding;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -53,8 +54,8 @@ public class DestinationsActivity extends AppCompatActivity implements OnMapRead
             rv.setHasFixedSize(true);
             LinearLayoutManager llm = new LinearLayoutManager(getApplicationContext());
             rv.setLayoutManager(llm);
-            TransitCardsAdapter adapter =
-                    new TransitCardsAdapter(user.getTrips().get(trip_index).getDestinations());
+            DestinationCardsAdapter adapter =
+                    new DestinationCardsAdapter(user.getTrips().get(trip_index).getDestinations());
             rv.setAdapter(adapter);
         });
         getSupportActionBar().setTitle("Destinations");
@@ -90,31 +91,45 @@ public class DestinationsActivity extends AppCompatActivity implements OnMapRead
         MyTripsViewModel myTripsViewModel = new ViewModelProvider(this).get(MyTripsViewModel.class);
 
         myTripsViewModel.getUser(user_token).observe(this, user -> {
-            List<MarkerOptions> markers = new ArrayList<MarkerOptions>();
-            LatLngBounds.Builder builder = new LatLngBounds.Builder();
 
-            user.getTrips().get(trip_index).getDestinations().forEach(des -> {
+            if (user.getTrips().get(trip_index).getDestinations().size() > 0) {
 
-                MarkerOptions m = new MarkerOptions()
-                        .position(new LatLng(des.getLat(), des.getLng()))
-                        .title(des.getAddress());
-                markers.add(m);
-                googleMap.addMarker(m);
+                List<MarkerOptions> markers = new ArrayList<MarkerOptions>();
+                LatLngBounds.Builder builder = new LatLngBounds.Builder();
 
-            });
+                user.getTrips().get(trip_index).getDestinations().forEach(des -> {
+
+                    MarkerOptions m = new MarkerOptions()
+                            .position(new LatLng(des.getLat(), des.getLng()))
+                            .title(des.getAddress());
+                    markers.add(m);
+                    googleMap.addMarker(m);
+
+                });
 
 
-            LatLng position;
-            for (int i = 0; i < markers.size(); i++) {
-                position = markers.get(i).getPosition();
-                builder.include(new LatLng(position.latitude, position.longitude));
-            }
-            LatLngBounds bounds = builder.build();
+                LatLng position;
+                for (int i = 0; i < markers.size(); i++) {
+                    position = markers.get(i).getPosition();
+                    builder.include(new LatLng(position.latitude, position.longitude));
+                }
+                LatLngBounds bounds = builder.build();
 
-            googleMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, 100));
+                googleMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, 100));
 //            googleMap.animateCamera(CameraUpdateFactory.zoomIn());
+            }
+
+
         });
 
 
+    }
+
+    public View popDestinationDialog(View view) {
+
+
+        DestinationDialogFragment fragment = DestinationDialogFragment.newInstance("你的样子", "1");
+        fragment.show(getSupportFragmentManager(), "myAlert");
+        return view;
     }
 }

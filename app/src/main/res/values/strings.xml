@@ -11,4 +11,9 @@
         <item>Survival</item>
         <item>Food</item>
     </string-array>
+<<<<<<< HEAD
+=======
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+>>>>>>> minghao
 </resources>
