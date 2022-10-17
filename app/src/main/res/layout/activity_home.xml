@@ -4,27 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:src="@drawable/ic_baseline_arrow_back_24"
-            android:padding="14dp"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="My Profile"
-            android:textColor="#000000"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-    </RelativeLayout>
-    
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -32,33 +11,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-
-            <ImageView
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="10dp"
-                android:src="@drawable/ic_baseline_person_24"/>
-            
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="10dp"
-                android:text="John Doe"
-                android:textColor="#000000"
-                android:textSize="22dp"
-                android:textStyle="bold" />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:background="@drawable/round_back_editprofile"
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:layout_marginTop="20dp"
-                android:paddingStart="20dp"
-                android:paddingEnd="20dp"
-                android:text="Edit Profile"
-                android:layout_gravity="center"/>
 
             <LinearLayout
                 android:background="@drawable/round_back_white10_20"
