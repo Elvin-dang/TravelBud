@@ -165,17 +165,7 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
-            case R.id.logout:
-                FirebaseAuth.getInstance().signOut();
-                startActivity( new Intent(MainActivity.this,RegisterActivity.class));
-                finish();
-                return true;
-        }
-        return false;
-    }
+
     public View popTripDialog(View view) {
 
 
