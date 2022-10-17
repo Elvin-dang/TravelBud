@@ -21,14 +21,18 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 
 import androidx.appcompat.widget.SearchView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.widget.Toast;
 
+import com.example.travelbud.Destination;
 import com.example.travelbud.FirebaseUtils;
 import com.example.travelbud.LoginActivity;
 import com.example.travelbud.R;
 import com.example.travelbud.TravelBudUser;
 import com.example.travelbud.Trip;
+import com.example.travelbud.adapter.ChecklistItemsAdapter;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -39,6 +43,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -58,6 +63,13 @@ public class DestinationDialogFragment extends DialogFragment implements OnMapRe
     private String mParam2;
 
     private GoogleMap mMap;
+
+    String detail = "-";
+    LatLng latLng;
+
+
+    private TravelBudUser current_user;
+
 
     public DestinationDialogFragment() {
         // Required empty public constructor
@@ -88,6 +100,18 @@ public class DestinationDialogFragment extends DialogFragment implements OnMapRe
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+        SharedPreferences prefs = getActivity().getSharedPreferences("user_token", Context.MODE_PRIVATE);
+        String user_token = prefs.getString("user_token",null);
+
+        MyTripsViewModel myTripsViewModel = new ViewModelProvider(this).get(MyTripsViewModel.class);
+
+        myTripsViewModel.getUser(user_token).observe(this, user -> {
+            current_user = user;
+
+        });
+
+
 
     }
 
@@ -121,47 +145,54 @@ public class DestinationDialogFragment extends DialogFragment implements OnMapRe
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                searchView.clearFocus();
-                // on below line we are getting the
-                // location name from search view.
-                String location = searchView.getQuery().toString();
+                try {
+                    searchView.clearFocus();
+                    // on below line we are getting the
+                    // location name from search view.
+                    String location = searchView.getQuery().toString();
 
-                // below line is to create a list of address
-                // where we will store the list of all address.
-                List<Address> addressList = null;
+                    // below line is to create a list of address
+                    // where we will store the list of all address.
+                    List<Address> addressList = null;
 
-                // checking if the entered location is null or not.
-                if (location != null || location.equals("")) {
-                    // on below line we are creating and initializing a geo coder.
-                    Geocoder geocoder = new Geocoder(getActivity());
-                    try {
-                        // on below line we are getting location from the
-                        // location name and adding that location to address list.
-                        addressList = geocoder.getFromLocationName(location, 1);
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                    // checking if the entered location is null or not.
+                    if (location != null || location.equals("")) {
+                        // on below line we are creating and initializing a geo coder.
+                        Geocoder geocoder = new Geocoder(getActivity());
+                        try {
+                            // on below line we are getting location from the
+                            // location name and adding that location to address list.
+                            addressList = geocoder.getFromLocationName(location, 1);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        // on below line we are getting the location
+                        // from our list a first position.
+
+                        if(addressList.size()>0){
+                            Address address = addressList.get(0);
+                            // on below line we are creating a variable for our location
+                            // where we will add our locations latitude and longitude.
+                            latLng = new LatLng(address.getLatitude(), address.getLongitude());
+
+                            detail = address.getAddressLine(0);
+
+                            // on below line we are adding marker to that position.
+                            mMap.clear();
+                            mMap.addMarker(new MarkerOptions().position(latLng).title(location));
+
+                            // below line is to animate camera to that position.
+                            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10));
+                        }else {
+                            Toast.makeText(getActivity(), "No result...", Toast.LENGTH_SHORT).show();
+
+                        }
+
+
+
                     }
-                    // on below line we are getting the location
-                    // from our list a first position.
-
-                    if(addressList.size()>0){
-                        Address address = addressList.get(0);
-                        // on below line we are creating a variable for our location
-                        // where we will add our locations latitude and longitude.
-                        LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
-
-                        // on below line we are adding marker to that position.
-                        mMap.clear();
-                        mMap.addMarker(new MarkerOptions().position(latLng).title(location));
-
-                        // below line is to animate camera to that position.
-                        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 10));
-                    }else {
-                        Toast.makeText(getActivity(), "No result...", Toast.LENGTH_SHORT).show();
-
-                    }
-
-
+                }catch (Exception e){
+                    Toast.makeText(getActivity(), "Search error...", Toast.LENGTH_SHORT).show();
 
                 }
                 return false;
@@ -183,10 +214,30 @@ public class DestinationDialogFragment extends DialogFragment implements OnMapRe
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-                        SharedPreferences prefs = getActivity().getSharedPreferences("user_token"
-                                , Context.MODE_PRIVATE);
-                        String user_token = prefs.getString("user_token", null);
-                        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+
+                        try{
+                            EditText editText =
+                                    (EditText) getDialog().findViewById(R.id.input_des_name);
+
+                            if (!"".equals(editText.getText().toString().trim())) {
+                                Log.i("SEE HERE",current_user.getTrips().size()+"");
+                                Destination destination = new Destination();
+                                destination.setAddress(editText.getText().toString());
+                                destination.setSubtitle(detail);
+                                destination.setLat(latLng.latitude);
+                                destination.setLng(latLng.longitude);
+
+                                current_user.getTrips().get(Integer.parseInt(getActivity().getIntent().getExtras().getString("selected_trip"))).getDestinations().add(destination);
+
+                                FirebaseUtils.update(FirebaseDatabase.getInstance().getReference(),current_user);
+                            }else {
+                                Toast.makeText(getActivity(), "Invalid trip name!",
+                                        Toast.LENGTH_SHORT).show();
+                            }
+                        }catch (Exception e){
+                            Toast.makeText(getActivity(), "Please search!",
+                                    Toast.LENGTH_SHORT).show();
+                        }
 
 
                     }
