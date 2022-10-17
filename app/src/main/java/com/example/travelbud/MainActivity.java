@@ -159,7 +159,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         TripDialogFragment fragment = TripDialogFragment.newInstance("你的样子","1");
-        fragment.show(getSupportFragmentManager(), "myAlert");
+        fragment.show(getSupportFragmentManager(), "myAlert1");
         return view;
     }
 
