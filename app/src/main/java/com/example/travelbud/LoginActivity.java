@@ -57,6 +57,9 @@ public class LoginActivity extends AppCompatActivity {
         String email = etLoginEmail.getText().toString();
         String password = etLoginPassword.getText().toString();
 
+        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+        startActivity(intent);
+
         if (TextUtils.isEmpty(email)){
             etLoginEmail.setError("Email cannot be empty");
             etLoginEmail.requestFocus();

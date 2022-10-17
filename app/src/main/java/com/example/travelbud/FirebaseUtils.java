@@ -4,7 +4,7 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.example.travelbud.adapter.TransitCardsAdapter;
+import com.example.travelbud.adapter.DestinationCardsAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
@@ -36,7 +36,7 @@ public final class FirebaseUtils {
     }
 
 
-    public static void select(DatabaseReference mDatabaseRef, TransitCardsAdapter adapter) {
+    public static void select(DatabaseReference mDatabaseRef, DestinationCardsAdapter adapter) {
 
         mDatabaseRef.child("users").addValueEventListener(new ValueEventListener() {
             @Override
