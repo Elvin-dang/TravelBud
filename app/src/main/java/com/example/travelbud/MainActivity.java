@@ -176,8 +176,7 @@ public class MainActivity extends AppCompatActivity {
         }
         return false;
     }
-<<<<<<< HEAD
-=======
+
     public View popTripDialog(View view) {
 
 
@@ -185,7 +184,4 @@ public class MainActivity extends AppCompatActivity {
         fragment.show(getSupportFragmentManager(), "myAlert");
         return view;
     }
-
-
->>>>>>> minghao
 }
