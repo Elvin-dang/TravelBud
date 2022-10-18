@@ -28,7 +28,7 @@ import java.util.Calendar;
 
 public class ChecklistActivity extends AppCompatActivity {
     private TravelBudUser current_user;
-    private int trip_index;
+    private String tripKey;
 
     Button add;
 
@@ -42,11 +42,13 @@ public class ChecklistActivity extends AppCompatActivity {
         add = findViewById(R.id.checklistItems_add);
 
         Bundle bundle = getIntent().getExtras();
-        trip_index = bundle.getInt("selected_trip");
+        tripKey = bundle.getString("tripKey");
 //        Log.i("checklist", "current: " + trip_index);
 
-        SharedPreferences prefs = this.getSharedPreferences("user_token", Context.MODE_PRIVATE);
-        String user_token = prefs.getString("user_token",null);
+//        SharedPreferences prefs = this.getSharedPreferences("user_token", Context.MODE_PRIVATE);
+//        String user_token = prefs.getString("user_token",null);
+
+
 
         MyTripsViewModel myTripsViewModel = new ViewModelProvider(this).get(MyTripsViewModel.class);
 

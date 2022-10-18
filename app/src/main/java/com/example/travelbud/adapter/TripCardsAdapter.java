@@ -94,8 +94,9 @@ public class TripCardsAdapter extends RecyclerView.Adapter<TripCardsAdapter.Trip
         checklist.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+//                Log.i("checklist", "Click-" + selected_trip.getKey());
                 Intent intent = new Intent(view.getContext(), ChecklistActivity.class);
-                intent.putExtra("selected_trip", position);
+                intent.putExtra("tripKey", selected_trip.getKey());
 
                 view.getContext().startActivity(intent);
             }
