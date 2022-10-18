@@ -12,29 +12,20 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.travelbud.ChecklistItem;
-import com.example.travelbud.FirebaseUtils;
 import com.example.travelbud.R;
-import com.example.travelbud.TravelBudUser;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.List;
 
 public class ChecklistItemsAdapter extends RecyclerView.Adapter<ChecklistItemsAdapter.ChecklistItemsViewHolder> {
     List<ChecklistItem> checklistItems;
-    TravelBudUser currentUser;
+    String key;
 
-    public ChecklistItemsAdapter(List<ChecklistItem> checklistItems, TravelBudUser currentUser) {
+    public ChecklistItemsAdapter(List<ChecklistItem> checklistItems, String key) {
         this.checklistItems = checklistItems;
-        this.currentUser = currentUser;
+        this.key = key;
     }
-
-//    public List<ChecklistItem> getChecklistItems() {
-//        return checklistItems;
-//    }
-//
-//    public void setChecklistItems(List<ChecklistItem> checklistItems) {
-//        this.checklistItems = checklistItems;
-//    }
 
     @NonNull
     @Override
@@ -63,11 +54,9 @@ public class ChecklistItemsAdapter extends RecyclerView.Adapter<ChecklistItemsAd
                     checklistItems.get(holder.getAdapterPosition()).setChecked(false);
                 }
 
-                // update user here
-                FirebaseUtils.update(
-                        FirebaseDatabase.getInstance().getReference(),
-                        currentUser
-                );
+                // update database
+                DatabaseReference mDatabaseRef = FirebaseDatabase.getInstance().getReference();
+                mDatabaseRef.child("trips").child(key).child("checkList").setValue(checklistItems);
             }
         });
     }

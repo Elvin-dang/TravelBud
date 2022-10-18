@@ -53,21 +53,54 @@ public class MyTripsViewModel extends ViewModel {
     //TODO: use username mimic uuid, will change later
     public void loadUser(String user_token) {
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        MutableLiveData<TravelBudUser> user = new MutableLiveData<>();
 
-        mDatabase.child("users").addValueEventListener(new ValueEventListener() {
+        mDatabase.child("users").child(user_token).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-
                 if (snapshot.exists() && snapshot.getChildrenCount() > 0) {
-                    for (DataSnapshot s : snapshot.getChildren()) {
-                        TravelBudUser user = s.getValue(TravelBudUser.class);
-                        user.setKey(s.getKey());
-                        if (user.getKey().equals(user_token)) {
-                            fetched_user.postValue(user);
-                            return;
+                    TravelBudUser user = snapshot.getValue(TravelBudUser.class);
+                    user.setKey(snapshot.getKey());
+                    fetched_user.postValue(user);
+
+                    for (DataSnapshot dataSnapshot: snapshot.getChildren()) {
+                        if (dataSnapshot.getKey().equals("trips")) {
+                            List<String> tripList = (List<String>) dataSnapshot.getValue();
+
+                            for (String s: tripList) {
+                                mDatabase.child("trips").child(s).addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        if (snapshot.exists()) {
+                                            Trip trip = snapshot.getValue(Trip.class);
+                                            trip.setKey(snapshot.getKey());
+
+                                            boolean check = true;
+                                            List<Trip> userTripList = user.getTrips();
+                                            for (int i = 0; i<userTripList.size(); i++) {
+                                                if (userTripList.get(i).getKey().equals(trip.getKey())) {
+                                                    userTripList.set(i, trip);
+                                                    user.setTrips(userTripList);
+                                                    check = false;
+                                                    break;
+                                                }
+                                            }
+                                            if (check) {
+                                                userTripList.add(trip);
+                                                user.setTrips(userTripList);
+                                            }
+                                            fetched_user.postValue(user);
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+
+                                    }
+                                });
+                            }
                         }
                     }
+                    fetched_user.postValue(user);
                 }
 
             }

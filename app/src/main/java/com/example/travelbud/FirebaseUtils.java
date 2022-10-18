@@ -10,11 +10,30 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
 public final class FirebaseUtils {
+    public static void updateTrip(Trip trip) {
+        DatabaseReference mDatabaseRef = FirebaseDatabase.getInstance().getReference();
+        mDatabaseRef.child("trips")
+                .child(trip.getKey())
+                .setValue(trip)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Log.i("SUCCESS", "SUCCESS");
+
+                        } else {
+                            Log.i("FAIL", "FAIL");
+
+                        }
+                    }
+                });
+    }
 
     public static void insert(final DatabaseReference mDatabaseRef, TravelBudUser user) {
         if (user == null) {

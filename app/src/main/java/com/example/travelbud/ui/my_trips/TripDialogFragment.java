@@ -7,6 +7,7 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
@@ -23,6 +24,10 @@ import com.example.travelbud.R;
 import com.example.travelbud.RegisterActivity;
 import com.example.travelbud.TravelBudUser;
 import com.example.travelbud.Trip;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -96,31 +101,58 @@ public class TripDialogFragment extends DialogFragment {
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-                        SharedPreferences prefs = getActivity().getSharedPreferences("user_token"
-                                , Context.MODE_PRIVATE);
-                        String user_token = prefs.getString("user_token", null);
+//                        SharedPreferences prefs = getActivity().getSharedPreferences("user_token"
+//                                , Context.MODE_PRIVATE);
+//                        String user_token = prefs.getString("user_token", null);
+                        SharedPreferences prefs = getActivity().getSharedPreferences("user_token", Context.MODE_PRIVATE);
+                        String userName= prefs.getString("user_name", "");
                         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
 
                         MyTripsViewModel myTripsViewModel =
                                 new ViewModelProvider(getActivity()).get(MyTripsViewModel.class);
 
-                        myTripsViewModel.getUser(user_token).observe(getViewLifecycleOwner(),
+                        String uid = FirebaseAuth.getInstance().getUid();
+
+                        myTripsViewModel.getUser(uid).observe(getViewLifecycleOwner(),
                                 user -> {
-                                    TravelBudUser temp = user;
-                                    Trip trip = new Trip();
-
-
                                     EditText editText =
                                             (EditText) getDialog().findViewById(R.id.input_trip_name);
 
-
-                                    Log.i("MES", editText.getText().toString());
                                     if (!"".equals(editText.getText().toString().trim())) {
+
+                                        List<TravelBudUser> travellerList = new ArrayList<>();
+                                        TravelBudUser userBudUser = new TravelBudUser();
+                                        userBudUser.setKey(FirebaseAuth.getInstance().getUid());
+                                        userBudUser.setUsername(userName);
+                                        userBudUser.setAltKey(FirebaseAuth.getInstance().getUid());
+                                        travellerList.add(userBudUser);
+
+                                        Trip trip = new Trip();
                                         trip.setName(editText.getText().toString());
+                                        trip.setHost(FirebaseAuth.getInstance().getUid());
+                                        trip.setTravelers(travellerList);
+
                                         List<Trip> trips = user.getTrips();
                                         trips.add(trip);
-                                        temp.setTrips(trips);
-                                        FirebaseUtils.update(mDatabase, temp);
+
+                                        mDatabase.child("trips").child(trip.getKey()).setValue(trip);
+
+                                        mDatabase.child("users").child(uid).child("trips").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                                                if (task.isSuccessful()) {
+                                                    List<String> tripList = (List<String>) task.getResult().getValue();
+                                                    if (tripList == null) tripList = new ArrayList<>();
+                                                    tripList.add(trip.getKey());
+                                                    mDatabase.child("users").child(uid).child("trips").setValue(tripList);
+                                                }
+                                                else {
+                                                    Log.e("firebase", "Error getting data", task.getException());
+                                                }
+                                            }
+                                        });
+//                                        temp.setTrips(trips);
+//                                        FirebaseUtils.update(mDatabase, temp);
                                     } else {
                                         Toast.makeText(getActivity(), "Invalid trip name!",
                                                 Toast.LENGTH_SHORT).show();

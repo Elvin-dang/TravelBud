@@ -12,6 +12,8 @@ public class TravelBudUser implements Serializable {
     private List<Trip> trips = new ArrayList<>();
     private List<TravelBudUser> friends = new ArrayList<>();
     private String key;
+    private String altKey;
+
     @Exclude
     public String getKey() {
         return key;
@@ -22,17 +24,24 @@ public class TravelBudUser implements Serializable {
         this.key = key;
     }
 
-
-
     public TravelBudUser(String username, String email, List<Trip> trips, List<TravelBudUser> friends) {
         this.username = username;
         this.trips = trips;
         this.friends = friends;
         this.email = email;
+        this.altKey = null;
     }
 
     public TravelBudUser() {
 
+    }
+
+    public String getAltKey() {
+        return altKey;
+    }
+
+    public void setAltKey(String altKey) {
+        this.altKey = altKey;
     }
 
     public String getUsername() {
@@ -51,10 +60,12 @@ public class TravelBudUser implements Serializable {
         this.email = email;
     }
 
+    @Exclude
     public List<Trip> getTrips() {
         return trips;
     }
 
+    @Exclude
     public void setTrips(List<Trip> trips) {
         this.trips = trips;
     }
