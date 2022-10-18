@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.example.travelbud.Destination;
 import com.example.travelbud.R;
 import com.example.travelbud.TravelBudUser;
 import com.example.travelbud.adapter.DestinationCardsAdapter;
@@ -54,9 +55,16 @@ public class DestinationsActivity extends AppCompatActivity implements OnMapRead
             rv.setHasFixedSize(true);
             LinearLayoutManager llm = new LinearLayoutManager(getApplicationContext());
             rv.setLayoutManager(llm);
-            DestinationCardsAdapter adapter =
-                    new DestinationCardsAdapter(user.getTrips().get(trip_index).getDestinations());
-            rv.setAdapter(adapter);
+            try {
+                DestinationCardsAdapter adapter =
+                        new DestinationCardsAdapter(user.getTrips().get(trip_index).getDestinations());
+                rv.setAdapter(adapter);
+            }catch (Exception e){
+                List<Destination> empty = new ArrayList<>();
+                DestinationCardsAdapter adapter =user.getTrips().size() == 0? new DestinationCardsAdapter(empty):
+                        new DestinationCardsAdapter(user.getTrips().get(trip_index).getDestinations());
+                rv.setAdapter(adapter);
+            }
         });
         getSupportActionBar().setTitle("Destinations");
 
@@ -92,7 +100,7 @@ public class DestinationsActivity extends AppCompatActivity implements OnMapRead
 
         myTripsViewModel.getUser(user_token).observe(this, user -> {
 
-            if (user.getTrips().get(trip_index).getDestinations().size() > 0) {
+            if (user.getTrips().size() > 0 &&user.getTrips().get(trip_index).getDestinations().size() > 0) {
 
                 List<MarkerOptions> markers = new ArrayList<MarkerOptions>();
                 LatLngBounds.Builder builder = new LatLngBounds.Builder();

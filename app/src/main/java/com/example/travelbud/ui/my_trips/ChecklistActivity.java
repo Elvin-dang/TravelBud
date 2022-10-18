@@ -11,20 +11,28 @@ import android.widget.Button;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.travelbud.ChecklistItem;
+import com.example.travelbud.Destination;
 import com.example.travelbud.FirebaseUtils;
 import com.example.travelbud.R;
 import com.example.travelbud.TravelBudUser;
 import com.example.travelbud.adapter.ChecklistItemsAdapter;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class ChecklistActivity extends AppCompatActivity {
     private TravelBudUser current_user;
@@ -56,9 +64,15 @@ public class ChecklistActivity extends AppCompatActivity {
             rv.setHasFixedSize(true);
             LinearLayoutManager llm = new LinearLayoutManager(getApplicationContext());
             rv.setLayoutManager(llm);
-            ChecklistItemsAdapter adapter = new ChecklistItemsAdapter(
-                    user.getTrips().get(trip_index).getCheckList(), current_user);
-            rv.setAdapter(adapter);
+            if(user.getTrips().size()>0){
+                ChecklistItemsAdapter adapter = new ChecklistItemsAdapter(
+                        user.getTrips().get(trip_index).getCheckList(), current_user);
+                rv.setAdapter(adapter);
+            }else{
+                ChecklistItemsAdapter adapter = new ChecklistItemsAdapter(
+                        new ArrayList<>(), current_user);
+                rv.setAdapter(adapter);
+            }
         });
 
         setupListener();
@@ -76,9 +90,29 @@ public class ChecklistActivity extends AppCompatActivity {
                         );
 
                         // update database
-                        current_user.getTrips().get(trip_index).getCheckList().add(newItem);
-                        FirebaseUtils.update(
-                                FirebaseDatabase.getInstance().getReference(), current_user);
+//                        current_user.getTrips().get(trip_index).getCheckList().add(newItem);
+//                        FirebaseUtils.update(
+//                                FirebaseDatabase.getInstance().getReference(), current_user);
+                        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+                        mDatabase.child("trips").child(current_user.getTrips().get(trip_index).getKey()).child("checklist").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                                Log.i("hERE","ASDSADHSAUDIHASHDUIDHAUS");
+
+                                List<ChecklistItem> checklist = (List<ChecklistItem>)task.getResult().getValue();
+                                List<ChecklistItem> temp = new ArrayList<>();
+                                if(checklist != null){
+                                    checklist.add(newItem);
+                                    mDatabase.child("trips").child(current_user.getTrips().get(trip_index).getKey()).child("checklist").setValue(checklist);
+
+                                }else{
+                                    temp.add(newItem);
+                                    mDatabase.child("trips").child(current_user.getTrips().get(trip_index).getKey()).child("checklist").setValue(temp);
+
+                                }
+
+                            }
+                        });
                     }
                 }
         );
