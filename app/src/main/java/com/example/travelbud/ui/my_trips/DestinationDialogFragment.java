@@ -39,11 +39,15 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -226,10 +230,32 @@ public class DestinationDialogFragment extends DialogFragment implements OnMapRe
                                 destination.setSubtitle(detail);
                                 destination.setLat(latLng.latitude);
                                 destination.setLng(latLng.longitude);
+//
+//                                current_user.getTrips().get(Integer.parseInt(getActivity().getIntent().getExtras().getString("selected_trip"))).getDestinations().add(destination);
+//
+//                                FirebaseUtils.update(FirebaseDatabase.getInstance().getReference(),current_user);
 
-                                current_user.getTrips().get(Integer.parseInt(getActivity().getIntent().getExtras().getString("selected_trip"))).getDestinations().add(destination);
+                                Trip curr_trip = current_user.getTrips().get(Integer.parseInt(getActivity().getIntent().getExtras().getString("selected_trip")));
+                                DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
+                                mDatabase.child("trips").child(curr_trip.getKey()).child("destinations").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<DataSnapshot> task) {
+                                        List<Destination> destinations = (List<Destination>)task.getResult().getValue();
+                                        List<Destination> temp = new ArrayList<>();
+                                        if(destinations != null){
+                                            destinations.add(destination);
+                                            mDatabase.child("trips").child(curr_trip.getKey()).child("destinations").setValue(destinations);
 
-                                FirebaseUtils.update(FirebaseDatabase.getInstance().getReference(),current_user);
+                                        }else{
+                                            temp.add(destination);
+                                            mDatabase.child("trips").child(curr_trip.getKey()).child("destinations").setValue(temp);
+
+                                        }
+
+                                    }
+                                });
+
+
                             }else {
                                 Toast.makeText(getActivity(), "Invalid trip name!",
                                         Toast.LENGTH_SHORT).show();
