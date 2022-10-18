@@ -43,7 +43,6 @@ public class AddTravelerActivity extends AppCompatActivity {
 
         Bundle bundle = getIntent().getExtras();
         trip_index = Integer.parseInt(getIntent().getStringExtra("selected_trip"));
-//        Log.i("checklist", "current: " + trip_index);
 
         SharedPreferences prefs = this.getSharedPreferences("user_token", Context.MODE_PRIVATE);
         String user_token = prefs.getString("user_token",null);

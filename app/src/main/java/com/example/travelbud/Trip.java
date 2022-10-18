@@ -11,9 +11,11 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 public class Trip {
 
+    private String key;
     private String name;
     private Date startDate;
     private Date endDate;
@@ -29,12 +31,13 @@ public class Trip {
 
 
     public Trip() {
-
+        this.key = UUID.randomUUID().toString();
     }
 
     public Trip(String name, List<TravelBudUser> travelers,
                 String kickoffPoint, List<ChecklistItem> checkList,
                 List<Destination> destinations) {
+        this.key = UUID.randomUUID().toString();
         this.name = name;
         this.startDate = null;
         this.endDate = null;
@@ -42,6 +45,16 @@ public class Trip {
         this.kickoffPoint = kickoffPoint;
         this.checkList = checkList;
         this.destinations = destinations;
+    }
+
+    @Exclude
+    public String getKey() {
+        return key;
+    }
+
+    @Exclude
+    public void setKey(String key) {
+        this.key = key;
     }
 
     public void setName(String name) {

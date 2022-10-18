@@ -12,6 +12,7 @@ public class TravelBudUser implements Serializable {
     private List<Trip> trips = new ArrayList<>();
     private List<TravelBudUser> friends = new ArrayList<>();
     private String key;
+
     @Exclude
     public String getKey() {
         return key;
@@ -21,8 +22,6 @@ public class TravelBudUser implements Serializable {
     public void setKey(String key) {
         this.key = key;
     }
-
-
 
     public TravelBudUser(String username, String email, List<Trip> trips, List<TravelBudUser> friends) {
         this.username = username;
@@ -51,10 +50,12 @@ public class TravelBudUser implements Serializable {
         this.email = email;
     }
 
+    @Exclude
     public List<Trip> getTrips() {
         return trips;
     }
 
+    @Exclude
     public void setTrips(List<Trip> trips) {
         this.trips = trips;
     }
