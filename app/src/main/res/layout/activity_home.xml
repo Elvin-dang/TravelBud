@@ -12,6 +12,22 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/travelbudlogo"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:text="Welcome, John Doe!"
+                android:textColor="#000000"
+                android:textSize="22dp"
+                android:textStyle="bold" />
             <LinearLayout
                 android:background="@drawable/round_back_white10_20"
                 android:layout_width="match_parent"
@@ -25,21 +41,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/round_back_night_mode">
-
-                    <!--Dark Mode / Light Mode-->
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:text="Dark Mode"
+                        android:layout_centerHorizontal="true"
+                        android:text="D"
                         android:textColor="#000000"
-                        android:textStyle="bold"
-                        android:paddingLeft="10dp"/>
-
-                    <androidx.appcompat.widget.SwitchCompat
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:id="@+id/btn_darkmode"/>
+                        android:textStyle="bold"/>
                 </RelativeLayout>
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -61,46 +70,7 @@
                         android:layout_height="match_parent"
                         android:id="@+id/btn_notifications"/>
                 </RelativeLayout>
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:background="@drawable/round_back_private_account">
-                    <!--private account-->
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:text="Make Account Private"
-                        android:textColor="#000000"
-                        android:textStyle="bold"
-                        android:paddingLeft="10dp"/>
 
-                    <androidx.appcompat.widget.SwitchCompat
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:id="@+id/btn_privateaccount"/>
-                </RelativeLayout>
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:background="@drawable/round_back_security">
-                    <!--security-->
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:text="Power Saver"
-                        android:textColor="#000000"
-                        android:textStyle="bold"
-                        android:paddingLeft="10dp"/>
-
-                    <androidx.appcompat.widget.SwitchCompat
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:id="@+id/power_saver"/>
-                </RelativeLayout>
             </LinearLayout>
             <LinearLayout
                 android:background="@drawable/round_back_white10_20"
