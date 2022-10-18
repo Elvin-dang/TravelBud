@@ -18,6 +18,9 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -68,23 +71,34 @@ public class LoginActivity extends AppCompatActivity {
 
             mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
-                public void onComplete(@NonNull Task<AuthResult> task) {
-                    if (task.isSuccessful()){
-//                        Log.i("MAYBE", task.getResult().getUser().getUid());
-                        Toast.makeText(LoginActivity.this, "User logged in successfully", Toast.LENGTH_SHORT).show();
+                public void onComplete(@NonNull Task<AuthResult> loginTask) {
+                    if (loginTask.isSuccessful()){
+                        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
 
-                        SharedPreferences settings = getSharedPreferences("user_token", 0);
-                        SharedPreferences.Editor editor = settings.edit();
-                        editor.putString("user_token",task.getResult().getUser().getUid() );
-                        editor.commit();
+                        mDatabase.child("users").child(loginTask.getResult().getUser().getUid()).child("username").get()
+                            .addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<DataSnapshot> task) {
+                                    if (!task.isSuccessful()) {
+                                        Toast.makeText(LoginActivity.this, "Log in fail", Toast.LENGTH_SHORT).show();
+                                    }
+                                    else {
+                                        Log.d("firebase", String.valueOf(task.getResult().getValue()));
+                                        SharedPreferences settings = getSharedPreferences("user_token", 0);
+                                        SharedPreferences.Editor editor = settings.edit();
+                                        editor.putString("user_token", loginTask.getResult().getUser().getUid());
+                                        editor.putString("user_name", (String) task.getResult().getValue());
+                                        editor.commit();
 
-                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                        startActivity(intent);
-
-
-
+                                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                        startActivity(intent);
+                                        Toast.makeText(LoginActivity.this, "User logged in successfully", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            }
+                        );
                     }else{
-                        Toast.makeText(LoginActivity.this, "Log in Error: " + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginActivity.this, "Log in Error: " + loginTask.getException().getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }
             });

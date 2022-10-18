@@ -15,6 +15,10 @@ import com.example.travelbud.FirebaseUtils;
 import com.example.travelbud.TravelBudUser;
 import com.example.travelbud.R;
 import com.example.travelbud.Trip;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -67,11 +71,11 @@ public class UserCardsAdapter extends RecyclerView.Adapter<UserCardsAdapter.User
     public void onBindViewHolder(UserViewHolder userViewHolder, int pos) {
 
         int position = userViewHolder.getAdapterPosition();
-        TravelBudUser selected_trip = users.get(position);
+        TravelBudUser selected_user = users.get(position);
 
-        userViewHolder.username.setText(selected_trip.getUsername());
+        userViewHolder.username.setText(selected_user.getUsername());
         try{
-            userViewHolder.user_avatar.setAvatarInitials(selected_trip.getUsername().substring(0,2));
+            userViewHolder.user_avatar.setAvatarInitials(selected_user.getUsername().substring(0,2));
 
         }catch (Exception e){
             userViewHolder.user_avatar.setAvatarInitials("-");
@@ -79,7 +83,10 @@ public class UserCardsAdapter extends RecyclerView.Adapter<UserCardsAdapter.User
         }
 
         ImageButton add_or_remove_user = userViewHolder.view.findViewById(R.id.add_or_remove_user);
-
+        if ((selected_user.getKey() != null && selected_user.getKey().equals(FirebaseAuth.getInstance().getUid()))
+            || (selected_user.getAltKey() != null && selected_user.getAltKey().equals(FirebaseAuth.getInstance().getUid()))) {
+            add_or_remove_user.setVisibility(View.INVISIBLE);
+        }
 
         add_or_remove_user.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,21 +95,55 @@ public class UserCardsAdapter extends RecyclerView.Adapter<UserCardsAdapter.User
                 DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
 
                 if (isAdd) {
+                    Trip currentTrip = curr_user.getTrips().get(trip_index);
+                    TravelBudUser addedUser = users.get(position);
+                    List<TravelBudUser> temp_travelers = currentTrip.getTravelers();
+                    temp_travelers.add(addedUser);
+                    addedUser.setAltKey(addedUser.getKey());
+                    currentTrip.setTravelers(temp_travelers);
 
-                    List<TravelBudUser> temp_travelers =
-                            curr_user.getTrips().get(trip_index).getTravelers();
-                    temp_travelers.add(users.get(position));
+                    mDatabase.child("trips").child(currentTrip.getKey()).setValue(currentTrip);
 
-                    curr_user.getTrips().get(trip_index).setTravelers(temp_travelers);
-                    FirebaseUtils.update(mDatabase, curr_user);
-
+                    mDatabase.child("users").child(addedUser.getKey()).child("trips").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DataSnapshot> task) {
+                            if (task.isSuccessful()) {
+                                List<String> tripList = (List<String>) task.getResult().getValue();
+                                if (tripList == null) tripList = new ArrayList<>();
+                                tripList.add(currentTrip.getKey());
+                                mDatabase.child("users").child(addedUser.getKey()).child("trips").setValue(tripList);
+                            }
+                            else {
+                                Log.e("firebase", "Error getting data", task.getException());
+                            }
+                        }
+                    });
                 } else {
-                    List<TravelBudUser> temp_travelers =
-                            curr_user.getTrips().get(trip_index).getTravelers();
-                    temp_travelers.remove(position);
+                    Trip currentTrip = curr_user.getTrips().get(trip_index);
+                    TravelBudUser removedUser = users.get(position);
 
-                    curr_user.getTrips().get(trip_index).setTravelers(temp_travelers);
-                    FirebaseUtils.update(mDatabase, curr_user);
+                    List<TravelBudUser> temp_travelers = currentTrip.getTravelers();
+                    temp_travelers.remove(position);
+                    currentTrip.setTravelers(temp_travelers);
+
+                    mDatabase.child("trips").child(currentTrip.getKey()).setValue(currentTrip);
+
+                    mDatabase.child("users").child(removedUser.getAltKey()).child("trips").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DataSnapshot> task) {
+                            if (task.isSuccessful()) {
+                                List<String> tripList = (List<String>) task.getResult().getValue();
+                                if (tripList == null) tripList = new ArrayList<>();
+                                Log.v("ka", tripList.size() +"");
+                                tripList.remove(currentTrip.getKey());
+                                Log.v("ka1", tripList.size() +"");
+                                mDatabase.child("users").child(removedUser.getAltKey()).child("trips").setValue(tripList);
+                            }
+                            else {
+                                Log.e("firebase", "Error getting data", task.getException());
+                            }
+                        }
+                    });
                 }
             }
         });
@@ -137,8 +178,6 @@ public class UserCardsAdapter extends RecyclerView.Adapter<UserCardsAdapter.User
             this.view = itemView;
 
         }
-
-
     }
 
 }

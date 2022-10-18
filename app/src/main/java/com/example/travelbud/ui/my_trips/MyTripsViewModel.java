@@ -101,14 +101,6 @@ public class MyTripsViewModel extends ViewModel {
                         }
                     }
                     fetched_user.postValue(user);
-//                    for (DataSnapshot s : snapshot.getChildren()) {
-//                        TravelBudUser user = s.getValue(TravelBudUser.class);
-//                        user.setKey(s.getKey());
-//                        if (user.getKey().equals(user_token)) {
-//                            fetched_user.postValue(user);
-//                            return;
-//                        }
-//                    }
                 }
 
             }

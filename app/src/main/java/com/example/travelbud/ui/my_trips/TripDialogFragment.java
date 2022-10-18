@@ -104,6 +104,8 @@ public class TripDialogFragment extends DialogFragment {
 //                        SharedPreferences prefs = getActivity().getSharedPreferences("user_token"
 //                                , Context.MODE_PRIVATE);
 //                        String user_token = prefs.getString("user_token", null);
+                        SharedPreferences prefs = getActivity().getSharedPreferences("user_token", Context.MODE_PRIVATE);
+                        String userName= prefs.getString("user_name", "");
                         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
 
                         MyTripsViewModel myTripsViewModel =
@@ -113,24 +115,33 @@ public class TripDialogFragment extends DialogFragment {
 
                         myTripsViewModel.getUser(uid).observe(getViewLifecycleOwner(),
                                 user -> {
-//                                    TravelBudUser temp = user;
-                                    Trip trip = new Trip();
-
-
                                     EditText editText =
                                             (EditText) getDialog().findViewById(R.id.input_trip_name);
 
                                     if (!"".equals(editText.getText().toString().trim())) {
+
+                                        List<TravelBudUser> travellerList = new ArrayList<>();
+                                        TravelBudUser userBudUser = new TravelBudUser();
+                                        userBudUser.setKey(FirebaseAuth.getInstance().getUid());
+                                        userBudUser.setUsername(userName);
+                                        userBudUser.setAltKey(FirebaseAuth.getInstance().getUid());
+                                        travellerList.add(userBudUser);
+
+                                        Trip trip = new Trip();
                                         trip.setName(editText.getText().toString());
+                                        trip.setHost(FirebaseAuth.getInstance().getUid());
+                                        trip.setTravelers(travellerList);
+
                                         List<Trip> trips = user.getTrips();
                                         trips.add(trip);
+
                                         mDatabase.child("trips").child(trip.getKey()).setValue(trip);
 
                                         mDatabase.child("users").child(uid).child("trips").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
                                             @Override
                                             public void onComplete(@NonNull Task<DataSnapshot> task) {
                                                 if (task.isSuccessful()) {
-                                                    List<String> tripList = task.getResult().getValue(List.class);
+                                                    List<String> tripList = (List<String>) task.getResult().getValue();
                                                     if (tripList == null) tripList = new ArrayList<>();
                                                     tripList.add(trip.getKey());
                                                     mDatabase.child("users").child(uid).child("trips").setValue(tripList);

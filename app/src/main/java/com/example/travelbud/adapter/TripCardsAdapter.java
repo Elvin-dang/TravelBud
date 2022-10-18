@@ -19,6 +19,7 @@ import com.example.travelbud.Trip;
 import com.example.travelbud.R;
 import com.example.travelbud.ui.my_trips.ChecklistActivity;
 import com.example.travelbud.ui.my_trips.DestinationsActivity;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.List;
 
@@ -71,10 +72,14 @@ public class TripCardsAdapter extends RecyclerView.Adapter<TripCardsAdapter.Trip
 
 
         Button destinations = tripViewHolder.view.findViewById(R.id.show_destinations);
-
         Button checklist = tripViewHolder.view.findViewById(R.id.show_checklist);
         Button expense = tripViewHolder.view.findViewById(R.id.show_expense);
         ImageButton add_travelers = tripViewHolder.view.findViewById(R.id.add_travelers);
+
+        if (!selected_trip.getHost().equals(FirebaseAuth.getInstance().getUid())) {
+            add_travelers.setVisibility(View.GONE);
+        }
+
         destinations.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
