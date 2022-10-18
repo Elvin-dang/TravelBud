@@ -13,7 +13,6 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.travelbud.ChecklistItem;
 import com.example.travelbud.R;
 
 public class ChecklistAddActivity extends AppCompatActivity {
@@ -56,8 +55,7 @@ public class ChecklistAddActivity extends AppCompatActivity {
         if (this.editName.getText().toString().trim().equals("")) {
             Toast.makeText(getApplicationContext(), "Please input the name.", Toast.LENGTH_SHORT).show();
             return;
-        }
-        else if (this.editAmount.getText().toString().trim().equals("")) {
+        } else if (this.editAmount.getText().toString().trim().equals("")) {
             Toast.makeText(getApplicationContext(), "Please input the amount.", Toast.LENGTH_SHORT).show();
             return;
         }

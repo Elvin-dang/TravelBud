@@ -1,8 +1,6 @@
 package com.example.travelbud.ui.my_trips;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -11,8 +9,8 @@ import android.widget.Button;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -20,11 +18,19 @@ import com.example.travelbud.ChecklistItem;
 import com.example.travelbud.FirebaseUtils;
 import com.example.travelbud.R;
 import com.example.travelbud.TravelBudUser;
+import com.example.travelbud.Trip;
 import com.example.travelbud.adapter.ChecklistItemsAdapter;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
-import java.util.Calendar;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ChecklistActivity extends AppCompatActivity {
     private TravelBudUser current_user;
@@ -43,24 +49,28 @@ public class ChecklistActivity extends AppCompatActivity {
 
         Bundle bundle = getIntent().getExtras();
         tripKey = bundle.getString("tripKey");
-//        Log.i("checklist", "current: " + trip_index);
 
-//        SharedPreferences prefs = this.getSharedPreferences("user_token", Context.MODE_PRIVATE);
-//        String user_token = prefs.getString("user_token",null);
+        DatabaseReference mDatabaseRef = FirebaseDatabase.getInstance().getReference();
+        mDatabaseRef.child("trips").child(tripKey).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Trip trip = dataSnapshot.getValue(Trip.class);
+                trip.setKey(tripKey);
+                if (trip.getCheckList() == null)
+                    trip.setCheckList(new ArrayList<ChecklistItem>());
 
+                RecyclerView rv = (RecyclerView) findViewById(R.id.checklistItems_rv);
+                rv.setHasFixedSize(true);
+                LinearLayoutManager llm = new LinearLayoutManager(getApplicationContext());
+                rv.setLayoutManager(llm);
+                ChecklistItemsAdapter adapter = new ChecklistItemsAdapter(
+                        trip.getCheckList(), tripKey);
+                rv.setAdapter(adapter);
+            }
 
-
-        MyTripsViewModel myTripsViewModel = new ViewModelProvider(this).get(MyTripsViewModel.class);
-
-        myTripsViewModel.getUser(user_token).observe(this, user -> {
-            current_user = user;
-            RecyclerView rv = (RecyclerView) findViewById(R.id.checklistItems_rv);
-            rv.setHasFixedSize(true);
-            LinearLayoutManager llm = new LinearLayoutManager(getApplicationContext());
-            rv.setLayoutManager(llm);
-            ChecklistItemsAdapter adapter = new ChecklistItemsAdapter(
-                    user.getTrips().get(trip_index).getCheckList(), current_user);
-            rv.setAdapter(adapter);
+            @Override
+            public void onCancelled(DatabaseError error) {
+            }
         });
 
         setupListener();
@@ -77,10 +87,21 @@ public class ChecklistActivity extends AppCompatActivity {
                                 result.getData().getStringExtra("category")
                         );
 
-                        // update database
-                        current_user.getTrips().get(trip_index).getCheckList().add(newItem);
-                        FirebaseUtils.update(
-                                FirebaseDatabase.getInstance().getReference(), current_user);
+                        DatabaseReference mDatabaseRef = FirebaseDatabase.getInstance().getReference();
+                        mDatabaseRef.child("trips").child(tripKey).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                                if (!task.isSuccessful()) {
+                                    Log.e("firebase", "Error getting data", task.getException());
+                                } else {
+                                    Trip trip = task.getResult().getValue(Trip.class);
+                                    trip.setKey(tripKey);
+                                    List<ChecklistItem> checkList = trip.getCheckList();
+                                    checkList.add(newItem);
+                                    FirebaseUtils.updateTrip(trip);
+                                }
+                            }
+                        });
                     }
                 }
         );
