@@ -34,50 +34,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
-                android:layout_marginTop="40dp"
-                android:orientation="vertical"
-                android:padding="15dp">
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/round_back_night_mode">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_centerHorizontal="true"
-                        android:text="D"
-                        android:textColor="#000000"
-                        android:textStyle="bold"/>
-                </RelativeLayout>
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:background="@drawable/round_back_notifications">
-                    <!--notifications-->
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:text="Enable Notifications"
-                        android:textColor="#000000"
-                        android:textStyle="bold"
-                        android:paddingLeft="10dp"/>
-
-                    <androidx.appcompat.widget.SwitchCompat
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:id="@+id/btn_notifications"/>
-                </RelativeLayout>
-
-            </LinearLayout>
-            <LinearLayout
-                android:background="@drawable/round_back_white10_20"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
                 android:layout_marginTop="10dp"
                 android:orientation="vertical"
                 android:padding="15dp">
@@ -85,31 +41,18 @@
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:background="@drawable/round_back_night_mode">
-
-                    <!--Security & Privacy-->
                     <TextView
-                        android:layout_width="300dp"
+                        android:layout_width="150dp"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:text="Security & Privacy"
+                        android:layout_centerHorizontal="true"
+                        android:text="Your Upcoming Trips"
                         android:textColor="#000000"
                         android:textStyle="bold"
                         android:paddingLeft="10dp"
                         android:paddingAbove="10dp"
                         android:paddingBelow="10dp"
-                        android:id="@+id/btn_security"/>
-                    <RelativeLayout
-                        android:layout_marginTop="10dp"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:background="@drawable/round_back_icons"
-                        android:layout_toRightOf="@id/btn_security">
-                        <ImageView
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:src="@drawable/ic_baseline_arrow_forward_ios_24"
-                            android:layout_centerVertical="true" />
-                    </RelativeLayout>
+                        android:id="@+id/tripsfeedtext"/>
                 </RelativeLayout>
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -127,49 +70,7 @@
                         android:paddingLeft="10dp"
                         android:paddingAbove="10dp"
                         android:paddingBelow="10dp"
-                        android:id="@+id/btn_languages"/>
-                    <RelativeLayout
-                        android:layout_marginTop="10dp"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:background="@drawable/round_back_icons"
-                        android:layout_toRightOf="@id/btn_languages">
-                        <ImageView
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:src="@drawable/ic_baseline_arrow_forward_ios_24"
-                            android:layout_centerVertical="true" />
-                    </RelativeLayout>
-                </RelativeLayout>
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:background="@drawable/round_back_private_account"
-                    android:layout_marginTop="10dp">
-                    <!--Security & Privacy-->
-                    <TextView
-                        android:layout_width="300dp"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:text="About Us"
-                        android:textColor="#000000"
-                        android:textStyle="bold"
-                        android:paddingLeft="10dp"
-                        android:paddingAbove="10dp"
-                        android:paddingBelow="10dp"
-                        android:id="@+id/btn_about"/>
-                    <RelativeLayout
-                        android:layout_marginTop="10dp"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:background="@drawable/round_back_icons"
-                        android:layout_toRightOf="@id/btn_about">
-                        <ImageView
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:src="@drawable/ic_baseline_arrow_forward_ios_24"
-                            android:layout_centerVertical="true" />
-                    </RelativeLayout>
+                        android:id="@+id/tripsfeeds"/>
                 </RelativeLayout>
             </LinearLayout>
             <LinearLayout
@@ -184,32 +85,37 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:background="@drawable/round_back_security">
+                    android:background="@drawable/round_back_night_mode">
 
-                    <!--Security & Privacy-->
+                    <TextView
+                        android:id="@+id/feedstext"
+                        android:layout_width="80dp"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_centerHorizontal="true"
+                        android:paddingLeft="10dp"
+                        android:paddingAbove="10dp"
+                        android:paddingBelow="10dp"
+                        android:text="Your Feed"
+                        android:textColor="#000000"
+                        android:textStyle="bold" />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@drawable/round_back_notifications"
+                    android:layout_marginTop="10dp">
                     <TextView
                         android:layout_width="300dp"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:text="Log Out"
+                        android:text="Languages"
                         android:textColor="#000000"
                         android:textStyle="bold"
                         android:paddingLeft="10dp"
                         android:paddingAbove="10dp"
                         android:paddingBelow="10dp"
-                        android:id="@+id/btn_logout"/>
-                    <RelativeLayout
-                        android:layout_marginTop="10dp"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:background="@drawable/round_back_icons"
-                        android:layout_toRightOf="@id/btn_logout">
-                        <ImageView
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:src="@drawable/ic_baseline_arrow_forward_ios_24"
-                            android:layout_centerVertical="true" />
-                    </RelativeLayout>
+                        android:id="@+id/feeds"/>
                 </RelativeLayout>
             </LinearLayout>
         </LinearLayout>
