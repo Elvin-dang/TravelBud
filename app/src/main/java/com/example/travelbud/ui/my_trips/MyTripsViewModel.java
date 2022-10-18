@@ -64,7 +64,7 @@ public class MyTripsViewModel extends ViewModel {
 
                     for (DataSnapshot dataSnapshot: snapshot.getChildren()) {
                         if (dataSnapshot.getKey().equals("trips")) {
-                            List<String> tripList = dataSnapshot.getValue(List.class);
+                            List<String> tripList = (List<String>) dataSnapshot.getValue();
 
                             for (String s: tripList) {
                                 mDatabase.child("trips").child(s).addValueEventListener(new ValueEventListener() {
@@ -88,7 +88,7 @@ public class MyTripsViewModel extends ViewModel {
                                                 userTripList.add(trip);
                                                 user.setTrips(userTripList);
                                             }
-//                                            fetched_user.postValue(user);
+                                            fetched_user.postValue(user);
                                         }
                                     }
 
