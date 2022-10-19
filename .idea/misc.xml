@@ -22,6 +22,8 @@
         <entry key="app/src/main/res/layout/fragment_network.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_trip_card.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_trip_dialog.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_user_card.xml" value="0.2859375" />
+        <entry key="app/src/main/res/layout/item_group_chat_container.xml" value="0.2859375" />
       </map>
     </option>
   </component>

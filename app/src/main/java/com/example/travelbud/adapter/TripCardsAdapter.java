@@ -121,6 +121,7 @@ public class TripCardsAdapter extends RecyclerView.Adapter<TripCardsAdapter.Trip
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), GroupChatActivity.class);
+                intent.putExtra("is_group_chat", true);
                 intent.putExtra("selected_trip", String.valueOf(position));
                 v.getContext().startActivity(intent);
             }
