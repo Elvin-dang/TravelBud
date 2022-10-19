@@ -31,11 +31,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -78,36 +75,6 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.add(R.id.navigation_my_trips, t);
         fragmentTransaction.hide(t);
         fragmentTransaction.commit();
-
-
-
-        SharedPreferences settings = getSharedPreferences("timestamp", 0);
-        SharedPreferences.Editor editor = settings.edit();
-
-
-
-        String timestamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date());
-        String local_timestamp = settings.getString("timestamp", null);
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss");
-        long gap = 900000;
-
-        if(local_timestamp == null) {
-            editor.putString("timestamp", timestamp);
-            editor.commit();
-        }else {
-            try {
-                long diff = sdf.parse(timestamp).getTime()-sdf.parse(local_timestamp).getTime();
-                Log.i("TIME",String.valueOf(diff));
-                if(diff>gap){
-                    editor.remove("timestamp");
-                    editor.commit();
-                    logOut();
-                }
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-
-        }
     }
 
 
@@ -121,7 +88,9 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case R.id.logout:
-                logOut();
+                FirebaseAuth.getInstance().signOut();
+                startActivity( new Intent(MainActivity.this,RegisterActivity.class));
+                finish();
                 return true;
         }
         return false;
@@ -133,13 +102,6 @@ public class MainActivity extends AppCompatActivity {
         TripDialogFragment fragment = TripDialogFragment.newInstance("你的样子","1");
         fragment.show(getSupportFragmentManager(), "myAlert");
         return view;
-    }
-
-
-    private void logOut() {
-        FirebaseAuth.getInstance().signOut();
-        startActivity( new Intent(MainActivity.this,RegisterActivity.class));
-        finish();
     }
 
 
