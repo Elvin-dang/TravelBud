@@ -62,8 +62,8 @@ public class TripCardsAdapter extends RecyclerView.Adapter<TripCardsAdapter.Trip
 
 
         for (int i = 0; i < selected_trip.getTravelers().size(); i++) {
-
-            travelers_name += (i == 0 ? "" : ", ") + selected_trip.getTravelers().get(i).getUsername();
+            travelers_name += (i == 0 ? "" : ", ")
+                    + firstLetter(selected_trip.getTravelers().get(i).getUsername());
             ;
         }
 
@@ -147,8 +147,13 @@ public class TripCardsAdapter extends RecyclerView.Adapter<TripCardsAdapter.Trip
             this.view = itemView;            // <----- here
 
         }
+    }
 
-
+    public static String firstLetter(String name) {
+        String firstLetStr = name.substring(0, 1);
+        String remLetStr = name.substring(1);
+        firstLetStr = firstLetStr.toUpperCase();
+        return firstLetStr + remLetStr;
     }
 
 }
