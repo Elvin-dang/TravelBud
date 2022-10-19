@@ -20,6 +20,7 @@ import com.example.travelbud.R;
 import com.example.travelbud.ui.my_trips.ChecklistActivity;
 import com.example.travelbud.ui.my_trips.DestinationsActivity;
 import com.google.firebase.auth.FirebaseAuth;
+import com.example.travelbud.ui.my_trips.GroupChatActivity;
 
 import java.util.List;
 
@@ -94,7 +95,6 @@ public class TripCardsAdapter extends RecyclerView.Adapter<TripCardsAdapter.Trip
         checklist.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Log.i("checklist", "Click-" + selected_trip.getKey());
                 Intent intent = new Intent(view.getContext(), ChecklistActivity.class);
                 intent.putExtra("tripKey", selected_trip.getKey());
 
@@ -107,12 +107,22 @@ public class TripCardsAdapter extends RecyclerView.Adapter<TripCardsAdapter.Trip
                 Toast.makeText(view.getContext(), "TO BE IMPLEMENTED", Toast.LENGTH_SHORT).show();
             }
         });
+
         add_travelers.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(view.getContext(), AddTravelerActivity.class);
                 intent.putExtra("selected_trip", String.valueOf(position));
                 view.getContext().startActivity(intent);
+            }
+        });
+
+        tripViewHolder.cv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), GroupChatActivity.class);
+                intent.putExtra("selected_trip", String.valueOf(position));
+                v.getContext().startActivity(intent);
             }
         });
 
