@@ -36,7 +36,7 @@
                 android:layout_marginRight="10dp"
                 android:backgroundTint="@android:color/darker_gray"
                 android:drawableLeft="@drawable/ic_baseline_notifications_24"
-                android:text="12"
+                android:text="1"
                 android:textColor="@color/black"
                 android:textSize="20dp"
                 android:textStyle="bold"
