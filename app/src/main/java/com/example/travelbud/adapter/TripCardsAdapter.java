@@ -19,6 +19,7 @@ import com.example.travelbud.R;
 import com.example.travelbud.Trip;
 import com.example.travelbud.ui.my_trips.ChecklistActivity;
 import com.example.travelbud.ui.my_trips.DestinationsActivity;
+import com.example.travelbud.ui.my_trips.GroupChatActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -102,6 +103,16 @@ public class TripCardsAdapter extends RecyclerView.Adapter<TripCardsAdapter.Trip
                 Toast.makeText(view.getContext(), "TO BE IMPLEMENTED", Toast.LENGTH_SHORT).show();
             }
         });
+
+        tripViewHolder.cv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), GroupChatActivity.class);
+                intent.putExtra("selected_trip", String.valueOf(position));
+                v.getContext().startActivity(intent);
+            }
+        });
+
     }
 
     @Override
