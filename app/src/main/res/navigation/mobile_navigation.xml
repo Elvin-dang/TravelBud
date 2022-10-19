@@ -5,26 +5,28 @@
     android:id="@+id/mobile_navigation"
     app:startDestination="@+id/navigation_home">
 
-    <fragment
-        android:id="@+id/navigation_my_trips"
-        android:name="com.example.travelbud.ui.my_trips.MyTripsFragment"
-        android:label="@string/title_my_trips"
-        tools:layout="@layout/fragment_destinations" />
 
     <fragment
         android:id="@+id/navigation_home"
         android:name="com.example.travelbud.ui.home.HomeFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/fragment_dashboard" />
+        tools:layout="@layout/fragment_home" />
+
+    <fragment
+        android:id="@+id/navigation_my_trips"
+        android:name="com.example.travelbud.ui.my_trips.MyTripsFragment"
+        android:label="@string/title_my_trips"
+        tools:layout="@layout/fragment_my_trips" />
 
     <fragment
         android:id="@+id/navigation_network"
         android:name="com.example.travelbud.ui.network.NetworkFragment"
         android:label="@string/title_network"
-        tools:layout="@layout/fragment_notifications" />
+        tools:layout="@layout/fragment_network" />
+
     <fragment
         android:id="@+id/navigation_my_profile"
         android:name="com.example.travelbud.ui.my_profile.MyProfileFragment"
         android:label="@string/title_my_profile"
-        tools:layout="@layout/fragment_notifications" />
+        tools:layout="@layout/fragment_my_profile" />
 </navigation>

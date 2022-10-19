@@ -1,7 +1,10 @@
 package com.example.travelbud.ui.my_trips;
 
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,36 +15,40 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.travelbud.FirebaseUtils;
 import com.example.travelbud.R;
-import com.example.travelbud.TransitCardsAdapter;
-import com.example.travelbud.databinding.FragmentDestinationsBinding;
+import com.example.travelbud.TravelBudUser;
+import com.example.travelbud.adapter.TripCardsAdapter;
+import com.example.travelbud.databinding.FragmentMyTripsBinding;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import java.util.ArrayList;
-
 public class MyTripsFragment extends Fragment {
 
-    private FragmentDestinationsBinding binding;
-    private View transit_card;
-    private DatabaseReference mDatabase;
+    private FragmentMyTripsBinding binding;
+    public TravelBudUser current_user;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-        MyTripsViewModel homeViewModel =
+
+        MyTripsViewModel myTripsViewModel =
                 new ViewModelProvider(this).get(MyTripsViewModel.class);
 
-        binding = FragmentDestinationsBinding.inflate(inflater, container, false);
+        binding = FragmentMyTripsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        homeViewModel.getDestinations().observe(getViewLifecycleOwner(), destinations -> {
-            RecyclerView rv = (RecyclerView) root.findViewById(R.id.destinations_rv);
+//        SharedPreferences prefs = getActivity().getSharedPreferences("user_token", Context.MODE_PRIVATE);
+//        String user_token = prefs.getString("user_token",null);
+        String uid = FirebaseAuth.getInstance().getUid();
+
+        myTripsViewModel.getUser(uid).observe(getViewLifecycleOwner(), user -> {
+            current_user = user;
+
+            TripCardsAdapter adapter = new TripCardsAdapter(user.getTrips());
+            RecyclerView rv = (RecyclerView) root.findViewById(R.id.trips_rv);
             rv.setHasFixedSize(true);
             LinearLayoutManager llm = new LinearLayoutManager(root.getContext());
             rv.setLayoutManager(llm);
-            TransitCardsAdapter adapter = new TransitCardsAdapter(destinations);
             rv.setAdapter(adapter);
         });
 
@@ -53,4 +60,5 @@ public class MyTripsFragment extends Fragment {
         super.onDestroyView();
         binding = null;
     }
+
 }

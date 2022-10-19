@@ -4,29 +4,31 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.travelbud.databinding.FragmentNotificationsBinding;
-import com.example.travelbud.ui.my_profile.MyProfileViewModel;
+import com.example.travelbud.R;
+import com.example.travelbud.databinding.FragmentMyProfileBinding;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class MyProfileFragment extends Fragment {
 
-    private FragmentNotificationsBinding binding;
+    private FragmentMyProfileBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        MyProfileViewModel notificationsViewModel =
+        MyProfileViewModel myProfileViewModel =
                 new ViewModelProvider(this).get(MyProfileViewModel.class);
 
-        binding = FragmentNotificationsBinding.inflate(inflater, container, false);
+        binding = FragmentMyProfileBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textNotifications;
-        notificationsViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        final TextView textView = binding.textMyProfile;
+        myProfileViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
 

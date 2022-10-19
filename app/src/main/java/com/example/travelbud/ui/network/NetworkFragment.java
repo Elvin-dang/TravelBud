@@ -10,23 +10,28 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.travelbud.databinding.FragmentDashboardBinding;
-import com.example.travelbud.ui.network.NetworkViewModel;
+import com.example.travelbud.GroupChat;
+import com.example.travelbud.databinding.FragmentNetworkBinding;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 public class NetworkFragment extends Fragment {
 
-    private FragmentDashboardBinding binding;
+    private FragmentNetworkBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        NetworkViewModel dashboardViewModel =
+        NetworkViewModel networkViewModel =
                 new ViewModelProvider(this).get(NetworkViewModel.class);
 
-        binding = FragmentDashboardBinding.inflate(inflater, container, false);
+        binding = FragmentNetworkBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textDashboard;
-        dashboardViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        getGroupChat();
+
         return root;
     }
 
@@ -34,5 +39,17 @@ public class NetworkFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+
+    private void getGroupChat() {
+        List<GroupChat> groupChatList = new ArrayList<>();
+
+        // Sample Data
+        groupChatList.add(new GroupChat("Tokyo Trip", "Hi all", new Date()));
+        groupChatList.add(new GroupChat("Sydney Tour", "Let's go!!", new Date()));
+        groupChatList.add(new GroupChat("ABC", "XYZ", new Date()));
+
+        GroupChatAdapter groupChatAdapter = new GroupChatAdapter(groupChatList);
+        binding.chatRv.setAdapter(groupChatAdapter);
     }
 }
