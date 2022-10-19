@@ -39,8 +39,9 @@ public class RegisterActivity extends AppCompatActivity {
 
         //check the user is null
         if(firebaseUser != null){
-            startActivity(new Intent(RegisterActivity.this,MainActivity.class));
-            finish();
+//            startActivity(new Intent(RegisterActivity.this,MainActivity.class));
+//            finish();
+            FirebaseAuth.getInstance().signOut();
         }
     }
 
