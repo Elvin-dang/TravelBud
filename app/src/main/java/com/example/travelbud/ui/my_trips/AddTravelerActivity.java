@@ -11,6 +11,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
@@ -41,6 +42,8 @@ public class AddTravelerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_traveler);
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("My trips");
 
         Bundle bundle = getIntent().getExtras();
         trip_index = Integer.parseInt(getIntent().getStringExtra("selected_trip"));
@@ -91,48 +94,17 @@ public class AddTravelerActivity extends AppCompatActivity {
                     rv1.setAdapter(adapter1);
                 }
             });
-
-//            for (int i = 0; i < users.size(); i++) {
-//                if (users.get(i).getKey().equals(user_token)) {
-//                    curr_user = users.get(i);
-//                    break;
-//                }
-//            }
-
-//            UserCardsAdapter adapter =
-//                    new UserCardsAdapter(curr_user.getTrips().get(trip_index).getTravelers(), false,
-//                            curr_user, trip_index);
-//
-//            RecyclerView rv = (RecyclerView) findViewById(R.id.travelers_rv);
-//            rv.setHasFixedSize(true);
-//            LinearLayoutManager llm = new LinearLayoutManager(this);
-//            rv.setLayoutManager(llm);
-//            rv.setAdapter(adapter);
-//
-//            List<TravelBudUser> filtered_users;
-//            List<TravelBudUser> travelers = curr_user.getTrips().get(trip_index).getTravelers();
-//
-//            Set<String> childIds = travelers.stream()
-//                    .map(TravelBudUser::getUsername)
-//                    .collect(Collectors.toSet());
-//
-////            for (int i = 0; i<travelers.size(); i++) Log.v("ABC", travelers.get(i).getUsername());
-//
-//            TravelBudUser finalCurr_user = curr_user;
-//            filtered_users = users.stream().filter(person ->
-//                    !childIds.contains(person.getUsername()) && !person.getUsername().equals(finalCurr_user.getUsername())
-//            ).collect(Collectors.toList());
-//
-//
-//            UserCardsAdapter adapter1 = new UserCardsAdapter(filtered_users, true, curr_user,
-//                    trip_index);
-//
-//            RecyclerView rv1 = (RecyclerView) findViewById(R.id.users_rv);
-//            rv1.setHasFixedSize(true);
-//            LinearLayoutManager llm1 = new LinearLayoutManager(this);
-//            rv1.setLayoutManager(llm1);
-//            rv1.setAdapter(adapter1);
         });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     public MutableLiveData<List<TravelBudUser>> getUsers() {

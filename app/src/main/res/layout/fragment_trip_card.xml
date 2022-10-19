@@ -87,7 +87,7 @@
                     android:layout_margin="5dp"
                     android:gravity="center"
                     android:text="Destinations"
-                    android:textSize="13dp"
+                    android:textSize="12dp"
                     >
 
                 </Button>
@@ -99,7 +99,7 @@
                     android:layout_margin="5dp"
                     android:gravity="center"
                     android:text="Checklist"
-                    android:textSize="13dp"
+                    android:textSize="12dp"
 
                     >
 
@@ -112,7 +112,7 @@
                     android:layout_margin="5dp"
                     android:gravity="center"
                     android:text="Expense"
-                    android:textSize="13dp">
+                    android:textSize="12dp">
 
                 </Button>
             </LinearLayout>
