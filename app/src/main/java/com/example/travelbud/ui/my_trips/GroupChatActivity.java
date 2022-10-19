@@ -56,7 +56,9 @@ public class GroupChatActivity extends AppCompatActivity {
     List<Chat> chats;
     RecyclerView recyclerView;
 
-    int trip_index;
+    int trip_index = -1;
+    private String tripKey;
+    String userid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,8 +67,6 @@ public class GroupChatActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        Bundle bundle = getIntent().getExtras();
-        trip_index = Integer.parseInt(getIntent().getStringExtra("selected_trip"));
 
         String uid = FirebaseAuth.getInstance().getUid();
         MyTripsViewModel myTripsViewModel = new ViewModelProvider(this).get(MyTripsViewModel.class);
@@ -83,25 +83,103 @@ public class GroupChatActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(linearLayoutManager);
 
 
+        Bundle bundle = getIntent().getExtras();
         intent = getIntent();
-        String userid = intent.getStringExtra("userid");
-        connectToChatFriend(userid);
 
-        sendBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String msg = sendText.getText().toString();
-
-                if (!msg.equals("")) {
-                    sendMessage(firebaseUser.getUid(), userid, msg);
-                } else {
-                    Toast.makeText(GroupChatActivity.this, "No message to send", Toast.LENGTH_LONG).show();
+        //group chats
+        if (intent.getBooleanExtra("is_group_chat",false)){
+            trip_index = Integer.parseInt(intent.getStringExtra("selected_trip"));
+            connectToChatGroup(trip_index);
+            sendBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String msg = sendText.getText().toString();
+                    if (!msg.equals("")) {
+                        sendGroupMessage(firebaseUser.getUid(), tripKey, msg);
+                    } else {
+                        Toast.makeText(GroupChatActivity.this, "No message to send", Toast.LENGTH_LONG).show();
+                    }
+                    sendText.setText("");
                 }
-                sendText.setText("");
+            });
+        }else{
+            //individual chat
+            userid = intent.getStringExtra("userid");
+            connectToChatFriend(userid);
+            sendBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String msg = sendText.getText().toString();
+                    if (!msg.equals("")) {
+                        sendMessage(firebaseUser.getUid(), userid, msg);
+                    } else {
+                        Toast.makeText(GroupChatActivity.this, "No message to send", Toast.LENGTH_LONG).show();
+                    }
+                    sendText.setText("");
+                }
+            });
+        }
+
+
+
+
+
+    }
+
+    private void connectToChatGroup(int trip_index) {
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        Query query = FirebaseDatabase.getInstance().getReference("users").child(firebaseUser.getUid()).orderByChild("trips").equalTo(trip_index);
+
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String tripKey = snapshot.getKey();
+                readMessageHistory(tripKey);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
+    }
+
+    private void readMessageHistory(String tripKey) {
+        this.tripKey = tripKey;
+        chats = new ArrayList<>();
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        reference = FirebaseDatabase.getInstance().getReference("gchats").child(tripKey);
 
 
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot data : snapshot.getChildren()){
+                    Chat chat = data.getValue(Chat.class);
+                    chats.add(chat);
+                }
+                chatAdapter = new GroupChatAdapter(GroupChatActivity.this, chats, "default");
+                recyclerView.setAdapter(chatAdapter);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        reference = FirebaseDatabase.getInstance().getReference("trips").child(tripKey).child("name");
+
+        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                username.setText(snapshot.getValue(String.class));
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     @Override
@@ -114,6 +192,13 @@ public class GroupChatActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+
+
+
+
+
+
+
     private void sendMessage(String sender, String receiver, String message) {
         reference = FirebaseDatabase.getInstance().getReference();
 
@@ -124,6 +209,16 @@ public class GroupChatActivity extends AppCompatActivity {
         hashMap.put("message", message);
 
         reference.child("Chats").push().setValue(hashMap);
+    }
+
+
+    private void sendGroupMessage(String sender, String tripKey, String message) {
+        reference = FirebaseDatabase.getInstance().getReference();
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("sender", sender);
+        hashMap.put("message", message);
+
+        reference.child("gchats/"+tripKey).push().setValue(hashMap);
 
     }
 
