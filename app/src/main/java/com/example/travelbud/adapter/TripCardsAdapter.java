@@ -18,6 +18,7 @@ import com.example.travelbud.ui.my_trips.AddTravelerActivity;
 import com.example.travelbud.Trip;
 import com.example.travelbud.R;
 import com.example.travelbud.Trip;
+import com.example.travelbud.ui.my_trips.BudgetActivity;
 import com.example.travelbud.ui.my_trips.ChecklistActivity;
 import com.example.travelbud.ui.my_trips.DestinationsActivity;
 import com.example.travelbud.ui.my_trips.GroupChatActivity;
@@ -61,6 +62,15 @@ public class TripCardsAdapter extends RecyclerView.Adapter<TripCardsAdapter.Trip
         Trip selected_trip = trips.get(position);
         tripViewHolder.trip_name.setText(" " + selected_trip.getName());
 
+        tripViewHolder.expenses.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), BudgetActivity.class);
+                intent.putExtra("trip_key",selected_trip.getKey());
+                v.getContext().startActivity(intent);
+            }
+        });
+
         String travelers_name = "";
 
 
@@ -77,7 +87,7 @@ public class TripCardsAdapter extends RecyclerView.Adapter<TripCardsAdapter.Trip
         Button destinations = tripViewHolder.view.findViewById(R.id.show_destinations);
 
         Button checklist = tripViewHolder.view.findViewById(R.id.show_checklist);
-        Button expense = tripViewHolder.view.findViewById(R.id.show_expense);
+
 
         destinations.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,12 +109,7 @@ public class TripCardsAdapter extends RecyclerView.Adapter<TripCardsAdapter.Trip
                 view.getContext().startActivity(intent);
             }
         });
-        expense.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(view.getContext(), "TO BE IMPLEMENTED", Toast.LENGTH_SHORT).show();
-            }
-        });
+
         tripViewHolder.cv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -134,6 +139,7 @@ public class TripCardsAdapter extends RecyclerView.Adapter<TripCardsAdapter.Trip
         ImageButton add_friend;
         View view;               // <----- here
         Button destinations;
+        Button expenses;
 
 
         public TripViewHolder(View itemView) {
@@ -141,6 +147,7 @@ public class TripCardsAdapter extends RecyclerView.Adapter<TripCardsAdapter.Trip
             cv = (CardView) itemView.findViewById(R.id.trip_card);
             trip_name = (TextView) itemView.findViewById(R.id.trip_name);
             trip_members = (TextView) itemView.findViewById(R.id.trip_members);
+            expenses = (Button) itemView.findViewById(R.id.show_expense);
             //add_friend = (ImageButton) itemView.findViewById(R.id.add_friend);
             this.view = itemView;            // <----- here
 
