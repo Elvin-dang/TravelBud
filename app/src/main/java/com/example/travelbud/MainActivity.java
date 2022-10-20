@@ -81,10 +81,8 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.commit();
 
 
-    }
 
-
-
+      }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu){

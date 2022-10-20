@@ -19,12 +19,15 @@ import java.util.List;
 
 import com.example.travelbud.R;
 
+import io.getstream.avatarview.AvatarView;
+
 public class GroupChatAdapter extends RecyclerView.Adapter<GroupChatAdapter.ViewHolder> {
     public static final int MSG_TYPE_LEFT =0;
     public static final int MSG_TYPE_RIGHT =1;
     private Context context;
     private List<Chat> chats;
     private String imageUrl;
+    private int itemViewType;
 
     public GroupChatAdapter(Context context, List<Chat> chats, String imageUrl) {
         this.context = context;
@@ -36,6 +39,7 @@ public class GroupChatAdapter extends RecyclerView.Adapter<GroupChatAdapter.View
     @Override
     public GroupChatAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view;
+        itemViewType = viewType;
         if(viewType == MSG_TYPE_LEFT){
             view = LayoutInflater.from(context).inflate(R.layout.chat_item_left, parent, false);
         }else {
@@ -48,13 +52,11 @@ public class GroupChatAdapter extends RecyclerView.Adapter<GroupChatAdapter.View
     public void onBindViewHolder(@NonNull GroupChatAdapter.ViewHolder holder, int position) {
         Chat chat = chats.get(position);
 
-        holder.showMessage.setText(chat.getMessage());
-
-        if (imageUrl.equals("default")) {
-            holder.profileImage.setImageResource(R.mipmap.ic_launcher);
-        } else {
-            Glide.with(context).load(imageUrl).into(holder.profileImage);
+        if (itemViewType == MSG_TYPE_LEFT) {
+            holder.senderName.setText(chat.getName());
         }
+        holder.profileImage.setAvatarInitials(chat.getName());
+        holder.showMessage.setText(chat.getMessage());
     }
 
     @Override
@@ -64,11 +66,13 @@ public class GroupChatAdapter extends RecyclerView.Adapter<GroupChatAdapter.View
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView showMessage;
-        public ImageView profileImage;
+        public AvatarView profileImage;
+        public TextView senderName;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
+            senderName = itemView.findViewById(R.id.sender_name);
             showMessage = itemView.findViewById(R.id.show_message);
             profileImage = itemView.findViewById(R.id.profile_image);
         }
@@ -76,8 +80,8 @@ public class GroupChatAdapter extends RecyclerView.Adapter<GroupChatAdapter.View
 
     @Override
     public int getItemViewType(int position) {
-        FirebaseUser fuser = FirebaseAuth.getInstance().getCurrentUser();
-        if(chats.get(position).getSender().equals(fuser.getUid())){
+        String uid = FirebaseAuth.getInstance().getUid();
+        if(chats.get(position).getSender().equals(uid)){
             return MSG_TYPE_RIGHT;
         }else{
             return MSG_TYPE_LEFT;

@@ -19,7 +19,9 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.travelbud.ChatPreview;
 import com.example.travelbud.FirebaseUtils;
+import com.example.travelbud.GroupChat;
 import com.example.travelbud.R;
 import com.example.travelbud.RegisterActivity;
 import com.example.travelbud.TravelBudUser;
@@ -32,6 +34,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -132,10 +135,16 @@ public class TripDialogFragment extends DialogFragment {
                                         trip.setHost(FirebaseAuth.getInstance().getUid());
                                         trip.setTravelers(travellerList);
 
+                                        GroupChat groupChat = new GroupChat();
+                                        groupChat.setName(trip.getName());
+                                        groupChat.setLatestMessage("Welcome to " + trip.getName());
+                                        groupChat.setTime((new Date()).getTime());
+
                                         List<Trip> trips = user.getTrips();
                                         trips.add(trip);
 
                                         mDatabase.child("trips").child(trip.getKey()).setValue(trip);
+                                        mDatabase.child("groupchats").child(trip.getKey()).setValue(groupChat);
 
                                         mDatabase.child("users").child(uid).child("trips").get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
                                             @Override
