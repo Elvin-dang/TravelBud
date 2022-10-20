@@ -17,11 +17,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.travelbud.ui.my_trips.AddTravelerActivity;
 import com.example.travelbud.Trip;
 import com.example.travelbud.R;
+import com.example.travelbud.Trip;
 import com.example.travelbud.ui.my_trips.ChecklistActivity;
 import com.example.travelbud.ui.my_trips.DestinationsActivity;
+import com.example.travelbud.ui.my_trips.GroupChatActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.example.travelbud.ui.my_trips.GroupChatActivity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TripCardsAdapter extends RecyclerView.Adapter<TripCardsAdapter.TripViewHolder> {
@@ -63,8 +66,8 @@ public class TripCardsAdapter extends RecyclerView.Adapter<TripCardsAdapter.Trip
 
 
         for (int i = 0; i < selected_trip.getTravelers().size(); i++) {
-            travelers_name += (i == 0 ? "" : ", ")
-                    + firstLetter(selected_trip.getTravelers().get(i).getUsername());
+
+            travelers_name += (i == 0 ? "" : ", ") + selected_trip.getTravelers().get(i).getUsername();
             ;
         }
 
@@ -73,13 +76,9 @@ public class TripCardsAdapter extends RecyclerView.Adapter<TripCardsAdapter.Trip
 
 
         Button destinations = tripViewHolder.view.findViewById(R.id.show_destinations);
+
         Button checklist = tripViewHolder.view.findViewById(R.id.show_checklist);
         Button expense = tripViewHolder.view.findViewById(R.id.show_expense);
-        ImageButton add_travelers = tripViewHolder.view.findViewById(R.id.add_travelers);
-
-        if (!selected_trip.getHost().equals(FirebaseAuth.getInstance().getUid())) {
-            add_travelers.setVisibility(View.GONE);
-        }
 
         destinations.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,7 +95,7 @@ public class TripCardsAdapter extends RecyclerView.Adapter<TripCardsAdapter.Trip
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(view.getContext(), ChecklistActivity.class);
-                intent.putExtra("tripKey", selected_trip.getKey());
+                intent.putExtra("selected_trip", position);
 
                 view.getContext().startActivity(intent);
             }
@@ -108,14 +107,18 @@ public class TripCardsAdapter extends RecyclerView.Adapter<TripCardsAdapter.Trip
             }
         });
 
+
+
         add_travelers.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(), AddTravelerActivity.class);
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), GroupChatActivity.class);
+                intent.putExtra("is_group_chat", true);
                 intent.putExtra("selected_trip", String.valueOf(position));
-                view.getContext().startActivity(intent);
+                v.getContext().startActivity(intent);
             }
         });
+
 
 //        tripViewHolder.cv.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -144,7 +147,7 @@ public class TripCardsAdapter extends RecyclerView.Adapter<TripCardsAdapter.Trip
         CardView cv;
         TextView trip_name;
         TextView trip_members;
-        ImageButton add_travelers;
+        ImageButton add_friend;
         View view;               // <----- here
         Button destinations;
 
@@ -154,17 +157,12 @@ public class TripCardsAdapter extends RecyclerView.Adapter<TripCardsAdapter.Trip
             cv = (CardView) itemView.findViewById(R.id.trip_card);
             trip_name = (TextView) itemView.findViewById(R.id.trip_name);
             trip_members = (TextView) itemView.findViewById(R.id.trip_members);
-            add_travelers = (ImageButton) itemView.findViewById(R.id.add_travelers);
+            //add_friend = (ImageButton) itemView.findViewById(R.id.add_friend);
             this.view = itemView;            // <----- here
 
         }
-    }
 
-    public static String firstLetter(String name) {
-        String firstLetStr = name.substring(0, 1);
-        String remLetStr = name.substring(1);
-        firstLetStr = firstLetStr.toUpperCase();
-        return firstLetStr + remLetStr;
+
     }
 
 }

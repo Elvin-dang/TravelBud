@@ -30,7 +30,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".LoginActivity"
+            android:name=".RegisterActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -42,23 +42,15 @@
                 android:value="" />
         </activity>
         <activity
-
-            android:name=".RegisterActivity"
+            android:name=".LoginActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+
         <activity
             android:name=".ui.my_trips.ChecklistActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-
-        <activity
-            android:name=".ui.my_trips.ChecklistAddActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -68,6 +60,7 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_api_key" />
+
 
         <activity
             android:name=".ui.my_trips.DestinationsActivity"

@@ -1,16 +1,16 @@
 package com.example.travelbud;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
+import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.example.travelbud.ui.my_trips.DestinationDialogFragment;
+import com.example.travelbud.ui.my_trips.DestinationsActivity;
 import com.example.travelbud.ui.my_trips.MyTripsFragment;
-import com.example.travelbud.ui.my_trips.TripDialogFragment;
+import com.google.android.gms.maps.model.LatLng;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.annotation.NonNull;
@@ -31,11 +31,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -51,6 +48,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
+        // Passing each menu ID as a set of Ids because each
+        // menu should be considered as top level destinations.
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.navigation_my_trips, R.id.navigation_home, R.id.navigation_network,
                 R.id.navigation_my_profile)
@@ -76,10 +75,14 @@ public class MainActivity extends AppCompatActivity {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.add(R.id.navigation_my_trips, t);
+//        fragmentTransaction.add(R.id.fragmnt_container, fb);
+//        fragmentTransaction.add(R.id.fragmnt_container, fc);
         fragmentTransaction.hide(t);
         fragmentTransaction.commit();
-    }
 
+
+
+      }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
@@ -91,26 +94,11 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
             case R.id.logout:
-                logOut();
+                FirebaseAuth.getInstance().signOut();
+                startActivity( new Intent(MainActivity.this,RegisterActivity.class));
+                finish();
                 return true;
         }
         return false;
     }
-
-    public View popTripDialog(View view) {
-
-
-        TripDialogFragment fragment = TripDialogFragment.newInstance("你的样子","1");
-        fragment.show(getSupportFragmentManager(), "myAlert");
-        return view;
-    }
-
-
-    private void logOut() {
-        FirebaseAuth.getInstance().signOut();
-        startActivity( new Intent(MainActivity.this, LoginActivity.class));
-        finish();
-    }
-
-
 }
