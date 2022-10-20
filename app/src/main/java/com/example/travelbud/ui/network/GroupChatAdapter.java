@@ -1,5 +1,6 @@
 package com.example.travelbud.ui.network;
 
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.travelbud.GroupChat;
 import com.example.travelbud.databinding.ItemGroupChatContainerBinding;
+import com.example.travelbud.ui.my_trips.GroupChatActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -58,6 +60,12 @@ public class GroupChatAdapter extends RecyclerView.Adapter<GroupChatAdapter.Grou
                 public void onClick(View view) {
                     int itemPosition = getLayoutPosition();
                     Log.v("TESTTT", String.valueOf(itemPosition));
+                    // fake chat intent added by ZJ
+                    Intent intent = new Intent(view.getContext(), GroupChatActivity.class);
+                    intent.putExtra("is_group_chat", true);
+                    intent.putExtra("selected_trip", String.valueOf(itemPosition));
+                    view.getContext().startActivity(intent);
+
                 }
             });
         }
