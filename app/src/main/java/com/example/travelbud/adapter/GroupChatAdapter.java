@@ -54,8 +54,8 @@ public class GroupChatAdapter extends RecyclerView.Adapter<GroupChatAdapter.View
 
         if (itemViewType == MSG_TYPE_LEFT) {
             holder.senderName.setText(chat.getName());
-            holder.profileImage.setAvatarInitials(chat.getName());
         }
+        holder.profileImage.setAvatarInitials(chat.getName());
         holder.showMessage.setText(chat.getMessage());
     }
 

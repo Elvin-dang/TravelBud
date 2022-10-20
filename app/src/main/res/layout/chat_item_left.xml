@@ -8,11 +8,9 @@
     <io.getstream.avatarview.AvatarView
         android:id="@+id/profile_image"
         android:layout_width="35dp"
-        android:layout_height="match_parent"
-        android:layout_marginStart="10dp"
+        android:layout_height="35dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
         app:avatarViewInitials="ABC"
         app:avatarViewInitialsBackgroundColor="@android:color/darker_gray"
         app:avatarViewInitialsTextColor="@color/white"
@@ -23,8 +21,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/profile_image"
-        android:layout_marginLeft="5dp"
+        android:layout_toRightOf="@+id/profile_image"
         >
         <TextView
             android:layout_width="wrap_content"
@@ -33,7 +30,7 @@
             android:id="@+id/sender_name"
             android:textSize="10sp"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/show_message"
+            app:layout_constraintBottom_toTopOf="@+id/show_message"
             app:layout_constraintStart_toStartOf="parent"
             />
 
