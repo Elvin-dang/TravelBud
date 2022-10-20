@@ -18,9 +18,13 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -30,6 +34,44 @@ public class LoginActivity extends AppCompatActivity {
     Button btnLogin;
 
     FirebaseAuth mAuth;
+    FirebaseUser firebaseUser;
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        if (firebaseUser != null){
+            SharedPreferences settings = getSharedPreferences("timestamp", 0);
+            SharedPreferences.Editor editor = settings.edit();
+
+            String timestamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date());
+            String local_timestamp = settings.getString("timestamp", null);
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss");
+            long gap = 900000;
+
+            if (local_timestamp == null) {
+                editor.putString("timestamp", timestamp);
+                editor.commit();
+            } else {
+                try {
+                    long diff = sdf.parse(timestamp).getTime() - sdf.parse(local_timestamp).getTime();
+                    Log.i("TIME",String.valueOf(diff));
+                    if (diff > gap){
+                        editor.remove("timestamp");
+                        editor.commit();
+                        FirebaseAuth.getInstance().signOut();
+                    } else {
+                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                        finish();
+                    }
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,11 +125,16 @@ public class LoginActivity extends AppCompatActivity {
                                         Toast.makeText(LoginActivity.this, "Log in fail", Toast.LENGTH_SHORT).show();
                                     }
                                     else {
-                                        Log.d("firebase", String.valueOf(task.getResult().getValue()));
                                         SharedPreferences settings = getSharedPreferences("user_token", 0);
                                         SharedPreferences.Editor editor = settings.edit();
+
+                                        String timestamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date());
+                                        String local_timestamp = settings.getString("timestamp", null);
+                                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss");
+
                                         editor.putString("user_token", loginTask.getResult().getUser().getUid());
                                         editor.putString("user_name", (String) task.getResult().getValue());
+                                        editor.putString("timestamp", timestamp);
                                         editor.commit();
 
                                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);

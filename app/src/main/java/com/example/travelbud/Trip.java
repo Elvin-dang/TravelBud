@@ -20,16 +20,14 @@ public class Trip {
     private String host;
     private Date startDate;
     private Date endDate;
+//    private ChatPreview chatPreview;
     private List<TravelBudUser> travelers = new ArrayList<>();
-
     private String kickoffPoint;
     private List<ChecklistItem> checkList = new ArrayList<>();
     private List<Destination> destinations = new ArrayList<>();
 
     //TODO: to be implemented
-    private Object chat;
     private Object Budget;
-
 
     public Trip() {
         this.key = UUID.randomUUID().toString();
@@ -95,10 +93,6 @@ public class Trip {
         this.destinations = destinations;
     }
 
-    public void setChat(Object chat) {
-        this.chat = chat;
-    }
-
     public void setBudget(Object budget) {
         Budget = budget;
     }
@@ -131,12 +125,15 @@ public class Trip {
         return destinations;
     }
 
-    public Object getChat() {
-        return chat;
-    }
-
     public Object getBudget() {
         return Budget;
     }
 
+//    public ChatPreview getChatPreview() {
+//        return chatPreview;
+//    }
+//
+//    public void setChatPreview(ChatPreview chatPreview) {
+//        this.chatPreview = chatPreview;
+//    }
 }

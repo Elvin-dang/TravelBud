@@ -5,7 +5,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,6 +14,7 @@ import com.example.travelbud.databinding.ItemGroupChatContainerBinding;
 import com.example.travelbud.ui.my_trips.GroupChatActivity;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -60,7 +60,7 @@ public class GroupChatAdapter extends RecyclerView.Adapter<GroupChatAdapter.Grou
                 public void onClick(View view) {
                     int itemPosition = getLayoutPosition();
                     Log.v("TESTTT", String.valueOf(itemPosition));
-                    // fake chat intent added by ZJ
+
                     Intent intent = new Intent(view.getContext(), GroupChatActivity.class);
                     intent.putExtra("is_group_chat", true);
                     intent.putExtra("selected_trip", String.valueOf(itemPosition));
@@ -73,10 +73,10 @@ public class GroupChatAdapter extends RecyclerView.Adapter<GroupChatAdapter.Grou
         public void setGroupChatData(GroupChat groupChat) {
             SimpleDateFormat df = new SimpleDateFormat("hh:mm dd-MM-yyyy", Locale.US);
 
-            binding.grpChatImage.setAvatarInitials(groupChat.name);
-            binding.grpChatName.setText(groupChat.name);
-            binding.latestMsg.setText(groupChat.latestMessage);
-            binding.latestMsgTime.setText(df.format(groupChat.time));
+            binding.grpChatImage.setAvatarInitials(groupChat.getName());
+            binding.grpChatName.setText(groupChat.getName());
+            binding.latestMsg.setText(groupChat.getLatestMessage());
+            binding.latestMsgTime.setText(df.format(new Date(groupChat.getTime())));
         }
     }
 }
