@@ -29,20 +29,12 @@ public class RegisterActivity extends AppCompatActivity {
     Button btnRegister;
 
     FirebaseAuth mAuth;
-    FirebaseUser firebaseUser;
 
     //Login automatically if not logout
     @Override
     protected void onStart() {
         super.onStart();
-        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
-        //check the user is null
-        if(firebaseUser != null){
-//            startActivity(new Intent(RegisterActivity.this,MainActivity.class));
-//            finish();
-            FirebaseAuth.getInstance().signOut();
-        }
     }
 
     @Override

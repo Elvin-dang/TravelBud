@@ -30,7 +30,7 @@ public class NetworkFragment extends Fragment {
         binding = FragmentNetworkBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        getGroupChat();
+        getGroupChat(networkViewModel);
 
         return root;
     }
@@ -41,15 +41,10 @@ public class NetworkFragment extends Fragment {
         binding = null;
     }
 
-    private void getGroupChat() {
-        List<GroupChat> groupChatList = new ArrayList<>();
-
-        // Sample Data
-        groupChatList.add(new GroupChat("Tokyo Trip", "Hi all", new Date()));
-        groupChatList.add(new GroupChat("Sydney Tour", "Let's go!!", new Date()));
-        groupChatList.add(new GroupChat("ABC", "XYZ", new Date()));
-
-        GroupChatAdapter groupChatAdapter = new GroupChatAdapter(groupChatList);
-        binding.chatRv.setAdapter(groupChatAdapter);
+    private void getGroupChat(NetworkViewModel networkViewModel) {
+        networkViewModel.getGroupChat().observe(getViewLifecycleOwner(), groupChats -> {
+            GroupChatAdapter groupChatAdapter = new GroupChatAdapter(groupChats);
+            binding.chatRv.setAdapter(groupChatAdapter);
+        });
     }
 }

@@ -8,7 +8,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true">
-        <de.hdodenhof.circleimageview.CircleImageView
+        <io.getstream.avatarview.AvatarView
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:id="@+id/profile_image"
@@ -17,7 +17,6 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/profile_image"
             android:layout_marginLeft="5dp"
             android:layout_alignParentEnd="true"
             android:text="hello"

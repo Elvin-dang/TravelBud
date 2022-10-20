@@ -22,6 +22,7 @@ import com.example.travelbud.ui.my_trips.ChecklistActivity;
 import com.example.travelbud.ui.my_trips.DestinationsActivity;
 import com.example.travelbud.ui.my_trips.GroupChatActivity;
 import com.google.firebase.auth.FirebaseAuth;
+import com.example.travelbud.ui.my_trips.GroupChatActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -105,7 +106,10 @@ public class TripCardsAdapter extends RecyclerView.Adapter<TripCardsAdapter.Trip
                 Toast.makeText(view.getContext(), "TO BE IMPLEMENTED", Toast.LENGTH_SHORT).show();
             }
         });
-        tripViewHolder.cv.setOnClickListener(new View.OnClickListener() {
+
+
+
+        add_travelers.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), GroupChatActivity.class);
@@ -114,6 +118,18 @@ public class TripCardsAdapter extends RecyclerView.Adapter<TripCardsAdapter.Trip
                 v.getContext().startActivity(intent);
             }
         });
+
+
+//        tripViewHolder.cv.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(v.getContext(), GroupChatActivity.class);
+//                intent.putExtra("is_group_chat", true);
+//                intent.putExtra("selected_trip", String.valueOf(position));
+//                v.getContext().startActivity(intent);
+//            }
+//        });
+
     }
 
     @Override
