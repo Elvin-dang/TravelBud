@@ -25,13 +25,13 @@
                 android:orientation="horizontal">
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
                     <TextView
 
-                        android:id="@+id/trip_name"
+                        android:id="@+id/address"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_rowWeight="1"
@@ -43,7 +43,7 @@
 
                     <TextView
 
-                        android:id="@+id/trip_members"
+                        android:id="@+id/address1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_rowWeight="1"
@@ -60,14 +60,11 @@
                     android:gravity="right">
 
                     <ImageButton
-                        android:id="@+id/add_travelers"
+                        android:id="@+id/simpleImageButton"
                         android:layout_width="70dp"
                         android:layout_height="70dp"
                         android:layout_gravity="right"
-                        android:background="@null"
-                        android:src="@drawable/ic_baseline_person_add_alt_1_48"
-
-                        />
+                        android:src="@drawable/ic_baseline_circle_24" />
 
                 </LinearLayout>
 
@@ -81,19 +78,16 @@
                 android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/show_destinations"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:gravity="center"
                     android:text="Destinations"
-                    android:textSize="13dp"
-                    >
+                    android:textSize="13dp">
 
                 </Button>
 
                 <Button
-                    android:id="@+id/show_checklist"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
@@ -106,7 +100,6 @@
                 </Button>
 
                 <Button
-                    android:id="@+id/show_expense"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"

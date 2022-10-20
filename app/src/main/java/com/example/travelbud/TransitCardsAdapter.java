@@ -1,4 +1,4 @@
-package com.example.travelbud.adapter;
+package com.example.travelbud;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,20 +9,17 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.travelbud.Destination;
-import com.example.travelbud.R;
-
 import java.util.List;
 
-public class DestinationCardsAdapter extends RecyclerView.Adapter<DestinationCardsAdapter.DestinationViewHolder> {
+public class TransitCardsAdapter extends RecyclerView.Adapter<TransitCardsAdapter.DestinationViewHolder> {
 
     List<Destination> destinations;
 
-    public DestinationCardsAdapter(List<Destination> destinations) {
+    public TransitCardsAdapter(List<Destination> destinations) {
         this.destinations = destinations;
     }
 
-    public DestinationCardsAdapter() {
+    public TransitCardsAdapter() {
 
     }
 
@@ -37,7 +34,7 @@ public class DestinationCardsAdapter extends RecyclerView.Adapter<DestinationCar
     @NonNull
     @Override
     public DestinationViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_destination_card, parent, false);
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_transit_card, parent, false);
         DestinationViewHolder pvh = new DestinationViewHolder(v);
         return pvh;
     }
@@ -46,7 +43,7 @@ public class DestinationCardsAdapter extends RecyclerView.Adapter<DestinationCar
     public void onBindViewHolder(DestinationViewHolder destinationViewHolder, int i) {
         destinationViewHolder.address.setText(destinations.get(i).getAddress());
         destinationViewHolder.subtitle.setText(destinations.get(i).getSubtitle());
-
+        destinationViewHolder.detailed_address.setText(destinations.get(i).getDetailed_address());
     }
 
     @Override
@@ -68,9 +65,10 @@ public class DestinationCardsAdapter extends RecyclerView.Adapter<DestinationCar
 
         DestinationViewHolder(View itemView) {
             super(itemView);
-            cv = (CardView) itemView.findViewById(R.id.destination_card);
+            cv = (CardView) itemView.findViewById(R.id.transit_card);
             address = (TextView) itemView.findViewById(R.id.address);
             subtitle = (TextView) itemView.findViewById(R.id.subtitle);
+            detailed_address = (TextView) itemView.findViewById(R.id.detailed_address);
         }
     }
 

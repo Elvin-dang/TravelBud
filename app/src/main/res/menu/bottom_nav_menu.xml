@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-
-    <item
-        android:id="@+id/navigation_home"
-        android:icon="@drawable/ic_home_black_24dp"
-        android:title="@string/title_home" />
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
         android:id="@+id/navigation_my_trips"
         android:icon="@drawable/ic_baseline_luggage_24"
         android:title="@string/title_my_trips" />
+
+    <item
+        android:id="@+id/navigation_home"
+        android:icon="@drawable/ic_home_black_24dp"
+        android:title="@string/title_home" />
 
     <item
         android:id="@+id/navigation_network"
@@ -21,4 +20,5 @@
         android:id="@+id/navigation_my_profile"
         android:icon="@drawable/ic_baseline_person_24"
         android:title="@string/title_my_profile" />
+
 </menu>

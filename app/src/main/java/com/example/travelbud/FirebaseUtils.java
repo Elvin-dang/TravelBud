@@ -1,39 +1,32 @@
 package com.example.travelbud;
 
+import static android.content.ContentValues.TAG;
+
+import android.location.Location;
 import android.util.Log;
+import android.widget.Adapter;
 
 import androidx.annotation.NonNull;
 
-import com.example.travelbud.adapter.DestinationCardsAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 public final class FirebaseUtils {
-    public static void updateTrip(Trip trip) {
-        DatabaseReference mDatabaseRef = FirebaseDatabase.getInstance().getReference();
-        mDatabaseRef.child("trips")
-                .child(trip.getKey())
-                .setValue(trip)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            Log.i("SUCCESS", "SUCCESS");
-
-                        } else {
-                            Log.i("FAIL", "FAIL");
-
-                        }
-                    }
-                });
-    }
 
     public static void insert(final DatabaseReference mDatabaseRef, TravelBudUser user) {
         if (user == null) {
@@ -55,7 +48,7 @@ public final class FirebaseUtils {
     }
 
 
-    public static void select(DatabaseReference mDatabaseRef, DestinationCardsAdapter adapter) {
+    public static void select(DatabaseReference mDatabaseRef, TransitCardsAdapter adapter) {
 
         mDatabaseRef.child("users").addValueEventListener(new ValueEventListener() {
             @Override

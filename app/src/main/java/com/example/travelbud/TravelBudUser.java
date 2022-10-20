@@ -3,16 +3,12 @@ package com.example.travelbud;
 import com.google.firebase.database.Exclude;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 public class TravelBudUser implements Serializable {
     private String username;
-    private String email;
-    private List<Trip> trips = new ArrayList<>();
-    private List<TravelBudUser> friends = new ArrayList<>();
-    private String key;
-    private String altKey;
+    private List<Trip> trips;
+    private List<TravelBudUser> friends;
 
     @Exclude
     public String getKey() {
@@ -24,24 +20,16 @@ public class TravelBudUser implements Serializable {
         this.key = key;
     }
 
-    public TravelBudUser(String username, String email, List<Trip> trips, List<TravelBudUser> friends) {
+    private String key;
+
+    public TravelBudUser(String username, List<Trip> trips, List<TravelBudUser> friends) {
         this.username = username;
         this.trips = trips;
         this.friends = friends;
-        this.email = email;
-        this.altKey = null;
     }
 
     public TravelBudUser() {
 
-    }
-
-    public String getAltKey() {
-        return altKey;
-    }
-
-    public void setAltKey(String altKey) {
-        this.altKey = altKey;
     }
 
     public String getUsername() {
@@ -52,20 +40,10 @@ public class TravelBudUser implements Serializable {
         this.username = username;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    @Exclude
     public List<Trip> getTrips() {
         return trips;
     }
 
-    @Exclude
     public void setTrips(List<Trip> trips) {
         this.trips = trips;
     }
@@ -77,6 +55,4 @@ public class TravelBudUser implements Serializable {
     public void setFriends(List<TravelBudUser> friends) {
         this.friends = friends;
     }
-
-
 }

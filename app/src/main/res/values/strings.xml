@@ -4,6 +4,7 @@
     <string name="title_home">Home</string>
     <string name="title_network">Network</string>
     <string name="title_my_profile">My Profile</string>
+<<<<<<< HEAD
 
 <!--    category list-->
     <string-array name="category">
@@ -11,4 +12,7 @@
         <item>Survival</item>
         <item>Food</item>
     </string-array>
+=======
+    <string name="config_batterySaverScheduleProvider" translatable="false">com.google.android.apps.turbo</string>
+>>>>>>> parent of 27dfcb1 (Merge branch 'main' into my-profile)
 </resources>

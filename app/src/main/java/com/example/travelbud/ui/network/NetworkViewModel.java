@@ -10,7 +10,7 @@ public class NetworkViewModel extends ViewModel {
 
     public NetworkViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is network fragment");
+        mText.setValue("This is dashboard fragment");
     }
 
     public LiveData<String> getText() {
