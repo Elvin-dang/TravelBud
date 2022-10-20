@@ -13,6 +13,12 @@
         android:theme="@style/Theme.TravelBud"
         tools:targetApi="31">
         <activity
+            android:name=".ui.my_trips.BillAddingActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.my_trips.BudgetActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.my_trips.GroupChatActivity"
             android:exported="false" />
         <activity
@@ -34,6 +40,7 @@
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
@@ -48,7 +55,6 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-
         <activity
             android:name=".ui.my_trips.ChecklistActivity"
             android:exported="false">
@@ -61,7 +67,6 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_api_key" />
 
-
         <activity
             android:name=".ui.my_trips.DestinationsActivity"
             android:exported="false">
@@ -72,8 +77,7 @@
         <activity
             android:name=".MainActivity"
             android:exported="false"
-            android:label="@string/app_name">
-        </activity>
+            android:label="@string/app_name" />
     </application>
 
 </manifest>

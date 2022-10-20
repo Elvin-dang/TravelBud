@@ -1,19 +1,15 @@
 package com.example.travelbud.adapter;
 
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.travelbud.R;
 import com.example.travelbud.model.BillModel;
-import com.example.travelbud.model.UserModel;
-import com.example.travelbud.ui.network.MessageActivity;
 
 import java.util.List;
 
