@@ -43,7 +43,7 @@ public class LoginActivity extends AppCompatActivity {
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
         if (firebaseUser != null){
-            SharedPreferences settings = getSharedPreferences("timestamp", 0);
+            SharedPreferences settings = getSharedPreferences("user_token", 0);
             SharedPreferences.Editor editor = settings.edit();
 
             String timestamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date());

@@ -59,13 +59,14 @@ public class GroupChatAdapter extends RecyclerView.Adapter<GroupChatAdapter.Grou
                 @Override
                 public void onClick(View view) {
                     int itemPosition = getLayoutPosition();
-                    Log.v("TESTTT", String.valueOf(itemPosition));
 
-                    Intent intent = new Intent(view.getContext(), GroupChatActivity.class);
-                    intent.putExtra("is_group_chat", true);
-                    intent.putExtra("selected_trip", String.valueOf(itemPosition));
-                    view.getContext().startActivity(intent);
-
+                    if (itemPosition >= 0 && itemPosition < groupChatList.size()) {
+                        Intent intent = new Intent(view.getContext(), GroupChatActivity.class);
+                        intent.putExtra("index", String.valueOf(itemPosition));
+                        intent.putExtra("groupChatKey", groupChatList.get(itemPosition).getKey());
+                        intent.putExtra("groupChatName", groupChatList.get(itemPosition).getName());
+                        view.getContext().startActivity(intent);
+                    }
                 }
             });
         }

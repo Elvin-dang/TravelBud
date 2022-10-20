@@ -20,7 +20,6 @@ public class Trip {
     private String host;
     private Date startDate;
     private Date endDate;
-//    private ChatPreview chatPreview;
     private List<TravelBudUser> travelers = new ArrayList<>();
     private String kickoffPoint;
     private List<ChecklistItem> checkList = new ArrayList<>();
@@ -128,12 +127,4 @@ public class Trip {
     public Object getBudget() {
         return Budget;
     }
-
-//    public ChatPreview getChatPreview() {
-//        return chatPreview;
-//    }
-//
-//    public void setChatPreview(ChatPreview chatPreview) {
-//        this.chatPreview = chatPreview;
-//    }
 }

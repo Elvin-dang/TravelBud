@@ -18,6 +18,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class NetworkViewModel extends ViewModel {
 
@@ -43,7 +44,19 @@ public class NetworkViewModel extends ViewModel {
                             public void onDataChange(@NonNull DataSnapshot groupChatSnapshot) {
                                 if (groupChatSnapshot.exists()) {
                                     GroupChat fetchedGroupChat = groupChatSnapshot.getValue(GroupChat.class);
-                                    groupChats.add(fetchedGroupChat);
+                                    fetchedGroupChat.setKey(groupChatSnapshot.getKey());
+
+                                    if (groupChats.size() > 0) {
+                                        for (int i = 0; i < groupChats.size(); i++) {
+                                            if (groupChats.get(i).getKey().equals(groupChatSnapshot.getKey())) {
+                                                groupChats.set(i, fetchedGroupChat);
+                                                break;
+                                            } else {
+                                                groupChats.add(fetchedGroupChat);
+                                            }
+                                        }
+                                    } else groupChats.add(fetchedGroupChat);
+
                                     groupChat.postValue(groupChats);
                                 } else {
                                     Log.v("Network", "Fail to get group chat");

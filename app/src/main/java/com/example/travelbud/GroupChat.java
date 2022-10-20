@@ -11,6 +11,7 @@ public class GroupChat implements Serializable {
     private String latestMessage;
     private long time;
     private List<Chat> chatList = new ArrayList<>();
+    private String key;
 
     public GroupChat() {
 
@@ -21,6 +22,16 @@ public class GroupChat implements Serializable {
         this.latestMessage = latestMessage;
         this.time = time;
         this.chatList = new ArrayList<>();
+    }
+
+    @Exclude
+    public String getKey() {
+        return key;
+    }
+
+    @Exclude
+    public void setKey(String key) {
+        this.key = key;
     }
 
     public String getName() {
