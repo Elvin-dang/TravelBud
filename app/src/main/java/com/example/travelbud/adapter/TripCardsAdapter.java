@@ -78,17 +78,19 @@ public class TripCardsAdapter extends RecyclerView.Adapter<TripCardsAdapter.Trip
         for (int i = 0; i < selected_trip.getTravelers().size(); i++) {
 
             travelers_name += (i == 0 ? "" : ", ") + selected_trip.getTravelers().get(i).getUsername();
-            ;
+
         }
 
 
         tripViewHolder.trip_members.setText(travelers_name);
 
-
         Button destinations = tripViewHolder.view.findViewById(R.id.show_destinations);
-
         Button checklist = tripViewHolder.view.findViewById(R.id.show_checklist);
+        ImageButton add_travelers = tripViewHolder.view.findViewById(R.id.add_travelers);
 
+        if (!selected_trip.getHost().equals(FirebaseAuth.getInstance().getUid())) {
+            add_travelers.setVisibility(View.GONE);
+        }
 
         destinations.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,28 +107,19 @@ public class TripCardsAdapter extends RecyclerView.Adapter<TripCardsAdapter.Trip
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(view.getContext(), ChecklistActivity.class);
-                intent.putExtra("selected_trip", position);
+                intent.putExtra("tripKey", selected_trip.getKey());
 
                 view.getContext().startActivity(intent);
             }
         });
 
-        expense.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(view.getContext(), "TO BE IMPLEMENTED", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-
 
         add_travelers.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), GroupChatActivity.class);
-                intent.putExtra("is_group_chat", true);
+            public void onClick(View view) {
+                Intent intent = new Intent(view.getContext(), AddTravelerActivity.class);
                 intent.putExtra("selected_trip", String.valueOf(position));
-                v.getContext().startActivity(intent);
+                view.getContext().startActivity(intent);
             }
         });
 
@@ -176,6 +169,12 @@ public class TripCardsAdapter extends RecyclerView.Adapter<TripCardsAdapter.Trip
         }
 
 
+    }
+    public static String firstLetter(String name) {
+        String firstLetStr = name.substring(0, 1);
+        String remLetStr = name.substring(1);
+        firstLetStr = firstLetStr.toUpperCase();
+        return firstLetStr + remLetStr;
     }
 
 }
