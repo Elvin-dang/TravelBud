@@ -78,36 +78,6 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.add(R.id.navigation_my_trips, t);
         fragmentTransaction.hide(t);
         fragmentTransaction.commit();
-
-
-
-        SharedPreferences settings = getSharedPreferences("timestamp", 0);
-        SharedPreferences.Editor editor = settings.edit();
-
-
-
-        String timestamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date());
-        String local_timestamp = settings.getString("timestamp", null);
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss");
-        long gap = 900000;
-
-        if(local_timestamp == null) {
-            editor.putString("timestamp", timestamp);
-            editor.commit();
-        }else {
-            try {
-                long diff = sdf.parse(timestamp).getTime()-sdf.parse(local_timestamp).getTime();
-                Log.i("TIME",String.valueOf(diff));
-                if(diff>gap){
-                    editor.remove("timestamp");
-                    editor.commit();
-                    logOut();
-                }
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-
-        }
     }
 
 
