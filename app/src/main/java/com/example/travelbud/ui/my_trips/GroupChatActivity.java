@@ -66,13 +66,15 @@ public class GroupChatActivity extends AppCompatActivity {
         setContentView(R.layout.activity_group_chat);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        // temp title
+        getSupportActionBar().setTitle("Network");
 
 
         String uid = FirebaseAuth.getInstance().getUid();
         MyTripsViewModel myTripsViewModel = new ViewModelProvider(this).get(MyTripsViewModel.class);
 
-        profileImage = findViewById(R.id.profile_image);
-        username = findViewById(R.id.header_username);
+//        profileImage = findViewById(R.id.profile_image);
+//        username = findViewById(R.id.header_username);
         sendBtn = findViewById(R.id.btn_send);
         sendText = findViewById(R.id.text_send);
 
@@ -172,7 +174,8 @@ public class GroupChatActivity extends AppCompatActivity {
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                username.setText(snapshot.getValue(String.class));
+//                username.setText(snapshot.getValue(String.class));
+//                getSupportActionBar().setTitle(snapshot.getValue(String.class));
             }
 
             @Override
