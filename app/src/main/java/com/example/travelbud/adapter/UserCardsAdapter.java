@@ -1,11 +1,9 @@
 package com.example.travelbud.adapter;
 
-import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -17,7 +15,6 @@ import com.example.travelbud.FirebaseUtils;
 import com.example.travelbud.TravelBudUser;
 import com.example.travelbud.R;
 import com.example.travelbud.Trip;
-import com.example.travelbud.ui.my_trips.BudgetActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -75,8 +72,6 @@ public class UserCardsAdapter extends RecyclerView.Adapter<UserCardsAdapter.User
 
         int position = userViewHolder.getAdapterPosition();
         TravelBudUser selected_user = users.get(position);
-
-
 
         userViewHolder.username.setText(selected_user.getUsername());
         try{
@@ -173,13 +168,13 @@ public class UserCardsAdapter extends RecyclerView.Adapter<UserCardsAdapter.User
         ImageButton addOrRemoveButton;
         AvatarView user_avatar;
 
-
         public UserViewHolder(View itemView) {
             super(itemView);
             cv = (CardView) itemView.findViewById(R.id.user_card);
             username = (TextView) itemView.findViewById(R.id.user_name);
             addOrRemoveButton = (ImageButton) itemView.findViewById(R.id.add_or_remove_user);
             user_avatar = itemView.findViewById(R.id.user_avatar);
+
             this.view = itemView;
 
         }
