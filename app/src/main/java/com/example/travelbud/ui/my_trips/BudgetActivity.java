@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -78,7 +79,7 @@ public class BudgetActivity extends AppCompatActivity {
     }
 
     private void readBills(String tripKey) {
-        reference = FirebaseDatabase.getInstance().getReference("bills").child(tripKey);
+        reference = FirebaseDatabase.getInstance().getReference();
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
         reference.addValueEventListener(new ValueEventListener() {
@@ -88,7 +89,8 @@ public class BudgetActivity extends AppCompatActivity {
                 Double total = 0.0;
                 Double perPerson =0.0;
                 Double currentUserLiability = 0.0;
-                for(DataSnapshot data: snapshot.getChildren()){
+
+                for(DataSnapshot data: snapshot.child("bills").child(tripKey).getChildren()){
                     BillModel bill = data.getValue(BillModel.class);
 
                     //curent user cal
@@ -99,9 +101,12 @@ public class BudgetActivity extends AppCompatActivity {
                     total+=bill.getAmount();
 
                     //user name set
-                    getUserName(bill.getPayer());
-
-                    bill.setPayer(gettingUsers);
+                    for (DataSnapshot dataSnapshot: snapshot.child("users").getChildren()) {
+                        if (dataSnapshot.getKey().equals(bill.getPayer())) {
+                            TravelBudUser payer = dataSnapshot.getValue(TravelBudUser.class);
+                            bill.setPayer(payer.getUsername());
+                        }
+                    }
 
                     bills.add(bill);
                 }
