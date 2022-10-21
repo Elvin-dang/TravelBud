@@ -23,7 +23,6 @@
                 android:layout_height="wrap_content"
                 android:text="Total : $300"
                 android:textAlignment="center"
-                android:textColor="@color/purple_500"
                 android:textSize="32dp"
                 android:textStyle="bold" />
 
@@ -32,11 +31,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:layout_below="@+id/text_view_total"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="0dp"
                 android:text="Per person : $300"
                 android:textAlignment="center"
-                android:textColor="@color/purple_500"
-                android:textSize="15dp"
+                android:textSize="14dp"
                 android:textStyle="bold" />
 
             <TextView
@@ -47,7 +45,7 @@
                 android:layout_marginTop="45dp"
                 android:text="Your pay : $300"
                 android:textAlignment="center"
-                android:textColor="@color/design_default_color_error"
+                android:textColor="@color/pay_color"
                 android:textSize="20dp"
                 android:textStyle="bold" />
 

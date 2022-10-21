@@ -9,4 +9,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="gray">#cccccc</color>
     <color name="gray_1">#969696</color>
+    <color name="pay_color">#32CD32</color>
 </resources>
