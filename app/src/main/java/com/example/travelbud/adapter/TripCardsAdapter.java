@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.travelbud.ui.my_trips.AddTravelerActivity;
 import com.example.travelbud.Trip;
 import com.example.travelbud.R;
+import com.example.travelbud.ui.my_trips.BudgetActivity;
 import com.example.travelbud.ui.my_trips.ChecklistActivity;
 import com.example.travelbud.ui.my_trips.DestinationsActivity;
 import com.google.firebase.auth.FirebaseAuth;
@@ -74,7 +75,7 @@ public class TripCardsAdapter extends RecyclerView.Adapter<TripCardsAdapter.Trip
 
         Button destinations = tripViewHolder.view.findViewById(R.id.show_destinations);
         Button checklist = tripViewHolder.view.findViewById(R.id.show_checklist);
-        Button expense = tripViewHolder.view.findViewById(R.id.show_expense);
+
         ImageButton add_travelers = tripViewHolder.view.findViewById(R.id.add_travelers);
 
         if (!selected_trip.getHost().equals(FirebaseAuth.getInstance().getUid())) {
@@ -101,10 +102,12 @@ public class TripCardsAdapter extends RecyclerView.Adapter<TripCardsAdapter.Trip
                 view.getContext().startActivity(intent);
             }
         });
-        expense.setOnClickListener(new View.OnClickListener() {
+        tripViewHolder.expense.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(view.getContext(), "TO BE IMPLEMENTED", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(view.getContext(), BudgetActivity.class);
+                intent.putExtra("trip_key", selected_trip.getKey());
+                view.getContext().startActivity(intent);
             }
         });
 
@@ -147,6 +150,7 @@ public class TripCardsAdapter extends RecyclerView.Adapter<TripCardsAdapter.Trip
         ImageButton add_travelers;
         View view;               // <----- here
         Button destinations;
+        Button expense;
 
 
         public TripViewHolder(View itemView) {
@@ -155,6 +159,7 @@ public class TripCardsAdapter extends RecyclerView.Adapter<TripCardsAdapter.Trip
             trip_name = (TextView) itemView.findViewById(R.id.trip_name);
             trip_members = (TextView) itemView.findViewById(R.id.trip_members);
             add_travelers = (ImageButton) itemView.findViewById(R.id.add_travelers);
+            expense=  (Button)itemView.findViewById(R.id.show_expense);
             this.view = itemView;            // <----- here
 
         }
