@@ -41,6 +41,7 @@ public class BillAddingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_bill_adding);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("New Bill");
 
         description = findViewById(R.id.bill_description_txt);
         amount = findViewById(R.id.bill_amount_txt);

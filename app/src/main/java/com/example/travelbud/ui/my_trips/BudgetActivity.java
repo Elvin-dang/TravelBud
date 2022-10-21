@@ -47,6 +47,7 @@ public class BudgetActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_budget);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Bills and Budget");
 
         budgetAdding = findViewById(R.id.add_budget_btn);
         recyclerView = findViewById(R.id.budget_recycler);
