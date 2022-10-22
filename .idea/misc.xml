@@ -5,12 +5,16 @@
       <map>
         <entry key="app/src/main/res/drawable/chat_background_left.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/chat_background_right.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/chat_background_right_indi.xml" value="0.1305" />
+        <entry key="app/src/main/res/drawable/chat_bckground_left_indi.xml" value="0.1305" />
         <entry key="app/src/main/res/drawable/ic_baseline_attach_money_24.xml" value="0.1455" />
         <entry key="app/src/main/res/drawable/ic_baseline_chat_24.xml" value="0.1615" />
         <entry key="app/src/main/res/drawable/ic_baseline_circle_24.xml" value="0.144" />
         <entry key="app/src/main/res/drawable/ic_baseline_group_add_24.xml" value="0.1615" />
         <entry key="app/src/main/res/drawable/ic_baseline_groups_24.xml" value="0.144" />
         <entry key="app/src/main/res/drawable/ic_baseline_send_24.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_dashboard_black_24dp.xml" value="0.1305" />
+        <entry key="app/src/main/res/layout-v31/activity_group_chat.xml" value="0.28541666666666665" />
         <entry key="app/src/main/res/layout/activity_add_traveler.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_bill_adding.xml" value="0.2734375" />
         <entry key="app/src/main/res/layout/activity_budget.xml" value="0.13541666666666666" />
@@ -18,15 +22,17 @@
         <entry key="app/src/main/res/layout/activity_checklist.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_checklist_add.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_destinations.xml" value="0.1" />
-        <entry key="app/src/main/res/layout/activity_group_chat.xml" value="0.1287037037037037" />
+        <entry key="app/src/main/res/layout/activity_group_chat.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.3115942028985507" />
         <entry key="app/src/main/res/layout/activity_message.xml" value="0.28541666666666665" />
         <entry key="app/src/main/res/layout/activity_register.xml" value="0.28541666666666665" />
         <entry key="app/src/main/res/layout/activity_reset_pass.xml" value="0.28541666666666665" />
         <entry key="app/src/main/res/layout/budget_item.xml" value="0.134375" />
-        <entry key="app/src/main/res/layout/chat_item_left.xml" value="0.1287037037037037" />
-        <entry key="app/src/main/res/layout/chat_item_right.xml" value="0.1287037037037037" />
+        <entry key="app/src/main/res/layout/chat_item_left.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/chat_item_left_2.xml" value="0.284375" />
+        <entry key="app/src/main/res/layout/chat_item_right.xml" value="0.335" />
+        <entry key="app/src/main/res/layout/chat_item_right_2.xml" value="0.17395833333333333" />
         <entry key="app/src/main/res/layout/fragment_destination_card.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_destination_dialog.xml" value="0.28541666666666665" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.1" />

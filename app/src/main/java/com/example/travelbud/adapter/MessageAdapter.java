@@ -25,11 +25,13 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
     private Context context;
     private List<ChatModel> chats;
     private String imageUrl;
+    private boolean isGroupChat;
 
-    public MessageAdapter(Context context, List<ChatModel> chats, String imageUrl) {
+    public MessageAdapter(Context context, List<ChatModel> chats, String imageUrl, boolean isGroupChat) {
         this.context = context;
         this.chats = chats;
         this.imageUrl= imageUrl;
+        this.isGroupChat = isGroupChat;
     }
 
 
@@ -39,9 +41,9 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
     public MessageAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view;
         if(viewType == MSG_TYPE_LEFT){
-            view = LayoutInflater.from(context).inflate(R.layout.chat_item_left, parent, false);
+            view = LayoutInflater.from(context).inflate(R.layout.chat_item_left_2, parent, false);
         }else {
-            view = LayoutInflater.from(context).inflate(R.layout.chat_item_right, parent, false);
+            view = LayoutInflater.from(context).inflate(R.layout.chat_item_right_2, parent, false);
         }
         return new MessageAdapter.ViewHolder(view);
     }
@@ -52,11 +54,11 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
 
         holder.showMessage.setText(chat.getMessage());
 
-        if (imageUrl.equals("default")) {
-            holder.profileImage.setImageResource(R.mipmap.ic_launcher);
-        } else {
-            Glide.with(context).load(imageUrl).into(holder.profileImage);
-        }
+//        if (imageUrl.equals("default")) {
+//            holder.profileImage.setImageResource(R.mipmap.ic_launcher);
+//        } else {
+//            Glide.with(context).load(imageUrl).into(holder.profileImage);
+//        }
     }
 
     @Override
@@ -72,7 +74,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
             super(itemView);
 
             showMessage = itemView.findViewById(R.id.show_message);
-            profileImage = itemView.findViewById(R.id.profile_image);
+           // profileImage = itemView.findViewById(R.id.profile_image);
         }
     }
 

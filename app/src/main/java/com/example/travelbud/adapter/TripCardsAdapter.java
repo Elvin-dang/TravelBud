@@ -90,7 +90,7 @@ public class TripCardsAdapter extends RecyclerView.Adapter<TripCardsAdapter.Trip
                 intent.putExtra("selected_trip", String.valueOf(position));
 
                 view.getContext().startActivity(intent);
-                Log.i("W4K", "Click-" + position);
+                Log.i("W4K", "Click -" + position);
 
             }
         });

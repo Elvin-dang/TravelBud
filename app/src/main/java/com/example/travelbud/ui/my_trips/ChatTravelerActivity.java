@@ -69,9 +69,10 @@ public class ChatTravelerActivity extends AppCompatActivity {
         chatStartBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), MessageActivity.class);
-                intent.putExtra("is_group",true);
-                intent.putExtra("trip_name",tripName);
+                Intent intent = new Intent(v.getContext(), GroupChatActivity.class);
+                intent.putExtra("groupChatName",tripName);
+                intent.putExtra("groupChatKey",tripkey);
+                intent.putExtra("index","-1");
                 startActivity(intent);
             }
         });

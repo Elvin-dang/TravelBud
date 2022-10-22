@@ -7,42 +7,12 @@
     android:background="#6e6e6e"
     tools:context=".ui.my_trips.MessageActivity">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/bar_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="?android:attr/colorEdgeEffect"
-            android:theme="@style/Base.ThemeOverlay.AppCompat.Dark.ActionBar">
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/profile_image"
-                android:layout_width="30dp"
-                android:layout_height="30dp" />
-
-            <TextView
-                android:id="@+id/header_tripname"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="25dp"
-                android:layout_marginLeft="25dp"
-                android:textColor="#fff"
-                android:textStyle="bold" />
-
-        </androidx.appcompat.widget.Toolbar>
-    </com.google.android.material.appbar.AppBarLayout>
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/chat_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/text_space"
-        android:layout_below="@+id/bar_layout"
-        android:background="@color/gray_1"/>
+        android:background="@color/gray"/>
 
     <RelativeLayout
         android:layout_width="match_parent"

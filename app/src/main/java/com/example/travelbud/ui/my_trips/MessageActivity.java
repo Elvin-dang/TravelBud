@@ -17,7 +17,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.example.travelbud.R;
 import com.example.travelbud.TravelBudUser;
-import com.example.travelbud.adapter.GroupChatAdapter;
 import com.example.travelbud.adapter.MessageAdapter;
 import com.example.travelbud.model.ChatModel;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -50,9 +49,9 @@ public class MessageActivity extends AppCompatActivity {
     DatabaseReference reference;
 
     MessageAdapter messageAdapter;
-    GroupChatAdapter groupChatAdapter;
+    MessageAdapter groupChatAdapter;
     List<ChatModel> chats;
-   // List<GroupChatModel> gChats;
+    List<ChatModel> gChats;
     RecyclerView recyclerView;
 
 
@@ -63,8 +62,6 @@ public class MessageActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        //profileImage = findViewById(R.id.profile_image);
-        username = findViewById(R.id.header_tripname);
         sendBtn =  findViewById(R.id.btn_send);
         sendText = findViewById(R.id.text_send);
 
@@ -83,6 +80,7 @@ public class MessageActivity extends AppCompatActivity {
             //connectToChatGroup(tripKey);
         }else {
             connectToChatFriend(traveler);
+            getSupportActionBar().setTitle(traveler.get("username"));
         }
 
         sendBtn.setOnClickListener(new View.OnClickListener() {
@@ -135,13 +133,9 @@ public class MessageActivity extends AppCompatActivity {
 //            public void onDataChange(@NonNull DataSnapshot snapshot) {
 //                gChats.clear();
 //                for(DataSnapshot data: snapshot.getChildren()){
-//                    GroupChat chat = data.getValue(GroupChat.class);
+//                    ChatModel chat = data.getValue(ChatModel.class);
 //                    gChats.add(chat);
-////                    if (chat.getReceiver().equals(reader) && chat.getSender().equals(sender) ||
-////                            chat.getReceiver().equals(sender) && chat.getSender().equals(reader)) {
-////
-////                    }
-//                    groupChatAdapter = new GroupChatAdapter(MessageActivity.this,gChats,"default");
+//                    groupChatAdapter = new MessageAdapter(MessageActivity.this,gChats,"default",true);
 //                    groupChatAdapter.notifyDataSetChanged();
 //                    recyclerView.clearOnChildAttachStateChangeListeners();
 //                    recyclerView.setAdapter(groupChatAdapter);
@@ -178,7 +172,7 @@ public class MessageActivity extends AppCompatActivity {
                             chat.getReceiver().equals(sender) && chat.getSender().equals(reader)) {
                         chats.add(chat);
                     }
-                    messageAdapter = new MessageAdapter(MessageActivity.this,chats,imageUrl);
+                    messageAdapter = new MessageAdapter(MessageActivity.this,chats,imageUrl,false);
                     messageAdapter.notifyDataSetChanged();
                     recyclerView.clearOnChildAttachStateChangeListeners();
                     recyclerView.setAdapter(messageAdapter);
@@ -199,7 +193,7 @@ public class MessageActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 TravelBudUser user = snapshot.getValue(TravelBudUser.class);
-                username.setText(user.getUsername());
+                //username.setText(user.getUsername());
                 readMessage(firebaseUser.getUid(),traveler.get("altKey"),"default");
             }
 
