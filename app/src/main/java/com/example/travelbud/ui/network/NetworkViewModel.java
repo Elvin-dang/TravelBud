@@ -23,51 +23,23 @@ import java.util.stream.Collectors;
 public class NetworkViewModel extends ViewModel {
 
     private MutableLiveData<List<GroupChat>> groupChat;
+    private ValueEventListener eventListener;
     DatabaseReference mDatabase;
 
     public NetworkViewModel() {
-        groupChat = new MutableLiveData<>();
+        this.groupChat = new MutableLiveData<>();
     }
 
     public LiveData<List<GroupChat>> getGroupChat() {
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
-        mDatabase.child("users").child(FirebaseAuth.getInstance().getUid()).child("trips").addValueEventListener(new ValueEventListener() {
+        eventListener = mDatabase.child("users").child(FirebaseAuth.getInstance().getUid()).child("trips").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                mDatabase.removeEventListener(eventListener);
                 if (snapshot.exists()) {
                     ArrayList<String> tripIdList = (ArrayList<String>) snapshot.getValue();
-                    List<GroupChat> groupChats = new ArrayList<>();
-                    for (String tripId : tripIdList) {
-                        mDatabase.child("groupchats").child(tripId).addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot groupChatSnapshot) {
-                                if (groupChatSnapshot.exists()) {
-                                    GroupChat fetchedGroupChat = groupChatSnapshot.getValue(GroupChat.class);
-                                    fetchedGroupChat.setKey(groupChatSnapshot.getKey());
-
-                                    if (groupChats.size() > 0) {
-                                        for (int i = 0; i < groupChats.size(); i++) {
-                                            if (groupChats.get(i).getKey().equals(groupChatSnapshot.getKey())) {
-                                                groupChats.set(i, fetchedGroupChat);
-                                                break;
-                                            } else {
-                                                groupChats.add(fetchedGroupChat);
-                                            }
-                                        }
-                                    } else groupChats.add(fetchedGroupChat);
-
-                                    groupChat.postValue(groupChats);
-                                } else {
-                                    Log.v("Network", "Fail to get group chat");
-                                }
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
-                            }
-                        });
-                    }
+                    liveChatListUpdate(tripIdList);
                 } else {
                     Log.v("Network", "Fail to get user trips");
                 }
@@ -79,5 +51,40 @@ public class NetworkViewModel extends ViewModel {
         });
 
         return groupChat;
+    }
+
+    private void liveChatListUpdate(ArrayList<String> tripIdList) {
+        mDatabase = FirebaseDatabase.getInstance().getReference("groupchats");
+        List<GroupChat> groupChats = new ArrayList<>();
+        groupChats.clear();
+        for (String tripId : tripIdList) {
+            eventListener = mDatabase.child(tripId).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot groupChatSnapshot) {
+                    mDatabase.removeEventListener(eventListener);
+                    if (groupChatSnapshot.exists()) {
+                        GroupChat fetchedGroupChat = groupChatSnapshot.getValue(GroupChat.class);
+                        fetchedGroupChat.setKey(groupChatSnapshot.getKey());
+
+                        if (groupChats.size() >= tripIdList.size()) {
+                            for (int i = 0; i < groupChats.size(); i++) {
+                                if (groupChats.get(i).getKey().equals(groupChatSnapshot.getKey())) {
+                                    groupChats.set(i, fetchedGroupChat);
+                                    break;
+                                }
+                            }
+                        } else groupChats.add(fetchedGroupChat);
+
+                        groupChat.postValue(groupChats);
+                    } else {
+                        Log.v("Network", "Fail to get group chat");
+                    }
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                }
+            });
+        }
+
     }
 }
