@@ -73,6 +73,13 @@ public class UserCardsAdapter extends RecyclerView.Adapter<UserCardsAdapter.User
         int position = userViewHolder.getAdapterPosition();
         TravelBudUser selected_user = users.get(position);
 
+        userViewHolder.cv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                v.findViewById(R.id.text_view_total);
+            }
+        });
+
         userViewHolder.username.setText(selected_user.getUsername());
         try{
             userViewHolder.user_avatar.setAvatarInitials(selected_user.getUsername().substring(0,2));
@@ -133,6 +140,7 @@ public class UserCardsAdapter extends RecyclerView.Adapter<UserCardsAdapter.User
                         public void onComplete(@NonNull Task<DataSnapshot> task) {
                             if (task.isSuccessful()) {
                                 List<String> tripList = (List<String>) task.getResult().getValue();
+                                tripList.clear();
                                 if (tripList == null) tripList = new ArrayList<>();
                                 Log.v("ka", tripList.size() +"");
                                 tripList.remove(currentTrip.getKey());
