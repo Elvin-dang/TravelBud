@@ -1,123 +1,139 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
-    <ScrollView
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".MainActivity">
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <LinearLayout
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="wrap_content">
 
-            <ImageView
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="10dp"
-                android:src="@drawable/travelbudlogo"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="10dp"
-                android:text="Welcome, John Doe!"
-                android:textColor="#000000"
-                android:textSize="22dp"
-                android:textStyle="bold" />
             <LinearLayout
-                android:background="@drawable/round_back_white10_20"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginTop="10dp"
-                android:orientation="vertical"
-                android:padding="15dp">
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:background="@drawable/round_back_night_mode">
-                    <TextView
-                        android:layout_width="150dp"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_centerHorizontal="true"
-                        android:text="Your Upcoming Trips"
-                        android:textColor="#000000"
-                        android:textStyle="bold"
-                        android:paddingLeft="10dp"
-                        android:paddingAbove="10dp"
-                        android:paddingBelow="10dp"
-                        android:id="@+id/tripsfeedtext"/>
-                </RelativeLayout>
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:background="@drawable/round_back_notifications"
-                    android:layout_marginTop="10dp">
-                    <!--Security & Privacy-->
-                    <TextView
-                        android:layout_width="300dp"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:text="Sample Trip"
-                        android:textColor="#000000"
-                        android:textStyle="bold"
-                        android:paddingLeft="10dp"
-                        android:paddingAbove="10dp"
-                        android:paddingBelow="10dp"
-                        android:id="@+id/tripsfeeds"/>
-                </RelativeLayout>
-            </LinearLayout>
-            <LinearLayout
-                android:background="@drawable/round_back_white10_20"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginTop="10dp"
-                android:orientation="vertical"
-                android:padding="15dp">
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:background="@drawable/round_back_night_mode">
+                android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/feedstext"
-                        android:layout_width="80dp"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_centerHorizontal="true"
-                        android:paddingLeft="10dp"
-                        android:paddingAbove="10dp"
-                        android:paddingBelow="10dp"
-                        android:text="Your Feed"
-                        android:textColor="#000000"
-                        android:textStyle="bold" />
-                </RelativeLayout>
-                <RelativeLayout
+                <ImageView
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/travelbudlogo" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:text="Welcome, John Doe!"
+                    android:textColor="#000000"
+                    android:textSize="22dp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:background="@drawable/round_back_notifications"
-                    android:layout_marginTop="10dp">
-                    <TextView
-                        android:layout_width="300dp"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:text="Sample Feed"
-                        android:textColor="#000000"
-                        android:textStyle="bold"
-                        android:paddingLeft="10dp"
-                        android:paddingAbove="10dp"
-                        android:paddingBelow="10dp"
-                        android:id="@+id/feeds"/>
-                </RelativeLayout>
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="20dp"
+                    android:background="@drawable/round_back_white10_20"
+                    android:orientation="vertical"
+                    android:padding="15dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:background="@drawable/round_back_night_mode">
+
+                        <TextView
+                            android:id="@+id/tripsfeedtext"
+                            android:layout_width="150dp"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_centerVertical="true"
+                            android:paddingLeft="10dp"
+                            android:paddingTop="10dp"
+                            android:paddingBottom="10dp"
+                            android:text="Your Trips"
+                            android:textColor="#000000"
+                            android:textStyle="bold" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/round_back_notifications">
+                        <!--Security & Privacy-->
+                        <TextView
+                            android:id="@+id/tripsfeeds"
+                            android:layout_width="300dp"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:paddingLeft="10dp"
+                            android:paddingTop="10dp"
+                            android:paddingBottom="10dp"
+                            android:text="Sample Trip"
+                            android:textColor="#000000"
+                            android:textStyle="bold" />
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="20dp"
+                    android:background="@drawable/round_back_white10_20"
+                    android:orientation="vertical"
+                    android:padding="15dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:background="@drawable/round_back_night_mode">
+
+                        <TextView
+                            android:id="@+id/feedstext"
+                            android:layout_width="80dp"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_centerVertical="true"
+                            android:paddingLeft="10dp"
+                            android:paddingTop="10dp"
+                            android:paddingBottom="10dp"
+                            android:text="Your Feed"
+                            android:textColor="#000000"
+                            android:textStyle="bold" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/round_back_notifications">
+
+                        <TextView
+                            android:id="@+id/feeds"
+                            android:layout_width="300dp"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:paddingLeft="10dp"
+                            android:paddingTop="10dp"
+                            android:paddingBottom="10dp"
+                            android:text="Sample Feed"
+                            android:textColor="#000000"
+                            android:textStyle="bold" />
+                    </RelativeLayout>
+                </LinearLayout>
             </LinearLayout>
-        </LinearLayout>
-    </ScrollView>
-</LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+</FrameLayout>

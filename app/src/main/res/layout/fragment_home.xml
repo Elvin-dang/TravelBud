@@ -1,123 +1,434 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
-    <ScrollView
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".MainActivity">
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <LinearLayout
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_height="wrap_content">
 
-            <ImageView
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="10dp"
-                android:src="@drawable/travelbudlogo"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="10dp"
-                android:text="Welcome, John Doe!"
-                android:textColor="#000000"
-                android:textSize="22dp"
-                android:textStyle="bold" />
             <LinearLayout
-                android:background="@drawable/round_back_white10_20"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginTop="10dp"
-                android:orientation="vertical"
-                android:padding="15dp">
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:background="@drawable/round_back_night_mode">
-                    <TextView
-                        android:layout_width="150dp"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_centerHorizontal="true"
-                        android:text="Your Upcoming Trips"
-                        android:textColor="#000000"
-                        android:textStyle="bold"
-                        android:paddingLeft="10dp"
-                        android:paddingAbove="10dp"
-                        android:paddingBelow="10dp"
-                        android:id="@+id/tripsfeedtext"/>
-                </RelativeLayout>
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:background="@drawable/round_back_notifications"
-                    android:layout_marginTop="10dp">
-                    <!--Security & Privacy-->
-                    <TextView
-                        android:layout_width="300dp"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:text="Sample Trip"
-                        android:textColor="#000000"
-                        android:textStyle="bold"
-                        android:paddingLeft="10dp"
-                        android:paddingAbove="10dp"
-                        android:paddingBelow="10dp"
-                        android:id="@+id/tripsfeeds"/>
-                </RelativeLayout>
-            </LinearLayout>
-            <LinearLayout
-                android:background="@drawable/round_back_white10_20"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                android:layout_marginTop="10dp"
-                android:orientation="vertical"
-                android:padding="15dp">
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:background="@drawable/round_back_night_mode">
+                android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/feedstext"
-                        android:layout_width="80dp"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_centerHorizontal="true"
-                        android:paddingLeft="10dp"
-                        android:paddingAbove="10dp"
-                        android:paddingBelow="10dp"
-                        android:text="Your Feed"
-                        android:textColor="#000000"
-                        android:textStyle="bold" />
-                </RelativeLayout>
-                <RelativeLayout
+                <ImageView
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/travelbudlogo" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10dp"
+                    android:text="Welcome, John Doe!"
+                    android:textColor="#000000"
+                    android:textSize="22dp"
+                    android:textStyle="bold" />
+
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:background="@drawable/round_back_notifications"
-                    android:layout_marginTop="10dp">
-                    <TextView
-                        android:layout_width="300dp"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:text="Sample Feed"
-                        android:textColor="#000000"
-                        android:textStyle="bold"
-                        android:paddingLeft="10dp"
-                        android:paddingAbove="10dp"
-                        android:paddingBelow="10dp"
-                        android:id="@+id/feeds"/>
-                </RelativeLayout>
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="20dp"
+                    android:background="@drawable/round_back_white10_20"
+                    android:orientation="vertical"
+                    android:padding="15dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:background="@drawable/round_back_night_mode">
+
+                        <TextView
+                            android:id="@+id/tripsfeedtext"
+                            android:layout_width="150dp"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_centerVertical="true"
+                            android:paddingLeft="10dp"
+                            android:paddingTop="10dp"
+                            android:paddingBottom="10dp"
+                            android:text="Your Trips"
+                            android:textColor="#000000"
+                            android:textStyle="bold" />
+                    </RelativeLayout>
+
+                    <androidx.cardview.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/trip_card"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="10dp"
+                        card_view:cardCornerRadius="4dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical">
+
+                                    <TextView
+
+                                        android:id="@+id/trip_name"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_rowWeight="1"
+                                        android:layout_columnWeight="1"
+                                        android:layout_margin="10dp"
+                                        android:drawableLeft="@drawable/ic_baseline_circle_24"
+                                        android:text=" Hawaii Trip"
+                                        android:textSize="25dp" />
+
+                                    <TextView
+
+                                        android:id="@+id/trip_members"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_rowWeight="1"
+                                        android:layout_columnWeight="1"
+                                        android:layout_margin="10dp"
+                                        android:text="Members: Jane Doe,John Kenny"
+                                        android:textSize="15dp" />
+                                </LinearLayout>
+
+                                <LinearLayout
+
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="right">
+
+                                    <ImageButton
+                                        android:id="@+id/add_travelers"
+                                        android:layout_width="70dp"
+                                        android:layout_height="70dp"
+                                        android:layout_gravity="right"
+                                        android:background="@null"
+                                        android:src="@drawable/ic_baseline_person_add_alt_1_48"
+
+                                        />
+
+                                </LinearLayout>
+
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_horizontal"
+                                android:orientation="horizontal">
+
+                                <Button
+                                    android:id="@+id/show_destinations"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="5dp"
+                                    android:gravity="center"
+                                    android:text="Destinations"
+                                    android:textSize="10dp"
+                                    >
+
+                                </Button>
+
+                                <Button
+                                    android:id="@+id/show_checklist"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="5dp"
+                                    android:gravity="center"
+                                    android:text="Checklist"
+                                    android:textSize="10dp"
+
+                                    >
+
+                                </Button>
+
+                                <Button
+                                    android:id="@+id/show_expense"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="5dp"
+                                    android:gravity="center"
+                                    android:text="Expense"
+                                    android:textSize="10dp">
+
+                                </Button>
+                            </LinearLayout>
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+                        android:id="@+id/trip_cards"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="10dp"
+                        card_view:cardCornerRadius="4dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical">
+
+                                    <TextView
+
+                                        android:id="@+id/trip_names"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_rowWeight="1"
+                                        android:layout_columnWeight="1"
+                                        android:layout_margin="10dp"
+                                        android:drawableLeft="@drawable/ic_baseline_circle_24"
+                                        android:text=" Maldives Trip"
+                                        android:textSize="25dp" />
+
+                                    <TextView
+
+                                        android:id="@+id/trip_member"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_rowWeight="1"
+                                        android:layout_columnWeight="1"
+                                        android:layout_margin="10dp"
+                                        android:text="Members: Jane Doe, Jonathan Max"
+                                        android:textSize="15dp" />
+                                </LinearLayout>
+
+                                <LinearLayout
+
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="right">
+
+                                    <ImageButton
+                                        android:id="@+id/add_traveler"
+                                        android:layout_width="70dp"
+                                        android:layout_height="70dp"
+                                        android:layout_gravity="right"
+                                        android:background="@null"
+                                        android:src="@drawable/ic_baseline_person_add_alt_1_48"
+
+                                        />
+
+                                </LinearLayout>
+
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="fill_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_horizontal"
+                                android:orientation="horizontal">
+
+                                <Button
+                                    android:id="@+id/show_destination"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="5dp"
+                                    android:gravity="center"
+                                    android:text="Destinations"
+                                    android:textSize="10dp"
+                                    >
+
+                                </Button>
+
+                                <Button
+                                    android:id="@+id/show_checklists"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="5dp"
+                                    android:gravity="center"
+                                    android:text="Checklist"
+                                    android:textSize="10dp"
+
+                                    >
+
+                                </Button>
+
+                                <Button
+                                    android:id="@+id/show_expenses"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="5dp"
+                                    android:gravity="center"
+                                    android:text="Expense"
+                                    android:textSize="10dp">
+
+                                </Button>
+                            </LinearLayout>
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="20dp"
+                    android:background="@drawable/round_back_white10_20"
+                    android:orientation="vertical"
+                    android:padding="15dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:background="@drawable/round_back_night_mode">
+
+                        <TextView
+                            android:id="@+id/feedstext"
+                            android:layout_width="150dp"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_centerVertical="true"
+                            android:paddingLeft="0dp"
+                            android:paddingTop="10dp"
+                            android:paddingBottom="10dp"
+                            android:text="Your Recent Chats"
+                            android:textColor="#000000"
+                            android:textStyle="bold" />
+                    </RelativeLayout>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/chat_cards"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="10dp"
+                        card_view:cardCornerRadius="4dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical">
+
+                                    <TextView
+
+                                        android:id="@+id/chat_name"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_rowWeight="1"
+                                        android:layout_columnWeight="1"
+                                        android:layout_margin="10dp"
+                                        android:drawableLeft="@drawable/ic_baseline_circle_24"
+                                        android:text="Jackson Law"
+                                        android:textSize="25dp" />
+                                </LinearLayout>
+
+                                <LinearLayout
+
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="right">
+
+                                    <ImageButton
+                                        android:id="@+id/chat_icon1"
+                                        android:layout_width="50dp"
+                                        android:layout_height="50dp"
+                                        android:layout_gravity="right"
+                                        android:background="@null"
+                                        android:src="@drawable/ic_baseline_chat_24" />
+
+                                </LinearLayout>
+                            </LinearLayout>
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/chat_cards2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="10dp"
+                        card_view:cardCornerRadius="4dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical">
+
+                                    <TextView
+
+                                        android:id="@+id/chat_name2"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_rowWeight="1"
+                                        android:layout_columnWeight="1"
+                                        android:layout_margin="10dp"
+                                        android:drawableLeft="@drawable/ic_baseline_circle_24"
+                                        android:text="Abigail Smith"
+                                        android:textSize="25dp" />
+                                </LinearLayout>
+
+                                <LinearLayout
+
+                                    android:layout_width="fill_parent"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="right">
+
+                                    <ImageButton
+                                        android:id="@+id/chat_icon2"
+                                        android:layout_width="50dp"
+                                        android:layout_height="50dp"
+                                        android:layout_gravity="right"
+                                        android:background="@null"
+                                        android:src="@drawable/ic_baseline_chat_24" />
+
+                                </LinearLayout>
+                            </LinearLayout>
+                        </LinearLayout>
+                    </androidx.cardview.widget.CardView>
+                </LinearLayout>
             </LinearLayout>
-        </LinearLayout>
-    </ScrollView>
-</LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+</FrameLayout>
