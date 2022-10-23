@@ -24,11 +24,12 @@ import com.example.travelbud.ui.my_trips.DestinationsActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.example.travelbud.ui.my_trips.GroupChatActivity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TripCardsAdapter extends RecyclerView.Adapter<TripCardsAdapter.TripViewHolder> {
 
-    List<Trip> trips;
+    List<Trip> trips = new ArrayList<>();
 
     public TripCardsAdapter(List<Trip> trips) {
         this.trips = trips;

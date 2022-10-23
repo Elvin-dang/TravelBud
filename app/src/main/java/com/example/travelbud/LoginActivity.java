@@ -49,7 +49,7 @@ public class LoginActivity extends AppCompatActivity {
             String timestamp = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new java.util.Date());
             String local_timestamp = settings.getString("timestamp", null);
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss");
-            long gap = 900000;
+            long gap = 90000000;
 
             if (local_timestamp == null) {
                 editor.putString("timestamp", timestamp);

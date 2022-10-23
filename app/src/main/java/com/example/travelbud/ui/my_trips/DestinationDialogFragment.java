@@ -261,6 +261,7 @@ public class DestinationDialogFragment extends DialogFragment implements OnMapRe
                                         Toast.LENGTH_SHORT).show();
                             }
                         }catch (Exception e){
+                            Log.e("EX",e.toString());
                             Toast.makeText(getActivity(), "Please search!",
                                     Toast.LENGTH_SHORT).show();
                         }
