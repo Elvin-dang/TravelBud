@@ -1,5 +1,6 @@
 package com.example.travelbud.ui.home;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,8 +25,11 @@ public class HomeFragment extends Fragment {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-//        final TextView textView = binding.textHome;
-//        homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("user_token", 0);
+        String userName = sharedPreferences.getString("user_name", "User");
+
+        binding.homeUserName.setText("Welcome, " + userName + "!");
+
         return root;
     }
 

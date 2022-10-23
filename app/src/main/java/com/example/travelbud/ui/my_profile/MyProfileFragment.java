@@ -1,5 +1,6 @@
 package com.example.travelbud.ui.my_profile;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,8 +28,11 @@ public class MyProfileFragment extends Fragment {
         binding = FragmentMyProfileBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-//        final TextView textView = binding.textMyProfile;
-//        myProfileViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("user_token", 0);
+        String userName = sharedPreferences.getString("user_name", "User");
+
+        binding.profileUserName.setText(userName);
+
         return root;
     }
 
