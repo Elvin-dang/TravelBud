@@ -82,14 +82,14 @@ public class MainActivity extends AppCompatActivity {
 
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu){
-        getMenuInflater().inflate(R.menu.top_bar_menu,menu);
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.top_bar_menu, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.logout:
                 logOut();
                 return true;
@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
     public View popTripDialog(View view) {
 
 
-        TripDialogFragment fragment = TripDialogFragment.newInstance("dialog","1");
+        TripDialogFragment fragment = TripDialogFragment.newInstance("dialog", "1");
         fragment.show(getSupportFragmentManager(), "myAlert");
         return view;
     }
@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void logOut() {
         FirebaseAuth.getInstance().signOut();
-        startActivity( new Intent(MainActivity.this, LoginActivity.class));
+        startActivity(new Intent(MainActivity.this, LoginActivity.class));
         finish();
     }
 
