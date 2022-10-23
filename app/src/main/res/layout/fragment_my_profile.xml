@@ -13,15 +13,22 @@
         android:orientation="vertical"
         tools:context=".ui.my_profile.SettingsActivity">
 
+        <ImageView
+            android:id="@+id/travelbud_logo"
+            android:layout_width="fill_parent"
+            android:layout_height="70dp"
+            android:layout_centerInParent="true"
+            android:src="@drawable/ic_travelbud" />
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:padding="14dp"/>
-<!--            android:src="@drawable/ic_baseline_arrow_back_24"-->
+<!--            <ImageView-->
+<!--                android:layout_width="50dp"-->
+<!--                android:layout_height="50dp"-->
+<!--                android:padding="14dp"/>-->
+<!--&lt;!&ndash;            android:src="@drawable/ic_baseline_arrow_back_24"&ndash;&gt;-->
 
 
             <TextView
