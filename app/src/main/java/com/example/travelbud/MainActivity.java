@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
     public View popTripDialog(View view) {
 
 
-        TripDialogFragment fragment = TripDialogFragment.newInstance("你的样子","1");
+        TripDialogFragment fragment = TripDialogFragment.newInstance("dialog","1");
         fragment.show(getSupportFragmentManager(), "myAlert");
         return view;
     }

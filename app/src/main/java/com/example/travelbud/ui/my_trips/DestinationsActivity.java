@@ -136,7 +136,7 @@ public class DestinationsActivity extends AppCompatActivity implements OnMapRead
     public View popDestinationDialog(View view) {
 
 
-        DestinationDialogFragment fragment = DestinationDialogFragment.newInstance("你的样子", "1");
+        DestinationDialogFragment fragment = DestinationDialogFragment.newInstance("dialog", "1");
         fragment.show(getSupportFragmentManager(), "myAlert");
         return view;
     }
