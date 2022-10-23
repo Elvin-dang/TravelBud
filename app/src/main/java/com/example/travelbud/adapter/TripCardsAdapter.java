@@ -70,6 +70,13 @@ public class TripCardsAdapter extends RecyclerView.Adapter<TripCardsAdapter.Trip
             ;
         }
 
+        try {
+            travelers_name = travelers_name.substring(0, 30);
+            travelers_name += "...";
+        } catch (IndexOutOfBoundsException e) {
+
+        }
+
 
         tripViewHolder.trip_members.setText(travelers_name);
 
@@ -158,7 +165,7 @@ public class TripCardsAdapter extends RecyclerView.Adapter<TripCardsAdapter.Trip
         CardView cv;
         TextView trip_name;
         TextView trip_members;
-        ImageButton add_travelers,chat_travelers;
+        ImageButton add_travelers, chat_travelers;
         View view;               // <----- here
         Button destinations;
         Button expense;
@@ -171,7 +178,7 @@ public class TripCardsAdapter extends RecyclerView.Adapter<TripCardsAdapter.Trip
             trip_members = (TextView) itemView.findViewById(R.id.trip_members);
             add_travelers = (ImageButton) itemView.findViewById(R.id.add_travelers);
             chat_travelers = (ImageButton) itemView.findViewById(R.id.group_chat);
-            expense=  (Button)itemView.findViewById(R.id.show_expense);
+            expense = (Button) itemView.findViewById(R.id.show_expense);
             this.view = itemView;            // <----- here
 
         }
