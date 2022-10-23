@@ -12,6 +12,7 @@
         <entry key="app/src/main/res/drawable/ic_baseline_circle_24.xml" value="0.144" />
         <entry key="app/src/main/res/drawable/ic_baseline_group_add_24.xml" value="0.1615" />
         <entry key="app/src/main/res/drawable/ic_baseline_groups_24.xml" value="0.144" />
+        <entry key="app/src/main/res/drawable/ic_baseline_receipt_24.xml" value="0.1305" />
         <entry key="app/src/main/res/drawable/ic_baseline_send_24.xml" value="0.1" />
         <entry key="app/src/main/res/drawable/ic_dashboard_black_24dp.xml" value="0.1305" />
         <entry key="app/src/main/res/layout-v31/activity_group_chat.xml" value="0.28541666666666665" />
@@ -46,6 +47,7 @@
         <entry key="app/src/main/res/layout/fragment_user_card.xml" value="0.2859375" />
         <entry key="app/src/main/res/layout/individual_chat_item.xml" value="0.375" />
         <entry key="app/src/main/res/layout/item_group_chat_container.xml" value="0.2859375" />
+        <entry key="app/src/main/res/xml/file_path.xml" value="0.1328125" />
       </map>
     </option>
   </component>
