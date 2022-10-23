@@ -18,6 +18,7 @@ import com.example.travelbud.ui.my_trips.AddTravelerActivity;
 import com.example.travelbud.Trip;
 import com.example.travelbud.R;
 import com.example.travelbud.ui.my_trips.BudgetActivity;
+import com.example.travelbud.ui.my_trips.ChatTravelerActivity;
 import com.example.travelbud.ui.my_trips.ChecklistActivity;
 import com.example.travelbud.ui.my_trips.DestinationsActivity;
 import com.google.firebase.auth.FirebaseAuth;
@@ -89,7 +90,7 @@ public class TripCardsAdapter extends RecyclerView.Adapter<TripCardsAdapter.Trip
                 intent.putExtra("selected_trip", String.valueOf(position));
 
                 view.getContext().startActivity(intent);
-                Log.i("W4K", "Click-" + position);
+                Log.i("W4K", "Click -" + position);
 
             }
         });
@@ -120,6 +121,16 @@ public class TripCardsAdapter extends RecyclerView.Adapter<TripCardsAdapter.Trip
             }
         });
 
+        tripViewHolder.chat_travelers.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), ChatTravelerActivity.class);
+                intent.putExtra("trip_key", selected_trip.getKey());
+                intent.putExtra("trip_name", selected_trip.getName());
+                v.getContext().startActivity(intent);
+            }
+        });
+
 //        tripViewHolder.cv.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
@@ -147,7 +158,7 @@ public class TripCardsAdapter extends RecyclerView.Adapter<TripCardsAdapter.Trip
         CardView cv;
         TextView trip_name;
         TextView trip_members;
-        ImageButton add_travelers;
+        ImageButton add_travelers,chat_travelers;
         View view;               // <----- here
         Button destinations;
         Button expense;
@@ -159,6 +170,7 @@ public class TripCardsAdapter extends RecyclerView.Adapter<TripCardsAdapter.Trip
             trip_name = (TextView) itemView.findViewById(R.id.trip_name);
             trip_members = (TextView) itemView.findViewById(R.id.trip_members);
             add_travelers = (ImageButton) itemView.findViewById(R.id.add_travelers);
+            chat_travelers = (ImageButton) itemView.findViewById(R.id.group_chat);
             expense=  (Button)itemView.findViewById(R.id.show_expense);
             this.view = itemView;            // <----- here
 

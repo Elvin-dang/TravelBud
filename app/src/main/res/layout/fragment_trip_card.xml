@@ -37,7 +37,7 @@
                         android:layout_rowWeight="1"
                         android:layout_columnWeight="1"
                         android:layout_margin="10dp"
-                        android:drawableLeft="@drawable/ic_baseline_circle_24"
+                        android:drawableLeft="@drawable/ic_baseline_mode_of_travel_24"
                         android:text=" Hawaii Trip"
                         android:textSize="25dp" />
 
@@ -60,12 +60,21 @@
                     android:gravity="right">
 
                     <ImageButton
+                        android:id="@+id/group_chat"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        android:layout_gravity="right"
+                        android:background="@drawable/ic_baseline_circle_24"
+                        android:src="@drawable/ic_baseline_chat_24"
+                        />
+
+                    <ImageButton
                         android:id="@+id/add_travelers"
                         android:layout_width="70dp"
                         android:layout_height="70dp"
                         android:layout_gravity="right"
-                        android:background="@null"
-                        android:src="@drawable/ic_baseline_person_add_alt_1_48"
+                        android:background="@drawable/ic_baseline_circle_24"
+                        android:src="@drawable/ic_baseline_group_add_24"
 
                         />
 

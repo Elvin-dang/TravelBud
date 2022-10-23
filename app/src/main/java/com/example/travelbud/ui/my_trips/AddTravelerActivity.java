@@ -114,7 +114,6 @@ public class AddTravelerActivity extends AppCompatActivity {
         mDatabase.child("users").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-
                 if (snapshot.exists() && snapshot.getChildrenCount() > 0) {
                     ArrayList<TravelBudUser> temp = new ArrayList<>();
                     for (DataSnapshot s : snapshot.getChildren()) {
