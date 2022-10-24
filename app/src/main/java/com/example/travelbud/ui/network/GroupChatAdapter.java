@@ -1,7 +1,6 @@
 package com.example.travelbud.ui.network;
 
 import android.content.Intent;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,7 +28,8 @@ public class GroupChatAdapter extends RecyclerView.Adapter<GroupChatAdapter.Grou
     @NonNull
     @Override
     public GroupChatViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        ItemGroupChatContainerBinding itemGroupChatContainerBinding = ItemGroupChatContainerBinding.inflate(
+        ItemGroupChatContainerBinding itemGroupChatContainerBinding =
+                ItemGroupChatContainerBinding.inflate(
                 LayoutInflater.from(parent.getContext()),
                 parent,
                 false

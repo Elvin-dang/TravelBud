@@ -11,9 +11,8 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.travelbud.FirebaseUtils;
-import com.example.travelbud.TravelBudUser;
 import com.example.travelbud.R;
+import com.example.travelbud.TravelBudUser;
 import com.example.travelbud.Trip;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -21,7 +20,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,14 +34,6 @@ public class UserCardsAdapter extends RecyclerView.Adapter<UserCardsAdapter.User
     int trip_index;
 
 
-    public List<TravelBudUser> getUsers() {
-        return users;
-    }
-
-    public void setUsers(List<TravelBudUser> users) {
-        this.users = users;
-    }
-
     public UserCardsAdapter(List<TravelBudUser> users, Boolean isAdd, TravelBudUser curr_user,
                             int trip_index) {
         this.users = users;
@@ -52,6 +42,13 @@ public class UserCardsAdapter extends RecyclerView.Adapter<UserCardsAdapter.User
         this.trip_index = trip_index;
     }
 
+    public List<TravelBudUser> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<TravelBudUser> users) {
+        this.users = users;
+    }
 
     @NonNull
     @Override
@@ -81,17 +78,18 @@ public class UserCardsAdapter extends RecyclerView.Adapter<UserCardsAdapter.User
         });
 
         userViewHolder.username.setText(selected_user.getUsername());
-        try{
-            userViewHolder.user_avatar.setAvatarInitials(selected_user.getUsername().substring(0,2));
+        try {
+            userViewHolder.user_avatar.setAvatarInitials(selected_user.getUsername().substring(0,
+                    2));
 
-        }catch (Exception e){
+        } catch (Exception e) {
             userViewHolder.user_avatar.setAvatarInitials("-");
 
         }
 
         ImageButton add_or_remove_user = userViewHolder.view.findViewById(R.id.add_or_remove_user);
         if ((selected_user.getKey() != null && selected_user.getKey().equals(FirebaseAuth.getInstance().getUid()))
-            || (selected_user.getAltKey() != null && selected_user.getAltKey().equals(FirebaseAuth.getInstance().getUid()))) {
+                || (selected_user.getAltKey() != null && selected_user.getAltKey().equals(FirebaseAuth.getInstance().getUid()))) {
             add_or_remove_user.setVisibility(View.INVISIBLE);
         }
 
@@ -116,11 +114,11 @@ public class UserCardsAdapter extends RecyclerView.Adapter<UserCardsAdapter.User
                         public void onComplete(@NonNull Task<DataSnapshot> task) {
                             if (task.isSuccessful()) {
                                 List<String> tripList = (List<String>) task.getResult().getValue();
-                                if (tripList == null) tripList = new ArrayList<>();
+                                if (tripList == null)
+                                    tripList = new ArrayList<>();
                                 tripList.add(currentTrip.getKey());
                                 mDatabase.child("users").child(addedUser.getKey()).child("trips").setValue(tripList);
-                            }
-                            else {
+                            } else {
                                 Log.e("firebase", "Error getting data", task.getException());
                             }
                         }
@@ -141,13 +139,14 @@ public class UserCardsAdapter extends RecyclerView.Adapter<UserCardsAdapter.User
                             if (task.isSuccessful()) {
                                 List<String> tripList = (List<String>) task.getResult().getValue();
                                 tripList.clear();
-                                if (tripList == null) tripList = new ArrayList<>();
-                                Log.v("ka", tripList.size() +"");
+                                if (tripList == null)
+                                    tripList = new ArrayList<>();
+                                Log.v("ka", tripList.size() + "");
                                 tripList.remove(currentTrip.getKey());
-                                Log.v("ka1", tripList.size() +"");
-                                mDatabase.child("users").child(removedUser.getAltKey()).child("trips").setValue(tripList);
-                            }
-                            else {
+                                Log.v("ka1", tripList.size() + "");
+                                mDatabase.child("users").child(removedUser.getAltKey()).child(
+                                        "trips").setValue(tripList);
+                            } else {
                                 Log.e("firebase", "Error getting data", task.getException());
                             }
                         }

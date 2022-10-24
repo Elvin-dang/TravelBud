@@ -2,7 +2,6 @@ package com.example.travelbud.ui.my_trips;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -40,7 +39,8 @@ public class ChecklistAddActivity extends AppCompatActivity {
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemSelected(AdapterView<?> parentView, View view, int position, long id) {
+            public void onItemSelected(AdapterView<?> parentView, View view, int position,
+                                       long id) {
                 category = spinner.getSelectedItem().toString();
 //                Log.i("checklist", "current: " + category);
             }
@@ -56,7 +56,8 @@ public class ChecklistAddActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "Please input the name.", Toast.LENGTH_SHORT).show();
             return;
         } else if (this.editAmount.getText().toString().trim().equals("")) {
-            Toast.makeText(getApplicationContext(), "Please input the amount.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Please input the amount.",
+                    Toast.LENGTH_SHORT).show();
             return;
         }
 

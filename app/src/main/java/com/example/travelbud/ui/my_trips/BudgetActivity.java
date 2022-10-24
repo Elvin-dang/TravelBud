@@ -1,22 +1,21 @@
 package com.example.travelbud.ui.my_trips;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.travelbud.BillModel;
 import com.example.travelbud.R;
 import com.example.travelbud.TravelBudUser;
 import com.example.travelbud.adapter.BillListAdapter;
-import com.example.travelbud.model.BillModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -32,6 +31,8 @@ import java.util.List;
 
 public class BudgetActivity extends AppCompatActivity {
 
+    private static final DecimalFormat df = new DecimalFormat("0.00");
+    TextView text_view_total, perPerson_view_txt, your_pay_text;
     private Button budgetAdding;
     private DatabaseReference reference;
     private FirebaseUser firebaseUser;
@@ -39,9 +40,7 @@ public class BudgetActivity extends AppCompatActivity {
     private BillListAdapter billListAdapter;
     private String gettingUsers;
     private long gettingUsersCount;
-    TextView text_view_total,perPerson_view_txt,your_pay_text;
 
-    private static final DecimalFormat df = new DecimalFormat("0.00");
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,7 +60,7 @@ public class BudgetActivity extends AppCompatActivity {
         recyclerView.clearOnChildAttachStateChangeListeners();
 
         text_view_total = findViewById(R.id.text_view_total);
-        perPerson_view_txt =  findViewById(R.id.perPerson_view_txt);
+        perPerson_view_txt = findViewById(R.id.perPerson_view_txt);
         your_pay_text = findViewById(R.id.your_pay_text);
 
         getTripMemberCount(tripKey);
@@ -71,7 +70,7 @@ public class BudgetActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), BillAddingActivity.class);
-                intent.putExtra("trip_key",tripKey);
+                intent.putExtra("trip_key", tripKey);
                 v.getContext().startActivity(intent);
             }
         });
@@ -88,21 +87,21 @@ public class BudgetActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 List<BillModel> bills = new ArrayList<>();
                 Double total = 0.0;
-                Double perPerson =0.0;
+                Double perPerson = 0.0;
                 Double currentUserLiability = 0.0;
 
-                for(DataSnapshot data: snapshot.child("bills").child(tripKey).getChildren()){
+                for (DataSnapshot data : snapshot.child("bills").child(tripKey).getChildren()) {
                     BillModel bill = data.getValue(BillModel.class);
 
                     //curent user cal
-                    if(firebaseUser.getUid().equals(bill.getPayer())){
+                    if (firebaseUser.getUid().equals(bill.getPayer())) {
                         currentUserLiability -= bill.getAmount();
                     }
                     //trip total
-                    total+=bill.getAmount();
+                    total += bill.getAmount();
 
                     //user name set
-                    for (DataSnapshot dataSnapshot: snapshot.child("users").getChildren()) {
+                    for (DataSnapshot dataSnapshot : snapshot.child("users").getChildren()) {
                         if (dataSnapshot.getKey().equals(bill.getPayer())) {
                             TravelBudUser payer = dataSnapshot.getValue(TravelBudUser.class);
                             bill.setPayer(payer.getUsername());
@@ -112,22 +111,23 @@ public class BudgetActivity extends AppCompatActivity {
                     bills.add(bill);
                 }
                 //pe-person
-                perPerson = total/gettingUsersCount;
-                currentUserLiability+=perPerson;
+                perPerson = total / gettingUsersCount;
+                currentUserLiability += perPerson;
 
-                billListAdapter = new BillListAdapter(bills,total,perPerson,currentUserLiability);
+                billListAdapter = new BillListAdapter(bills, total, perPerson,
+                        currentUserLiability);
                 billListAdapter.notifyDataSetChanged();
                 recyclerView.clearOnChildAttachStateChangeListeners();
                 recyclerView.setAdapter(billListAdapter);
 
 
-                text_view_total.setText("Total : $"+df.format(total)+"");
-                if(currentUserLiability < 0) {
-                    your_pay_text.setText("Your Pay : -$" + df.format(Math.abs(currentUserLiability))+"");
-                }else {
-                    your_pay_text.setText("Your Pay : $" +df.format(currentUserLiability)+"");
+                text_view_total.setText("Total : $" + df.format(total) + "");
+                if (currentUserLiability < 0) {
+                    your_pay_text.setText("Your Pay : -$" + df.format(Math.abs(currentUserLiability)) + "");
+                } else {
+                    your_pay_text.setText("Your Pay : $" + df.format(currentUserLiability) + "");
                 }
-                perPerson_view_txt.setText("Per person : $"+df.format(perPerson)+"");
+                perPerson_view_txt.setText("Per person : $" + df.format(perPerson) + "");
             }
 
             @Override
@@ -139,7 +139,8 @@ public class BudgetActivity extends AppCompatActivity {
     }
 
     private void getTripMemberCount(String tripKey) {
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("trips").child(tripKey+"/travelers");
+        DatabaseReference reference =
+                FirebaseDatabase.getInstance().getReference("trips").child(tripKey + "/travelers");
 
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -155,7 +156,8 @@ public class BudgetActivity extends AppCompatActivity {
     }
 
     private int getUserName(String payer) {
-        Query query = FirebaseDatabase.getInstance().getReference("users").orderByKey().equalTo(payer);
+        Query query =
+                FirebaseDatabase.getInstance().getReference("users").orderByKey().equalTo(payer);
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
         query.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -174,14 +176,13 @@ public class BudgetActivity extends AppCompatActivity {
         return 6;
     }
 
-    private void setUser(String user){
+    private void setUser(String user) {
         this.gettingUsers = user;
     }
 
-    private void setCount(long number){
+    private void setCount(long number) {
         this.gettingUsersCount = number;
     }
-
 
 
     @Override

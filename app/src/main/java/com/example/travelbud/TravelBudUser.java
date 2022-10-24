@@ -14,17 +14,8 @@ public class TravelBudUser implements Serializable {
     private String key;
     private String altKey;
 
-    @Exclude
-    public String getKey() {
-        return key;
-    }
-
-    @Exclude
-    public void setKey(String key) {
-        this.key = key;
-    }
-
-    public TravelBudUser(String username, String email, List<Trip> trips, List<TravelBudUser> friends) {
+    public TravelBudUser(String username, String email, List<Trip> trips,
+                         List<TravelBudUser> friends) {
         this.username = username;
         this.trips = trips;
         this.friends = friends;
@@ -34,6 +25,16 @@ public class TravelBudUser implements Serializable {
 
     public TravelBudUser() {
 
+    }
+
+    @Exclude
+    public String getKey() {
+        return key;
+    }
+
+    @Exclude
+    public void setKey(String key) {
+        this.key = key;
     }
 
     public String getAltKey() {

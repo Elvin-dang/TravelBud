@@ -62,11 +62,10 @@
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginBottom="20dp"
             android:layout_weight="0"
             android:clickable="true"
-            android:layout_marginBottom="20dp"
-            android:text="Add">
-        </Button>
+            android:text="Add"></Button>
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

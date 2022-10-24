@@ -37,7 +37,8 @@ public class DestinationCardsAdapter extends RecyclerView.Adapter<DestinationCar
     @NonNull
     @Override
     public DestinationViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_destination_card, parent, false);
+        View v =
+                LayoutInflater.from(parent.getContext()).inflate(R.layout.fragment_destination_card, parent, false);
         DestinationViewHolder pvh = new DestinationViewHolder(v);
         return pvh;
     }

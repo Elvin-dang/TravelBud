@@ -1,13 +1,7 @@
 package com.example.travelbud;
 
-import android.location.Location;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-
 import com.google.firebase.database.Exclude;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -64,67 +58,67 @@ public class Trip {
         this.host = host;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setStartDate(Date startDate) {
-        this.startDate = startDate;
-    }
-
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
-    }
-
-    public void setTravelers(List<TravelBudUser> travelers) {
-        this.travelers = travelers;
-    }
-
-    public void setKickoffPoint(String kickoffPoint) {
-        this.kickoffPoint = kickoffPoint;
-    }
-
-    public void setCheckList(List<ChecklistItem> checkList) {
-        this.checkList = checkList;
-    }
-
-    public void setDestinations(List<Destination> destinations) {
-        this.destinations = destinations;
-    }
-
-    public void setBudget(Object budget) {
-        Budget = budget;
-    }
-
     public String getName() {
         return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public Date getStartDate() {
         return startDate;
     }
 
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
+
     public Date getEndDate() {
         return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
     }
 
     public List<TravelBudUser> getTravelers() {
         return travelers;
     }
 
+    public void setTravelers(List<TravelBudUser> travelers) {
+        this.travelers = travelers;
+    }
+
     public String getKickoffPoint() {
         return kickoffPoint;
+    }
+
+    public void setKickoffPoint(String kickoffPoint) {
+        this.kickoffPoint = kickoffPoint;
     }
 
     public List<ChecklistItem> getCheckList() {
         return checkList;
     }
 
+    public void setCheckList(List<ChecklistItem> checkList) {
+        this.checkList = checkList;
+    }
+
     public List<Destination> getDestinations() {
         return destinations;
     }
 
+    public void setDestinations(List<Destination> destinations) {
+        this.destinations = destinations;
+    }
+
     public Object getBudget() {
         return Budget;
+    }
+
+    public void setBudget(Object budget) {
+        Budget = budget;
     }
 }

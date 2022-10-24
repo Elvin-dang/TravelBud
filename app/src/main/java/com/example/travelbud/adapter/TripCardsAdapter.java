@@ -8,21 +8,19 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.travelbud.ui.my_trips.AddTravelerActivity;
-import com.example.travelbud.Trip;
 import com.example.travelbud.R;
+import com.example.travelbud.Trip;
+import com.example.travelbud.ui.my_trips.AddTravelerActivity;
 import com.example.travelbud.ui.my_trips.BudgetActivity;
 import com.example.travelbud.ui.my_trips.ChatTravelerActivity;
 import com.example.travelbud.ui.my_trips.ChecklistActivity;
 import com.example.travelbud.ui.my_trips.DestinationsActivity;
 import com.google.firebase.auth.FirebaseAuth;
-import com.example.travelbud.ui.my_trips.GroupChatActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +35,13 @@ public class TripCardsAdapter extends RecyclerView.Adapter<TripCardsAdapter.Trip
 
     public TripCardsAdapter() {
 
+    }
+
+    public static String firstLetter(String name) {
+        String firstLetStr = name.substring(0, 1);
+        String remLetStr = name.substring(1);
+        firstLetStr = firstLetStr.toUpperCase();
+        return firstLetStr + remLetStr;
     }
 
     public List<Trip> getTrips() {
@@ -68,7 +73,6 @@ public class TripCardsAdapter extends RecyclerView.Adapter<TripCardsAdapter.Trip
         for (int i = 0; i < selected_trip.getTravelers().size(); i++) {
             travelers_name += (i == 0 ? "" : ", ")
                     + firstLetter(selected_trip.getTravelers().get(i).getUsername());
-            ;
         }
 
         try {
@@ -156,7 +160,6 @@ public class TripCardsAdapter extends RecyclerView.Adapter<TripCardsAdapter.Trip
         super.onAttachedToRecyclerView(recyclerView);
     }
 
-
     @Override
     public int getItemCount() {
         return trips.size();
@@ -183,13 +186,6 @@ public class TripCardsAdapter extends RecyclerView.Adapter<TripCardsAdapter.Trip
             this.view = itemView;            // <----- here
 
         }
-    }
-
-    public static String firstLetter(String name) {
-        String firstLetStr = name.substring(0, 1);
-        String remLetStr = name.substring(1);
-        firstLetStr = firstLetStr.toUpperCase();
-        return firstLetStr + remLetStr;
     }
 
 }

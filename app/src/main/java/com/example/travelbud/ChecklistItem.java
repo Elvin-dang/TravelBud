@@ -17,7 +17,8 @@ public class ChecklistItem {
         this.dueDate = null;
         this.category = category;
     }
-    public ChecklistItem(){
+
+    public ChecklistItem() {
 
     }
 

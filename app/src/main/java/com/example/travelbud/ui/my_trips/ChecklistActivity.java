@@ -20,7 +20,6 @@ import com.example.travelbud.R;
 import com.example.travelbud.TravelBudUser;
 import com.example.travelbud.Trip;
 import com.example.travelbud.adapter.ChecklistItemsAdapter;
-
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
@@ -33,10 +32,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ChecklistActivity extends AppCompatActivity {
+    Button add;
     private TravelBudUser current_user;
     private String tripKey;
-
-    Button add;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,7 +75,8 @@ public class ChecklistActivity extends AppCompatActivity {
     }
 
     private void setupListener() {
-        ActivityResultLauncher<Intent> mLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+        ActivityResultLauncher<Intent> mLauncher =
+                registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
                 result -> {
                     if (result.getResultCode() == RESULT_OK) {
                         ChecklistItem newItem = new ChecklistItem(
@@ -87,7 +86,8 @@ public class ChecklistActivity extends AppCompatActivity {
                                 result.getData().getStringExtra("category")
                         );
 
-                        DatabaseReference mDatabaseRef = FirebaseDatabase.getInstance().getReference();
+                        DatabaseReference mDatabaseRef =
+                                FirebaseDatabase.getInstance().getReference();
                         mDatabaseRef.child("trips").child(tripKey).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
                             @Override
                             public void onComplete(@NonNull Task<DataSnapshot> task) {

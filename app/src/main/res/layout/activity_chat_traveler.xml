@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:layout_editor_absoluteX="8dp"
     tools:layout_editor_absoluteY="8dp">
+
     <androidx.cardview.widget.CardView
         android:id="@+id/header_card_card"
         android:layout_width="match_parent"
@@ -78,9 +79,9 @@
         android:id="@+id/sub_card_card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/header_card_card"
         android:layout_margin="10dp"
         android:padding="15dp"
-        android:layout_below="@id/header_card_card"
         app:cardCornerRadius="4dp">
 
         <RelativeLayout

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -19,23 +18,23 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
         android:layout_gravity="center"
-        android:layout_marginTop="25dp">
+        android:layout_marginTop="25dp"
+        android:orientation="vertical">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginVertical="16dp"
+            android:gravity="center_horizontal"
             android:text="Have an account with us?"
             android:textSize="25sp"
-            android:textStyle="bold"
-            android:gravity="center_horizontal"
-            android:layout_marginVertical="16dp"/>
+            android:textStyle="bold" />
 
 
         <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -43,13 +42,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Email"
-                android:inputType="textEmailAddress"/>
+                android:inputType="textEmailAddress" />
         </com.google.android.material.textfield.TextInputLayout>
 
 
         <com.google.android.material.textfield.TextInputLayout
-            android:layout_width="match_parent"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp">
 
@@ -58,7 +57,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Password"
-                android:inputType="textPassword"/>
+                android:inputType="textPassword" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
@@ -68,17 +67,17 @@
             android:layout_marginTop="10dp"
             android:layout_marginEnd="8dp"
             android:text="Forgot password?"
-            android:textStyle="bold"
-            android:textSize="14sp"/>
+            android:textSize="14sp"
+            android:textStyle="bold" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnLogin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp"
             android:layout_gravity="center"
+            android:layout_marginTop="40dp"
             android:backgroundTint="@color/material_dynamic_neutral40"
-            android:text="Log me in!"/>
+            android:text="Log me in!" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -91,7 +90,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="New here?"
-                android:textSize="20sp"/>
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/tvRegisterHere"
@@ -99,8 +98,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
                 android:text="Register!"
-                android:textStyle="bold"
-                android:textSize="20sp"/>
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
         </LinearLayout>
 

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/transit_card_container"
     android:layout_width="match_parent"
@@ -65,8 +64,7 @@
                         android:layout_height="70dp"
                         android:layout_gravity="right"
                         android:background="@drawable/ic_baseline_circle_24"
-                        android:src="@drawable/ic_baseline_chat_24"
-                        />
+                        android:src="@drawable/ic_baseline_chat_24" />
 
                     <ImageButton
                         android:id="@+id/add_travelers"
@@ -96,8 +94,7 @@
                     android:layout_margin="5dp"
                     android:gravity="center"
                     android:text="Destinations"
-                    android:textSize="12dp"
-                    >
+                    android:textSize="12dp">
 
                 </Button>
 

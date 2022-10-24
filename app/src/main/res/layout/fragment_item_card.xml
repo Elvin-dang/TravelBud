@@ -68,8 +68,8 @@
                         android:id="@+id/amount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:layout_margin="10dp"
+                        android:layout_weight="1"
                         android:text="amount"
                         android:textSize="20dp" />
 
@@ -77,8 +77,8 @@
                         android:id="@+id/checked"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0"
                         android:layout_margin="10dp"
+                        android:layout_weight="0"
                         android:maxWidth="10dp" />
 
                 </LinearLayout>

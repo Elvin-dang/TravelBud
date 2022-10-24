@@ -6,12 +6,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,11 +13,13 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.travelbud.ChatPreview;
-import com.example.travelbud.FirebaseUtils;
+import androidx.annotation.NonNull;
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+
 import com.example.travelbud.GroupChat;
 import com.example.travelbud.R;
-import com.example.travelbud.RegisterActivity;
 import com.example.travelbud.TravelBudUser;
 import com.example.travelbud.Trip;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -87,28 +83,23 @@ public class TripDialogFragment extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_trip_dialog, container, false);
     }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        // Get the layout inflater
         LayoutInflater inflater = requireActivity().getLayoutInflater();
 
-        // Inflate and set the layout for the dialog
-        // Pass null as the parent view because its going in the dialog layout
+
         builder.setView(inflater.inflate(R.layout.fragment_trip_dialog, null))
-                // Add action buttons
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-//                        SharedPreferences prefs = getActivity().getSharedPreferences("user_token"
-//                                , Context.MODE_PRIVATE);
-//                        String user_token = prefs.getString("user_token", null);
-                        SharedPreferences prefs = getActivity().getSharedPreferences("user_token", Context.MODE_PRIVATE);
-                        String userName= prefs.getString("user_name", "");
+
+                        SharedPreferences prefs = getActivity().getSharedPreferences("user_token"
+                                , Context.MODE_PRIVATE);
+                        String userName = prefs.getString("user_name", "");
                         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();
 
                         MyTripsViewModel myTripsViewModel =
@@ -150,13 +141,16 @@ public class TripDialogFragment extends DialogFragment {
                                             @Override
                                             public void onComplete(@NonNull Task<DataSnapshot> task) {
                                                 if (task.isSuccessful()) {
-                                                    List<String> tripList = (List<String>) task.getResult().getValue();
-                                                    if (tripList == null) tripList = new ArrayList<>();
+                                                    List<String> tripList =
+                                                            (List<String>) task.getResult().getValue();
+                                                    if (tripList == null)
+                                                        tripList = new ArrayList<>();
                                                     tripList.add(trip.getKey());
-                                                    mDatabase.child("users").child(uid).child("trips").setValue(tripList);
-                                                }
-                                                else {
-                                                    Log.e("firebase", "Error getting data", task.getException());
+                                                    mDatabase.child("users").child(uid).child(
+                                                            "trips").setValue(tripList);
+                                                } else {
+                                                    Log.e("firebase", "Error getting data",
+                                                            task.getException());
                                                 }
                                             }
                                         });

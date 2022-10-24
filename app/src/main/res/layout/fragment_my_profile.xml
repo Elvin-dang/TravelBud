@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.my_profile.MyProfileFragment">
+
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
         android:orientation="vertical"
         tools:context=".ui.my_profile.SettingsActivity">
 
@@ -24,11 +23,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-<!--            <ImageView-->
-<!--                android:layout_width="50dp"-->
-<!--                android:layout_height="50dp"-->
-<!--                android:padding="14dp"/>-->
-<!--&lt;!&ndash;            android:src="@drawable/ic_baseline_arrow_back_24"&ndash;&gt;-->
+            <!--            <ImageView-->
+            <!--                android:layout_width="50dp"-->
+            <!--                android:layout_height="50dp"-->
+            <!--                android:padding="14dp"/>-->
+            <!--&lt;!&ndash;            android:src="@drawable/ic_baseline_arrow_back_24"&ndash;&gt;-->
 
 
             <TextView
@@ -76,7 +75,7 @@
                     android:paddingStart="20dp"
                     android:paddingEnd="20dp"
                     android:text="Edit Profile" />
-<!--                android:background="@drawable/round_back_editprofile"-->
+                <!--                android:background="@drawable/round_back_editprofile"-->
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -87,104 +86,100 @@
 
                     android:orientation="vertical"
                     android:padding="15dp">
-<!--                    android:background="@drawable/round_back_white10_20"-->
+                    <!--                    android:background="@drawable/round_back_white10_20"-->
                     <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        >
-<!--                        android:background="@drawable/round_back_night_mode"-->
+                        android:layout_height="wrap_content">
+                        <!--                        android:background="@drawable/round_back_night_mode"-->
                         <!--Dark Mode / Light Mode-->
                         <TextView
+                            android:id="@+id/text5"
                             android:layout_width="200dp"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:paddingLeft="10dp"
                             android:text="Dark Mode"
                             android:textColor="#000000"
-                            android:textStyle="bold"
-                            android:id="@+id/text5"/>
+                            android:textStyle="bold" />
 
                         <ToggleButton
                             android:id="@+id/btn_darkmode"
                             android:layout_width="50dp"
-                            android:layout_toRightOf="@id/text5"
+                            android:layout_height="40dp"
                             android:layout_marginLeft="50dp"
-                            android:layout_height="40dp"/>
+                            android:layout_toRightOf="@id/text5" />
                     </RelativeLayout>
 
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        >
-<!--                        android:background="@drawable/round_back_notifications"-->
+                        android:layout_marginTop="10dp">
+                        <!--                        android:background="@drawable/round_back_notifications"-->
                         <!--notifications-->
                         <TextView
+                            android:id="@+id/text4"
                             android:layout_width="200dp"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:paddingLeft="10dp"
                             android:text="Enable Notifications"
                             android:textColor="#000000"
-                            android:textStyle="bold"
-                            android:id="@+id/text4"/>
+                            android:textStyle="bold" />
 
                         <ToggleButton
                             android:id="@+id/btn_notifications"
                             android:layout_width="50dp"
-                            android:layout_toRightOf="@id/text4"
+                            android:layout_height="40dp"
                             android:layout_marginLeft="50dp"
-                            android:layout_height="40dp"/>
+                            android:layout_toRightOf="@id/text4" />
                     </RelativeLayout>
 
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        >
-<!--                        android:background="@drawable/round_back_private_account" -->
+                        android:layout_marginTop="10dp">
+                        <!--                        android:background="@drawable/round_back_private_account" -->
                         <!--private account-->
                         <TextView
+                            android:id="@+id/text3"
                             android:layout_width="200dp"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:paddingLeft="10dp"
                             android:text="Make Account Private"
                             android:textColor="#000000"
-                            android:textStyle="bold"
-                            android:id="@+id/text3"/>
+                            android:textStyle="bold" />
 
                         <ToggleButton
                             android:id="@+id/btn_privateaccount"
                             android:layout_width="50dp"
-                            android:layout_toRightOf="@id/text3"
+                            android:layout_height="40dp"
                             android:layout_marginLeft="50dp"
-                            android:layout_height="40dp"/>
+                            android:layout_toRightOf="@id/text3" />
                     </RelativeLayout>
 
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        >
-<!--                        android:background="@drawable/round_back_security"-->
+                        android:layout_marginTop="10dp">
+                        <!--                        android:background="@drawable/round_back_security"-->
                         <!--security-->
                         <TextView
+                            android:id="@+id/text2"
                             android:layout_width="200dp"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:paddingLeft="10dp"
                             android:text="Power Saver"
                             android:textColor="#000000"
-                            android:textStyle="bold"
-                            android:id="@+id/text2"/>
+                            android:textStyle="bold" />
 
                         <ToggleButton
                             android:id="@+id/power_saver"
                             android:layout_width="50dp"
-                            android:layout_toRightOf="@id/text2"
+                            android:layout_height="40dp"
                             android:layout_marginLeft="50dp"
-                            android:layout_height="40dp"/>
+                            android:layout_toRightOf="@id/text2" />
                     </RelativeLayout>
                 </LinearLayout>
 
@@ -197,12 +192,11 @@
 
                     android:orientation="vertical"
                     android:padding="15dp">
-<!--                    android:background="@drawable/round_back_white10_20"-->
+                    <!--                    android:background="@drawable/round_back_white10_20"-->
                     <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        >
-<!--                        android:background="@drawable/round_back_night_mode"-->
+                        android:layout_height="40dp">
+                        <!--                        android:background="@drawable/round_back_night_mode"-->
 
                         <!--Security & Privacy-->
                         <TextView
@@ -221,25 +215,22 @@
                             android:layout_width="20dp"
                             android:layout_height="20dp"
                             android:layout_marginTop="10dp"
-                            android:layout_toRightOf="@id/btn_security"
-                          >
-<!--                            android:background="@drawable/round_back_icons"-->
+                            android:layout_toRightOf="@id/btn_security">
+                            <!--                            android:background="@drawable/round_back_icons"-->
 
                             <ImageView
                                 android:layout_width="20dp"
                                 android:layout_height="20dp"
-                                android:layout_centerVertical="true"
-                                 />
-<!--                            android:src="@drawable/ic_baseline_arrow_forward_ios_24"-->
+                                android:layout_centerVertical="true" />
+                            <!--                            android:src="@drawable/ic_baseline_arrow_forward_ios_24"-->
                         </RelativeLayout>
                     </RelativeLayout>
 
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
-                        android:layout_marginTop="10dp"
-                       >
-<!--                        android:background="@drawable/round_back_notifications"-->
+                        android:layout_marginTop="10dp">
+                        <!--                        android:background="@drawable/round_back_notifications"-->
                         <!--Security & Privacy-->
                         <TextView
                             android:id="@+id/btn_languages"
@@ -257,25 +248,22 @@
                             android:layout_width="20dp"
                             android:layout_height="20dp"
                             android:layout_marginTop="10dp"
-                            android:layout_toRightOf="@id/btn_languages"
-                            >
-<!--                            android:background="@drawable/round_back_icons"-->
+                            android:layout_toRightOf="@id/btn_languages">
+                            <!--                            android:background="@drawable/round_back_icons"-->
 
                             <ImageView
                                 android:layout_width="20dp"
                                 android:layout_height="20dp"
-                                android:layout_centerVertical="true"
-                       />
-<!--                            android:src="@drawable/ic_baseline_arrow_forward_ios_24"-->
+                                android:layout_centerVertical="true" />
+                            <!--                            android:src="@drawable/ic_baseline_arrow_forward_ios_24"-->
                         </RelativeLayout>
                     </RelativeLayout>
 
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
-                        android:layout_marginTop="10dp"
-                       >
-<!--                        android:background="@drawable/round_back_private_account"-->
+                        android:layout_marginTop="10dp">
+                        <!--                        android:background="@drawable/round_back_private_account"-->
                         <!--Security & Privacy-->
                         <TextView
                             android:id="@+id/btn_about"
@@ -293,16 +281,14 @@
                             android:layout_width="20dp"
                             android:layout_height="20dp"
                             android:layout_marginTop="10dp"
-                            android:layout_toRightOf="@id/btn_about"
-                          >
-<!--                            android:background="@drawable/round_back_icons"-->
+                            android:layout_toRightOf="@id/btn_about">
+                            <!--                            android:background="@drawable/round_back_icons"-->
 
                             <ImageView
                                 android:layout_width="20dp"
                                 android:layout_height="20dp"
-                                android:layout_centerVertical="true"
-                               />
-<!--                            android:src="@drawable/ic_baseline_arrow_forward_ios_24"-->
+                                android:layout_centerVertical="true" />
+                            <!--                            android:src="@drawable/ic_baseline_arrow_forward_ios_24"-->
                         </RelativeLayout>
                     </RelativeLayout>
                 </LinearLayout>
@@ -316,13 +302,12 @@
 
                     android:orientation="vertical"
                     android:padding="15dp">
-<!--                    android:background="@drawable/round_back_white10_20"-->
+                    <!--                    android:background="@drawable/round_back_white10_20"-->
 
                     <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        >
-<!--                        android:background="@drawable/round_back_security"-->
+                        android:layout_height="40dp">
+                        <!--                        android:background="@drawable/round_back_security"-->
 
                         <!--Security & Privacy-->
                         <TextView
@@ -341,16 +326,14 @@
                             android:layout_width="20dp"
                             android:layout_height="20dp"
                             android:layout_marginTop="10dp"
-                            android:layout_toRightOf="@id/btn_logout"
-                            >
-<!--                            android:background="@drawable/round_back_icons"-->
+                            android:layout_toRightOf="@id/btn_logout">
+                            <!--                            android:background="@drawable/round_back_icons"-->
 
                             <ImageView
                                 android:layout_width="20dp"
                                 android:layout_height="20dp"
-                                android:layout_centerVertical="true"
-                                 />
-<!--                            android:src="@drawable/ic_baseline_arrow_forward_ios_24"-->
+                                android:layout_centerVertical="true" />
+                            <!--                            android:src="@drawable/ic_baseline_arrow_forward_ios_24"-->
                         </RelativeLayout>
                     </RelativeLayout>
                 </LinearLayout>

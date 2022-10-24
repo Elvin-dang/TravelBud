@@ -1,17 +1,11 @@
 package com.example.travelbud;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-
-import com.example.travelbud.ui.my_trips.DestinationDialogFragment;
-import com.example.travelbud.ui.my_trips.MyTripsFragment;
-import com.example.travelbud.ui.my_trips.TripDialogFragment;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -26,22 +20,16 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.example.travelbud.databinding.ActivityMainBinding;
+import com.example.travelbud.ui.my_trips.MyTripsFragment;
+import com.example.travelbud.ui.my_trips.TripDialogFragment;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.FirebaseFirestore;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ActivityMainBinding binding;
     FirebaseFirestore db;
-
+    private ActivityMainBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

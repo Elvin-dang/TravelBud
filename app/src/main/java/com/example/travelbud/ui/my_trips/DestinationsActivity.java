@@ -1,17 +1,17 @@
 package com.example.travelbud.ui.my_trips;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.view.MenuItem;
+import android.view.View;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.os.Bundle;
-import android.view.MenuItem;
-import android.view.View;
 
 import com.example.travelbud.Destination;
 import com.example.travelbud.R;
@@ -59,9 +59,10 @@ public class DestinationsActivity extends AppCompatActivity implements OnMapRead
                 DestinationCardsAdapter adapter =
                         new DestinationCardsAdapter(user.getTrips().get(trip_index).getDestinations());
                 rv.setAdapter(adapter);
-            }catch (Exception e){
+            } catch (Exception e) {
                 List<Destination> empty = new ArrayList<>();
-                DestinationCardsAdapter adapter =user.getTrips().size() == 0? new DestinationCardsAdapter(empty):
+                DestinationCardsAdapter adapter = user.getTrips().size() == 0 ?
+                        new DestinationCardsAdapter(empty) :
                         new DestinationCardsAdapter(user.getTrips().get(trip_index).getDestinations());
                 rv.setAdapter(adapter);
             }
@@ -88,19 +89,13 @@ public class DestinationsActivity extends AppCompatActivity implements OnMapRead
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
 
-//        List<Destination> destinations = current_user.getTrips().get(trip_index)
-//        .getDestinations();
-//        destinations.forEach(destination -> {
-//
-//        });
-
         SharedPreferences prefs = this.getSharedPreferences("user_token", Context.MODE_PRIVATE);
         String user_token = prefs.getString("user_token", null);
         MyTripsViewModel myTripsViewModel = new ViewModelProvider(this).get(MyTripsViewModel.class);
 
         myTripsViewModel.getUser(user_token).observe(this, user -> {
 
-            if (user.getTrips().size() > 0 &&user.getTrips().get(trip_index).getDestinations().size() > 0) {
+            if (user.getTrips().size() > 0 && user.getTrips().get(trip_index).getDestinations().size() > 0) {
 
                 List<MarkerOptions> markers = new ArrayList<MarkerOptions>();
                 LatLngBounds.Builder builder = new LatLngBounds.Builder();
@@ -124,7 +119,6 @@ public class DestinationsActivity extends AppCompatActivity implements OnMapRead
                 LatLngBounds bounds = builder.build();
 
                 googleMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, 100));
-//            googleMap.animateCamera(CameraUpdateFactory.zoomIn());
             }
 
 

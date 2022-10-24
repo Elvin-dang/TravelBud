@@ -1,8 +1,5 @@
 package com.example.travelbud;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -10,6 +7,9 @@ import android.util.Patterns;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -39,15 +39,15 @@ public class ResetPassActivity extends AppCompatActivity {
             resetPassword();
         });
 
-        backToLogin.setOnClickListener(view ->{
+        backToLogin.setOnClickListener(view -> {
             startActivity(new Intent(ResetPassActivity.this, LoginActivity.class));
         });
     }
 
-    private void resetPassword(){
+    private void resetPassword() {
         String email = resetEmail.getText().toString();
 
-        if (TextUtils.isEmpty(email)){
+        if (TextUtils.isEmpty(email)) {
             resetEmail.setError("Email cannot be empty");
             resetEmail.requestFocus();
             return;
@@ -62,11 +62,13 @@ public class ResetPassActivity extends AppCompatActivity {
         mAuth.sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-                if (task.isSuccessful()){
-                    Toast.makeText(ResetPassActivity.this, "Please check your email to reset your password", Toast.LENGTH_SHORT).show();
+                if (task.isSuccessful()) {
+                    Toast.makeText(ResetPassActivity.this, "Please check your email to reset your" +
+                            " password", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(ResetPassActivity.this, LoginActivity.class));
-                }else{
-                    Toast.makeText(ResetPassActivity.this, "Something wrong happened. Please try again." + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(ResetPassActivity.this, "Something wrong happened. Please try " +
+                            "again." + task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
         });

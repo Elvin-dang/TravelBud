@@ -1,41 +1,25 @@
 package com.example.travelbud.ui.my_trips;
 
-import static android.content.ContentValues.TAG;
-
-import android.location.Location;
-import android.util.Log;
-
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
-import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.travelbud.Destination;
-import com.example.travelbud.FirebaseUtils;
-import com.example.travelbud.R;
 import com.example.travelbud.TravelBudUser;
 import com.example.travelbud.Trip;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 public class MyTripsViewModel extends ViewModel {
-    private MutableLiveData<TravelBudUser> fetched_user;
     FirebaseFirestore db;
     DatabaseReference mDatabase;
+    private MutableLiveData<TravelBudUser> fetched_user;
 
     public MyTripsViewModel() {
 
@@ -62,11 +46,11 @@ public class MyTripsViewModel extends ViewModel {
                     user.setKey(snapshot.getKey());
                     fetched_user.postValue(user);
 
-                    for (DataSnapshot dataSnapshot: snapshot.getChildren()) {
+                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                         if (dataSnapshot.getKey().equals("trips")) {
                             List<String> tripList = (List<String>) dataSnapshot.getValue();
 
-                            for (String s: tripList) {
+                            for (String s : tripList) {
                                 mDatabase.child("trips").child(s).addValueEventListener(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -76,7 +60,7 @@ public class MyTripsViewModel extends ViewModel {
 
                                             boolean check = true;
                                             List<Trip> userTripList = user.getTrips();
-                                            for (int i = 0; i<userTripList.size(); i++) {
+                                            for (int i = 0; i < userTripList.size(); i++) {
                                                 if (userTripList.get(i).getKey().equals(trip.getKey())) {
                                                     userTripList.set(i, trip);
                                                     user.setTrips(userTripList);

@@ -16,15 +16,13 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class NetworkViewModel extends ViewModel {
 
-    private MutableLiveData<List<GroupChat>> groupChat;
-    private ValueEventListener eventListener;
     DatabaseReference mDatabase;
+    private final MutableLiveData<List<GroupChat>> groupChat;
+    private ValueEventListener eventListener;
 
     public NetworkViewModel() {
         this.groupChat = new MutableLiveData<>();
@@ -33,7 +31,8 @@ public class NetworkViewModel extends ViewModel {
     public LiveData<List<GroupChat>> getGroupChat() {
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
-        eventListener = mDatabase.child("users").child(FirebaseAuth.getInstance().getUid()).child("trips").addValueEventListener(new ValueEventListener() {
+        eventListener =
+                mDatabase.child("users").child(FirebaseAuth.getInstance().getUid()).child("trips").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 mDatabase.removeEventListener(eventListener);
@@ -73,13 +72,15 @@ public class NetworkViewModel extends ViewModel {
                                     break;
                                 }
                             }
-                        } else groupChats.add(fetchedGroupChat);
+                        } else
+                            groupChats.add(fetchedGroupChat);
 
                         groupChat.postValue(groupChats);
                     } else {
                         Log.v("Network", "Fail to get group chat");
                     }
                 }
+
                 @Override
                 public void onCancelled(@NonNull DatabaseError error) {
                 }

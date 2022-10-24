@@ -4,19 +4,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.travelbud.GroupChat;
 import com.example.travelbud.databinding.FragmentNetworkBinding;
-
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 public class NetworkFragment extends Fragment {
 

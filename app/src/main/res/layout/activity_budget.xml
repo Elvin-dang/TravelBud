@@ -3,9 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    tools:context=".ui.my_trips.BudgetActivity"
     tools:layout_editor_absoluteX="8dp"
-    tools:layout_editor_absoluteY="8dp"
-    tools:context=".ui.my_trips.BudgetActivity">
+    tools:layout_editor_absoluteY="8dp">
+
     <androidx.cardview.widget.CardView
         android:id="@+id/total_card"
         android:layout_width="match_parent"
@@ -13,6 +14,7 @@
         android:layout_margin="10dp"
         android:padding="15dp"
         app:cardCornerRadius="4dp">
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">

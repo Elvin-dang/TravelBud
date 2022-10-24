@@ -1,5 +1,8 @@
 package com.example.travelbud.ui.my_trips;
 
+import android.os.Bundle;
+import android.view.MenuItem;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.MutableLiveData;
@@ -7,18 +10,9 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.TextView;
-
 import com.example.travelbud.R;
 import com.example.travelbud.TravelBudUser;
 import com.example.travelbud.adapter.UserCardsAdapter;
-import com.example.travelbud.ui.my_trips.MyTripsViewModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -27,8 +21,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -72,7 +64,8 @@ public class AddTravelerActivity extends AppCompatActivity {
                     rv.setAdapter(adapter);
 
                     List<TravelBudUser> filtered_users;
-                    List<TravelBudUser> travelers = currentUser.getTrips().get(trip_index).getTravelers();
+                    List<TravelBudUser> travelers =
+                            currentUser.getTrips().get(trip_index).getTravelers();
 
                     Set<String> childIds = travelers.stream()
                             .map(TravelBudUser::getUsername)
@@ -84,7 +77,8 @@ public class AddTravelerActivity extends AppCompatActivity {
                     ).collect(Collectors.toList());
 
 
-                    UserCardsAdapter adapter1 = new UserCardsAdapter(filtered_users, true, currentUser,
+                    UserCardsAdapter adapter1 = new UserCardsAdapter(filtered_users, true,
+                            currentUser,
                             trip_index);
 
                     RecyclerView rv1 = (RecyclerView) findViewById(R.id.users_rv);

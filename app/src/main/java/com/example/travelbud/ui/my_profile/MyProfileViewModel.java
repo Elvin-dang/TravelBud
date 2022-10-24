@@ -1,12 +1,8 @@
 package com.example.travelbud.ui.my_profile;
 
-import android.widget.Button;
-
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
-
-import com.google.firebase.auth.FirebaseAuth;
 
 public class MyProfileViewModel extends ViewModel {
 

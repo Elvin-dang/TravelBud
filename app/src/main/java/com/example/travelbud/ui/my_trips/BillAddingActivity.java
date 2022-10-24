@@ -1,15 +1,5 @@
 package com.example.travelbud.ui.my_trips;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.FileProvider;
-import androidx.work.Constraints;
-import androidx.work.Data;
-import androidx.work.NetworkType;
-import androidx.work.PeriodicWorkRequest;
-import androidx.work.WorkManager;
-
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -27,18 +17,28 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.FileProvider;
+import androidx.work.Constraints;
+import androidx.work.Data;
+import androidx.work.NetworkType;
+import androidx.work.PeriodicWorkRequest;
+import androidx.work.WorkManager;
+
 import com.example.travelbud.BackgroundServiceProvider;
+import com.example.travelbud.BillModel;
 import com.example.travelbud.PermissionSet;
 import com.example.travelbud.R;
-
-import com.example.travelbud.model.BillModel;
-
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+
+import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -47,32 +47,26 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
-import org.apache.commons.io.FileUtils;
-
 public class BillAddingActivity extends AppCompatActivity {
 
+    public static final String APP_TAG = "TravelBug";
+    public static final int JOB_INITIATE_DURATION = 30;
+    public static final int JOB_REPEAT_INTERVAL = 12;
+    private static final String JOB_TAG = "media_sync";
+    //request codes
+    private static final int MY_PERMISSIONS_REQUEST_OPEN_CAMERA = 101;
+    private static final int MY_PERMISSIONS_ACCESS_MEDIA = 102;
     TextView description, amount;
-    Button saveBtn,selectBtn,captureBtn;
+    Button saveBtn, selectBtn, captureBtn;
     ImageView billImage;
     PermissionSet permissionSet;
     Uri imageUri;
     String photoFileName = "photo.jpg";
-    public static final String APP_TAG = "TravelBug";
-    private static final String JOB_TAG = "media_sync";
-    private File file;
-
-    private DatabaseReference reference;
-    private FirebaseUser firebaseUser;
-
-    //request codes
-    private static final int MY_PERMISSIONS_REQUEST_OPEN_CAMERA = 101;
-    private static final int MY_PERMISSIONS_ACCESS_MEDIA = 102;
-
-    public static final int JOB_INITIATE_DURATION = 30;
-    public static final int JOB_REPEAT_INTERVAL = 12;
-
     ArrayList<String> items;
     String tripKey;
+    private File file;
+    private DatabaseReference reference;
+    private FirebaseUser firebaseUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,7 +80,7 @@ public class BillAddingActivity extends AppCompatActivity {
 
         description = findViewById(R.id.bill_description_txt);
         amount = findViewById(R.id.bill_amount_txt);
-        billImage  = findViewById(R.id.bill_image);
+        billImage = findViewById(R.id.bill_image);
         //selectBtn = findViewById(R.id.bill_select);
         saveBtn = findViewById(R.id.bill_add_btn);
         captureBtn = findViewById(R.id.bill_capture_btn);
@@ -123,7 +117,7 @@ public class BillAddingActivity extends AppCompatActivity {
 
     private void callBackgroundService() {
         Data data = new Data.Builder()
-                .putString("tag",APP_TAG)
+                .putString("tag", APP_TAG)
                 .build();
 
         Constraints constraints = new Constraints.Builder()
@@ -131,11 +125,13 @@ public class BillAddingActivity extends AppCompatActivity {
                 .setRequiresBatteryNotLow(true)
                 .build();
 
-        PeriodicWorkRequest periodicWorkRequest = new PeriodicWorkRequest.Builder(BackgroundServiceProvider.class, JOB_REPEAT_INTERVAL, TimeUnit.HOURS)
+        PeriodicWorkRequest periodicWorkRequest =
+                new PeriodicWorkRequest.Builder(BackgroundServiceProvider.class,
+                        JOB_REPEAT_INTERVAL, TimeUnit.HOURS)
                 .setInputData(data)
                 .setConstraints(constraints)
                 .addTag(JOB_TAG)
-                .setInitialDelay(JOB_INITIATE_DURATION,TimeUnit.SECONDS)
+                .setInitialDelay(JOB_INITIATE_DURATION, TimeUnit.SECONDS)
                 .build();
 
         WorkManager.getInstance(this).enqueue(periodicWorkRequest);
@@ -143,35 +139,33 @@ public class BillAddingActivity extends AppCompatActivity {
     }
 
 
-    private void readItemsFromFile(){
+    private void readItemsFromFile() {
         //retrieve the app's private folder.
         //this folder cannot be accessed by other apps
         File filesDir = getFilesDir();
         //prepare a file to read the data
-        File todoFile = new File(filesDir,"toUpload.txt");
+        File todoFile = new File(filesDir, "toUpload.txt");
         //if file does not exist, create an empty list
-        if(!todoFile.exists()){
+        if (!todoFile.exists()) {
             items = new ArrayList<String>();
-        }else{
-            try{
+        } else {
+            try {
                 //read data and put it into the ArrayList
                 items = new ArrayList<String>(FileUtils.readLines(todoFile));
-            }
-            catch(IOException ex){
+            } catch (IOException ex) {
                 items = new ArrayList<String>();
             }
         }
     }
 
-    private void saveItemsToFile(){
+    private void saveItemsToFile() {
         File filesDir = getFilesDir();
         //using the same file for reading. Should use define a global string instead.
-        File todoFile = new File(filesDir,"toUpload.txt");
-        try{
+        File todoFile = new File(filesDir, "toUpload.txt");
+        try {
             //write list to file
-            FileUtils.writeLines(todoFile,items);
-        }
-        catch(IOException ex){
+            FileUtils.writeLines(todoFile, items);
+        } catch (IOException ex) {
             ex.printStackTrace();
         }
     }
@@ -187,7 +181,7 @@ public class BillAddingActivity extends AppCompatActivity {
 
             // Get safe media storage directory depending on type
             File mediaStorageDir = new
-                    File(getExternalFilesDir(Environment.getExternalStorageDirectory().toString()), APP_TAG+typestr);
+                    File(getExternalFilesDir(Environment.getExternalStorageDirectory().toString()), APP_TAG + typestr);
 
 
             // Create the storage directory if it does not exist
@@ -230,7 +224,8 @@ public class BillAddingActivity extends AppCompatActivity {
             // Add extended data to the intent
             intent.putExtra(MediaStore.EXTRA_OUTPUT, file_uri);
             //intent.putExtra("file_location",file_uri);
-            // If you call startActivityForResult() using an intent that no app can handle, your app will crash.
+            // If you call startActivityForResult() using an intent that no app can handle, your
+            // app will crash.
             // So as long as the result is not null, it's safe to use the intent.
             if (intent.resolveActivity(getPackageManager()) != null) {
                 // Start the image capture intent to take photo
@@ -243,12 +238,12 @@ public class BillAddingActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode ==MY_PERMISSIONS_ACCESS_MEDIA && data != null && data.getData() != null){
-           imageUri = data.getData();
-           billImage.setImageURI(imageUri);
+        if (requestCode == MY_PERMISSIONS_ACCESS_MEDIA && data != null && data.getData() != null) {
+            imageUri = data.getData();
+            billImage.setImageURI(imageUri);
             String[] filename = file.getAbsolutePath().split("/");
 
-        }else if (requestCode == MY_PERMISSIONS_REQUEST_OPEN_CAMERA) {
+        } else if (requestCode == MY_PERMISSIONS_REQUEST_OPEN_CAMERA) {
             if (resultCode == RESULT_OK) {
                 // by this point we have the camera photo on disk
                 Bitmap takenImage = BitmapFactory.decodeFile(file.getAbsolutePath());
@@ -267,16 +262,17 @@ public class BillAddingActivity extends AppCompatActivity {
 
         reference = FirebaseDatabase.getInstance().getReference("bills").child(tripKey).push();
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-        BillModel bill = new BillModel(description.getText().toString(),Double.parseDouble(amount.getText().toString()),
+        BillModel bill = new BillModel(description.getText().toString(),
+                Double.parseDouble(amount.getText().toString()),
                 firebaseUser.getUid());
         reference.setValue(bill).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-                if(task.isSuccessful()){
+                if (task.isSuccessful()) {
                     //Upload to local storage
                     String[] filename = file.getAbsolutePath().split("/");
                     readItemsFromFile();
-                    items.add(new String (filename[filename.length - 1])+" "+tripKey+" "+reference.getKey());
+                    items.add(filename[filename.length - 1] + " " + tripKey + " " + reference.getKey());
                     saveItemsToFile();
                 }
             }

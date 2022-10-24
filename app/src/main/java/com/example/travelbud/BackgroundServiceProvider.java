@@ -39,7 +39,8 @@ public class BackgroundServiceProvider extends Worker {
 
     ArrayList<String> items;
 
-    public BackgroundServiceProvider(@NonNull Context context, @NonNull WorkerParameters workerParams) {
+    public BackgroundServiceProvider(@NonNull Context context,
+                                     @NonNull WorkerParameters workerParams) {
         super(context, workerParams);
         this.context = context;
     }
@@ -55,7 +56,7 @@ public class BackgroundServiceProvider extends Worker {
 
     }
 
-    private void readItemsFromFile(){
+    private void readItemsFromFile() {
 
         try {
             // Run a task specified by a Runnable Object asynchronously.
@@ -65,21 +66,20 @@ public class BackgroundServiceProvider extends Worker {
                     //read items from database
                     File filesDir = context.getFilesDir();
                     //prepare a file to read the data
-                    File todoFile = new File(filesDir,"toUpload.txt");
+                    File todoFile = new File(filesDir, "toUpload.txt");
                     //if file does not exist, create an empty list
-                    if(!todoFile.exists()){
+                    if (!todoFile.exists()) {
                         items = new ArrayList<String>();
-                    }else{
-                        try{
+                    } else {
+                        try {
                             //read data and put it into the ArrayList
                             items = new ArrayList<String>(FileUtils.readLines(todoFile));
                             syncItems = items;
-                            for (String item:items) {
+                            for (String item : items) {
                                 String[] x = item.split(" ");
-                                firbaseOnlineStorage(x[0],x[1],x[2],item);
+                                firbaseOnlineStorage(x[0], x[1], x[2], item);
                             }
-                        }
-                        catch(IOException ex){
+                        } catch (IOException ex) {
                             items = new ArrayList<String>();
                         }
                     }
@@ -88,20 +88,19 @@ public class BackgroundServiceProvider extends Worker {
             });
             // Block and wait for the future to complete
             future.get();
-        }
-        catch(Exception ex) {
+        } catch (Exception ex) {
             Log.e("readItemsFromDatabase", ex.getStackTrace().toString());
         }
-
 
 
     }
 
 
-    private void firbaseOnlineStorage(String name, String tripKey,String billKey,String item) {
-        Uri fileUri = getFileUri(name,0);
-        FirebaseUser firebaseUser= FirebaseAuth.getInstance().getCurrentUser();
-        storageReference = FirebaseStorage.getInstance().getReference("bills/"+tripKey+"/"+name);
+    private void firbaseOnlineStorage(String name, String tripKey, String billKey, String item) {
+        Uri fileUri = getFileUri(name, 0);
+        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        storageReference =
+                FirebaseStorage.getInstance().getReference("bills/" + tripKey + "/" + name);
 
         storageReference.putFile(fileUri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
@@ -111,7 +110,7 @@ public class BackgroundServiceProvider extends Worker {
                     public void onSuccess(Uri uri) {
                         syncItems.remove(item);
                         Toast.makeText(context, "Media Backup Success", Toast.LENGTH_SHORT).show();
-                        addIntoFirebaseStore(name,tripKey,billKey,uri.toString());
+                        addIntoFirebaseStore(name, tripKey, billKey, uri.toString());
                         saveItemsToFile();
                     }
                 }).addOnFailureListener(new OnFailureListener() {
@@ -129,51 +128,40 @@ public class BackgroundServiceProvider extends Worker {
         });
     }
 
-    private void saveItemsToFile(){
+    private void saveItemsToFile() {
         File filesDir = context.getFilesDir();
-        //using the same file for reading. Should use define a global string instead.
-        File todoFile = new File(filesDir,"toUpload.txt");
-        try{
-            //write list to file
-            FileUtils.writeLines(todoFile,syncItems);
-        }
-        catch(IOException ex){
+        File todoFile = new File(filesDir, "toUpload.txt");
+        try {
+            FileUtils.writeLines(todoFile, syncItems);
+        } catch (IOException ex) {
             ex.printStackTrace();
         }
     }
 
 
-
-    private void addIntoFirebaseStore(String name,String tripKey,String billKey,String url) {
+    private void addIntoFirebaseStore(String name, String tripKey, String billKey, String url) {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("bills");
-        HashMap<String,Object> map =new HashMap<>();
-        map.put("url",url);
-        reference.child(tripKey+"/"+billKey).updateChildren(map);
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("url", url);
+        reference.child(tripKey + "/" + billKey).updateChildren(map);
     }
 
-    // Returns the Uri for a photo/media stored on disk given the fileName and type
     public Uri getFileUri(String fileName, int type) {
         Uri fileUri = null;
 
         try {
-            String typestr = "Images"; //default to images type
+            String typestr = "Images";
             if (type == 1) {
                 typestr = "Videos";
             }
 
-            // Get safe media storage directory depending on type
             File mediaStorageDir = new
-                    File(context.getExternalFilesDir(Environment.getExternalStorageDirectory().toString()), APP_TAG+typestr);
+                    File(context.getExternalFilesDir(Environment.getExternalStorageDirectory().toString()), APP_TAG + typestr);
 
-
-            // Create the storage directory if it does not exist
             if (!mediaStorageDir.exists()) {
                 mediaStorageDir.mkdirs();
             }
-            // Create the file target for the media based on filename
             File file = new File(mediaStorageDir, fileName);
-            // Wrap File object into a content provider, required for API >= 24
-            // See https://guides.codepath.com/android/Sharing-Content-withIntents#sharing-files-with-api-24-or-higher
             if (Build.VERSION.SDK_INT >= 24) {
                 fileUri = FileProvider.getUriForFile(
                         this.getApplicationContext(),

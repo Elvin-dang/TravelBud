@@ -1,27 +1,25 @@
 package com.example.travelbud.adapter;
 
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.travelbud.BillModel;
 import com.example.travelbud.R;
-import com.example.travelbud.model.BillModel;
-
 
 import java.util.List;
 
 public class BillListAdapter extends RecyclerView.Adapter<BillListAdapter.BillListHolderView> {
 
-    private List<BillModel> billModelList;
+    private final List<BillModel> billModelList;
 
 
-    public BillListAdapter(List<BillModel> billModelList, double total, double perPerson, double currentUserAmount) {
+    public BillListAdapter(List<BillModel> billModelList, double total, double perPerson,
+                           double currentUserAmount) {
         this.billModelList = billModelList;
     }
 
@@ -35,12 +33,11 @@ public class BillListAdapter extends RecyclerView.Adapter<BillListAdapter.BillLi
 
     @Override
     public void onBindViewHolder(@NonNull BillListHolderView holder, int position) {
-        BillModel billModel= billModelList.get(position);
-
+        BillModel billModel = billModelList.get(position);
 
 
         holder.payer.setText(billModel.getPayer());
-        holder.amount.setText(billModel.getAmount()+"" );
+        holder.amount.setText(billModel.getAmount() + "");
         holder.description.setText(billModel.getDescription());
 
         //.traveler_name.setText(billModel.getName());
@@ -68,16 +65,15 @@ public class BillListAdapter extends RecyclerView.Adapter<BillListAdapter.BillLi
 
     @Override
     public int getItemCount() {
-        if(billModelList == null){
+        if (billModelList == null) {
             return 0;
-        }else {
+        } else {
             return billModelList.size();
         }
     }
 
     public class BillListHolderView extends RecyclerView.ViewHolder {
-        TextView amount, description,payer;
-
+        TextView amount, description, payer;
 
 
         public BillListHolderView(View itemView) {

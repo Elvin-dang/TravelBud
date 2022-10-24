@@ -1,10 +1,7 @@
 package com.example.travelbud.ui.my_trips;
 
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,13 +17,11 @@ import com.example.travelbud.TravelBudUser;
 import com.example.travelbud.adapter.TripCardsAdapter;
 import com.example.travelbud.databinding.FragmentMyTripsBinding;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 public class MyTripsFragment extends Fragment {
 
-    private FragmentMyTripsBinding binding;
     public TravelBudUser current_user;
+    private FragmentMyTripsBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -37,8 +32,6 @@ public class MyTripsFragment extends Fragment {
         binding = FragmentMyTripsBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-//        SharedPreferences prefs = getActivity().getSharedPreferences("user_token", Context.MODE_PRIVATE);
-//        String user_token = prefs.getString("user_token",null);
         String uid = FirebaseAuth.getInstance().getUid();
 
         myTripsViewModel.getUser(uid).observe(getViewLifecycleOwner(), user -> {

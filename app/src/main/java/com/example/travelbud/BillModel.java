@@ -1,4 +1,4 @@
-package com.example.travelbud.model;
+package com.example.travelbud;
 
 public class BillModel {
     private String description;
